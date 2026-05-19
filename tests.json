@@ -15,6 +15,18 @@
       "date": "2026-05-19"
     },
     {
+      "title": "Trainer 2 Test 1 Listening",
+      "category": "Listening",
+      "url": "https://maqsudjon-cell.github.io/ctna1/trainer2-test1-listening.html",
+      "date": "2026-05-19"
+    },
+    {
+      "title": "Trainer 2 Test 2 Listening",
+      "category": "Listening",
+      "url": "https://maqsudjon-cell.github.io/ctna2/trainer2-test2-listening.html",
+      "date": "2026-05-19"
+    },
+    {
       "title": "Trainer 2 Test 3 Listening",
       "category": "Listening",
       "url": "https://maqsudjon-cell.github.io/3ctn/trainer2-test3-listening.html",
@@ -33,6 +45,18 @@
       "date": "2026-05-19"
     },
     {
+      "title": "Test 9 Full Listening",
+      "category": "Listening",
+      "url": "https://maqsudjon-cell.github.io/ctna/test9-listeningfull.html",
+      "date": "2026-05-19"
+    },
+    {
+      "title": "Listening Test for CTN",
+      "category": "Listening",
+      "url": "https://maqsudjon-cell.github.io/listening-for-ctn/listening%20test%20for%20ctn%20(1).html",
+      "date": "2026-05-19"
+    },
+    {
       "title": "C20T1 Full Reading Test",
       "category": "Reading",
       "url": "https://maqsudjon-cell.github.io/c20t1readingfull/c20.t1.reading.full.html",
@@ -45,9 +69,27 @@
       "date": "2026-05-19"
     },
     {
-      "title": "Trainer 2 Test 5 Listening",
-      "category": "Listening",
-      "url": "https://maqsudjon-cell.github.io/ctna5/trainer2-test5-listening.html",
+      "title": "Manatees Passage 1",
+      "category": "Reading",
+      "url": "https://maqsudjon-cell.github.io/cc/ielts-manatees-passage1.html",
+      "date": "2026-05-19"
+    },
+    {
+      "title": "Elm Trees Passage 2",
+      "category": "Reading",
+      "url": "https://maqsudjon-cell.github.io/cd/ielts-passage2-elm.html",
+      "date": "2026-05-19"
+    },
+    {
+      "title": "Stress Passage 3",
+      "category": "Reading",
+      "url": "https://maqsudjon-cell.github.io/cd3/ielts-passage3-stress.html",
+      "date": "2026-05-19"
+    },
+    {
+      "title": "Kakapo IELTS Reading",
+      "category": "Reading",
+      "url": "https://maqsudjon-cell.github.io/CDI/kakapo-ielts_6.html",
       "date": "2026-05-19"
     }
   ]
