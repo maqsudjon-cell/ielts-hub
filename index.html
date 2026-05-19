@@ -355,6 +355,10 @@
     .cat-dot[data-c="Reading"]   { background: var(--cat-reading); }
     .cat-dot[data-c="Writing"]   { background: var(--cat-writing); }
     .cat-dot[data-c="Speaking"]  { background: var(--cat-speaking); }
+    .cat-dot[data-c="Tools"]     { background: var(--cat-tools); }
+    :root {
+      --cat-tools: #8b5cf6;
+    }
     .category-header h2 {
       font-size: 17px;
       font-weight: 600;
@@ -569,7 +573,7 @@
       <div class="hero-text">
         <span class="kicker">IELTS · Practice</span>
         <h1>IELTS Practice Hub</h1>
-        <p class="subtitle">Curated mock tests for Listening, Reading, Writing, and Speaking — all in one place.</p>
+        <p class="subtitle">Curated mock tests &amp; tools for IELTS practice — Listening, Reading, Writing, Speaking, and more.</p>
       </div>
 
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
@@ -622,7 +626,7 @@
   <script>
     'use strict';
 
-    const CATEGORIES = ['Listening', 'Reading', 'Writing', 'Speaking'];
+    const CATEGORIES = ['Listening', 'Reading', 'Writing', 'Speaking', 'Tools']; 
 
     const state = {
       tests: [],

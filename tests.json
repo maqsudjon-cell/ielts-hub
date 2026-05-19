@@ -1,5 +1,5 @@
 {
-  "categories": ["Listening", "Reading", "Writing", "Speaking"],
+  "categories": ["Listening", "Reading", "Writing", "Speaking", "Tools"],
   "tests": [
     {
       "title": "Mocklab Essential Test 5",
@@ -96,6 +96,18 @@
       "title": "Pangeya Essay Platform",
       "category": "Writing",
       "url": "https://maqsudjon-cell.github.io/pangeya-essay-platform-/index-14.html",
+      "date": "2026-05-19"
+    },
+    {
+      "title": "Random Name Picker",
+      "category": "Tools",
+      "url": "https://maqsudjon-cell.github.io/petee/",
+      "date": "2026-05-19"
+    },
+    {
+      "title": "Trucking Quiz",
+      "category": "Tools",
+      "url": "https://maqsudjon-cell.github.io/trucking/trucking_quizz.html",
       "date": "2026-05-19"
     }
   ]
