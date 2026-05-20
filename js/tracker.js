@@ -14,7 +14,7 @@
   // ─── CONFIG ────────────────────────────────────────────
   // Paste your Apps Script Web App URL here after deploying Code.gs.
   // While empty, results are logged to console only (no network call).
-  var WEB_APP_URL = '';
+  var WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwfdFsU9ZSg-52UvH8rHWCfbuj6K4W4RWFCbX93GyFabAjeZIEyJJk6qDGKmJLDzGVSOA/exec';
   // ────────────────────────────────────────────────────────
 
   var STORAGE_KEY = 'ielts_student_name';
