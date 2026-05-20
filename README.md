@@ -65,6 +65,38 @@ You don't need to touch any code. All test data lives in **[`tests.json`](./test
 
 ---
 
+## Adding a new test **page** (the HTML file students take)
+
+Test pages live in their own GitHub repos (e.g. `ctna5`, `CDI`, …). When you create a new one, paste **one line** before `</body>`:
+
+```html
+<script src="https://maqsudjon-cell.github.io/ielts-hub/js/test-page-auto.js" defer></script>
+```
+
+That single tag automatically:
+
+- Loads **`tracker.js`** → name modal on first visit, "Hi, {name} · Change" pill thereafter
+- Loads **`footer.js`** → premium Telegram contact footer
+- Detects the test title from the page's `<h1>` (or `<title>`)
+- Watches the page's result modal — when it opens, reads the displayed score and calls `IELTSTracker.sendResult(title, score)` for you
+
+**No per-page configuration needed.** If the auto-detector somehow misses your custom modal, drop these meta tags in `<head>`:
+
+```html
+<meta name="test-title"          content="Custom Test Name">
+<meta name="test-modal-selector" content="#myResultsModal.show">
+<meta name="test-score-selector" content="#myScoreText">
+```
+
+**Sanity-check in DevTools console:**
+
+```js
+IELTSAuto.diagnose();
+// → { title: "...", score: null|"...", sent: false, patterns: [...] }
+```
+
+---
+
 ## Tech
 
 - Single `index.html` — embedded CSS + vanilla JS, no build step, no frameworks
