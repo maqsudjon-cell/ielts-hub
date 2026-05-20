@@ -1,0 +1,366 @@
+/*!
+ * IELTS Hub — Student Tracker
+ * Self-contained: injects modal + change-name pill, exposes window.IELTSTracker.
+ *
+ * Usage on a test page (one line, anywhere in <body> or <head>):
+ *   <script src="https://maqsudjon-cell.github.io/ielts-hub/js/tracker.js" defer></script>
+ *
+ * Then where the final score is computed:
+ *   IELTSTracker.sendResult('Trainer 2 Test 5 Listening', score);
+ */
+(function () {
+  'use strict';
+
+  // ─── CONFIG ────────────────────────────────────────────
+  // Paste your Apps Script Web App URL here after deploying Code.gs.
+  // While empty, results are logged to console only (no network call).
+  var WEB_APP_URL = '';
+  // ────────────────────────────────────────────────────────
+
+  var STORAGE_KEY = 'ielts_student_name';
+  var STYLE_ID    = 'ih-tracker-styles';
+  var MODAL_ID    = 'ih-tracker-modal';
+  var PILL_ID     = 'ih-tracker-pill';
+
+  // ─── CSS (injected once) ───────────────────────────────
+  var CSS = [
+    '.ih-tracker-root,#ih-tracker-pill{',
+    '  --ih-bg:#0f172a;',
+    '  --ih-surface:rgba(17,24,39,0.78);',
+    '  --ih-text:#f8fafc;',
+    '  --ih-muted:#94a3b8;',
+    '  --ih-border:rgba(255,255,255,0.08);',
+    '  --ih-accent:#0088cc;',
+    '  --ih-accent-2:#2AABEE;',
+    '  --ih-radius:16px;',
+    '  font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;',
+    '  -webkit-font-smoothing:antialiased;',
+    '  -moz-osx-font-smoothing:grayscale;',
+    '}',
+
+    /* Modal root */
+    '.ih-tracker-root{',
+    '  position:fixed;inset:0;z-index:2147483600;',
+    '  display:flex;align-items:center;justify-content:center;',
+    '  padding:20px;',
+    '}',
+    '.ih-tracker-overlay{',
+    '  position:absolute;inset:0;',
+    '  background:rgba(2,6,23,0.65);',
+    '  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);',
+    '  opacity:0;transition:opacity 260ms cubic-bezier(0.4,0,0.2,1);',
+    '}',
+    '.ih-tracker-root.is-open .ih-tracker-overlay{opacity:1;}',
+    '.ih-tracker-root.is-closing .ih-tracker-overlay{opacity:0;}',
+
+    /* Modal card */
+    '.ih-tracker-card{',
+    '  position:relative;width:100%;max-width:420px;',
+    '  background:var(--ih-surface);',
+    '  backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);',
+    '  border:1px solid var(--ih-border);',
+    '  border-radius:var(--ih-radius);',
+    '  padding:32px;',
+    '  color:var(--ih-text);',
+    '  box-shadow:0 25px 50px -12px rgba(0,0,0,0.55),0 0 0 1px rgba(255,255,255,0.04),inset 0 1px 0 rgba(255,255,255,0.06);',
+    '  transform:scale(0.95);opacity:0;',
+    '  transition:transform 280ms cubic-bezier(0.4,0,0.2,1),opacity 220ms ease;',
+    '}',
+    '.ih-tracker-root.is-open .ih-tracker-card{transform:scale(1);opacity:1;}',
+    '.ih-tracker-root.is-closing .ih-tracker-card{transform:scale(0.98);opacity:0;transition-duration:180ms;}',
+
+    '.ih-tracker-kicker{',
+    '  display:inline-block;font-size:11px;font-weight:700;',
+    '  letter-spacing:0.14em;text-transform:uppercase;',
+    '  color:var(--ih-accent-2);',
+    '  padding:4px 10px;border-radius:999px;',
+    '  background:rgba(0,136,204,0.14);',
+    '  margin-bottom:16px;',
+    '}',
+    '.ih-tracker-card h2{',
+    '  margin:0 0 8px;font-size:24px;font-weight:700;',
+    '  letter-spacing:-0.02em;line-height:1.2;color:#fff;',
+    '}',
+    '.ih-tracker-sub{',
+    '  margin:0 0 24px;color:var(--ih-muted);font-size:14px;line-height:1.55;',
+    '}',
+    '.ih-tracker-form{display:flex;flex-direction:column;gap:12px;}',
+    '.ih-tracker-input{',
+    '  width:100%;min-height:48px;',
+    '  background:rgba(255,255,255,0.04);',
+    '  border:1px solid var(--ih-border);',
+    '  border-radius:12px;padding:0 16px;',
+    '  color:var(--ih-text);',
+    '  font:500 15px Inter,sans-serif;outline:none;',
+    '  transition:border-color 220ms ease,box-shadow 220ms ease,background-color 220ms ease;',
+    '}',
+    '.ih-tracker-input::placeholder{color:var(--ih-muted);}',
+    '.ih-tracker-input:focus{',
+    '  border-color:var(--ih-accent);',
+    '  background:rgba(255,255,255,0.06);',
+    '  box-shadow:0 0 0 4px rgba(0,136,204,0.2);',
+    '}',
+    '.ih-tracker-btn{',
+    '  display:inline-flex;align-items:center;justify-content:center;',
+    '  min-height:48px;border:none;cursor:pointer;',
+    '  border-radius:12px;',
+    '  background:linear-gradient(135deg,#2AABEE 0%,#0088cc 100%);',
+    '  color:#fff;font:600 15px Inter,sans-serif;letter-spacing:0.005em;',
+    '  box-shadow:0 6px 18px rgba(0,136,204,0.38),inset 0 1px 0 rgba(255,255,255,0.18);',
+    '  transition:transform 220ms cubic-bezier(0.4,0,0.2,1),box-shadow 220ms ease,filter 220ms ease;',
+    '}',
+    '.ih-tracker-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,136,204,0.5),inset 0 1px 0 rgba(255,255,255,0.2);}',
+    '.ih-tracker-btn:active{transform:translateY(0);filter:brightness(0.96);}',
+    '.ih-tracker-btn:focus-visible{outline:2px solid #fff;outline-offset:3px;}',
+
+    /* Change-name pill */
+    '#ih-tracker-pill{',
+    '  position:fixed;top:16px;right:16px;z-index:2147483500;',
+    '  display:inline-flex;align-items:center;gap:8px;',
+    '  padding:8px 6px 8px 14px;',
+    '  background:rgba(15,23,42,0.6);',
+    '  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);',
+    '  border:1px solid var(--ih-border);',
+    '  border-radius:999px;',
+    '  color:var(--ih-text);font-size:13px;line-height:1;',
+    '  box-shadow:0 8px 20px rgba(0,0,0,0.25);',
+    '  opacity:0.72;',
+    '  transition:opacity 220ms ease,transform 220ms ease,box-shadow 220ms ease;',
+    '}',
+    '#ih-tracker-pill:hover{opacity:1;transform:translateY(-1px);box-shadow:0 12px 26px rgba(0,0,0,0.35);}',
+    '#ih-tracker-pill .ih-pill-greet{color:var(--ih-muted);}',
+    '#ih-tracker-pill .ih-pill-name{font-weight:600;}',
+    '#ih-tracker-pill .ih-pill-change{',
+    '  display:inline-flex;align-items:center;justify-content:center;',
+    '  background:none;border:none;cursor:pointer;',
+    '  color:var(--ih-accent-2);font:500 12px Inter,sans-serif;',
+    '  padding:6px 10px;margin-left:2px;',
+    '  border-radius:999px;min-height:32px;',
+    '  transition:background-color 180ms ease,color 180ms ease;',
+    '}',
+    '#ih-tracker-pill .ih-pill-change:hover{background:rgba(0,136,204,0.18);color:#7ec8ed;}',
+    '#ih-tracker-pill .ih-pill-change:focus-visible{outline:2px solid var(--ih-accent-2);outline-offset:2px;}',
+    '#ih-tracker-pill .ih-pill-sep{color:var(--ih-muted);opacity:0.5;}',
+
+    /* Toast (non-blocking confirmation) */
+    '.ih-tracker-toast{',
+    '  position:fixed;left:50%;bottom:24px;transform:translate(-50%,8px);',
+    '  z-index:2147483700;',
+    '  display:inline-flex;align-items:center;gap:10px;',
+    '  padding:10px 16px;border-radius:999px;',
+    '  background:rgba(15,23,42,0.92);color:#f8fafc;',
+    '  border:1px solid rgba(255,255,255,0.1);',
+    '  font:500 13px Inter,sans-serif;',
+    '  box-shadow:0 12px 30px rgba(0,0,0,0.35);',
+    '  opacity:0;pointer-events:none;',
+    '  transition:opacity 220ms ease,transform 220ms ease;',
+    '}',
+    '.ih-tracker-toast.is-shown{opacity:1;transform:translate(-50%,0);}',
+    '.ih-tracker-toast .dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,0.2);}',
+    '.ih-tracker-toast.is-error .dot{background:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,0.2);}',
+
+    /* Mobile */
+    '@media (max-width:480px){',
+    '  .ih-tracker-card{padding:24px;border-radius:18px;}',
+    '  .ih-tracker-card h2{font-size:22px;}',
+    '  #ih-tracker-pill{top:12px;right:12px;font-size:12px;padding:6px 4px 6px 12px;}',
+    '}',
+
+    /* Reduced motion */
+    '@media (prefers-reduced-motion:reduce){',
+    '  .ih-tracker-overlay,.ih-tracker-card,.ih-tracker-input,.ih-tracker-btn,',
+    '  #ih-tracker-pill,#ih-tracker-pill .ih-pill-change,.ih-tracker-toast{',
+    '    transition:none !important;',
+    '  }',
+    '}'
+  ].join('\n');
+
+  function injectStyles() {
+    if (document.getElementById(STYLE_ID)) return;
+    var s = document.createElement('style');
+    s.id = STYLE_ID;
+    s.textContent = CSS;
+    document.head.appendChild(s);
+  }
+
+  // ─── Storage helpers ──────────────────────────────────
+  function readName() {
+    try { return (localStorage.getItem(STORAGE_KEY) || '').trim(); }
+    catch (e) { return ''; }
+  }
+  function saveName(n) {
+    try { localStorage.setItem(STORAGE_KEY, (n || '').trim()); }
+    catch (e) { /* private mode etc. — still works in memory for this session */ }
+  }
+  function clearName() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  }
+
+  // ─── Modal ────────────────────────────────────────────
+  function showModal() {
+    return new Promise(function (resolve) {
+      if (document.getElementById(MODAL_ID)) {
+        document.getElementById(MODAL_ID).remove();
+      }
+
+      var root = document.createElement('div');
+      root.className = 'ih-tracker-root';
+      root.id = MODAL_ID;
+      root.setAttribute('role', 'dialog');
+      root.setAttribute('aria-modal', 'true');
+      root.setAttribute('aria-labelledby', 'ih-tracker-title');
+
+      root.innerHTML =
+        '<div class="ih-tracker-overlay" aria-hidden="true"></div>' +
+        '<div class="ih-tracker-card">' +
+          '<span class="ih-tracker-kicker">Welcome</span>' +
+          '<h2 id="ih-tracker-title">Enter your name</h2>' +
+          '<p class="ih-tracker-sub">We\'ll save it on this device so you don\'t need to enter it again.</p>' +
+          '<form class="ih-tracker-form" novalidate>' +
+            '<input type="text" class="ih-tracker-input" placeholder="Your name" autocomplete="name" required maxlength="60" aria-label="Your name" />' +
+            '<button type="submit" class="ih-tracker-btn">Continue</button>' +
+          '</form>' +
+        '</div>';
+
+      document.body.appendChild(root);
+      // Trigger open animation on next frame
+      requestAnimationFrame(function () { root.classList.add('is-open'); });
+
+      var input = root.querySelector('.ih-tracker-input');
+      var form  = root.querySelector('.ih-tracker-form');
+
+      // Focus the input shortly after opening so the animation looks intentional
+      setTimeout(function () { input.focus(); }, 80);
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var v = (input.value || '').trim();
+        if (!v) { input.focus(); input.classList.add('is-invalid'); return; }
+        saveName(v);
+
+        root.classList.add('is-closing');
+        setTimeout(function () {
+          root.remove();
+          ensurePill();
+          resolve(v);
+        }, 200);
+      });
+
+      // Keep focus inside the modal (simple trap on Tab)
+      root.addEventListener('keydown', function (e) {
+        if (e.key === 'Tab') {
+          // Single focusable area — input then button → re-loop
+          var focusables = [input, root.querySelector('.ih-tracker-btn')];
+          var i = focusables.indexOf(document.activeElement);
+          if (e.shiftKey) { e.preventDefault(); focusables[(i - 1 + focusables.length) % focusables.length].focus(); }
+          else            { e.preventDefault(); focusables[(i + 1) % focusables.length].focus(); }
+        }
+      });
+    });
+  }
+
+  // ─── Change-name pill ─────────────────────────────────
+  function ensurePill() {
+    var name = readName();
+    if (!name) {
+      var existing = document.getElementById(PILL_ID);
+      if (existing) existing.remove();
+      return;
+    }
+    var pill = document.getElementById(PILL_ID);
+    if (!pill) {
+      pill = document.createElement('div');
+      pill.id = PILL_ID;
+      pill.innerHTML =
+        '<span class="ih-pill-greet">Hi,</span> ' +
+        '<span class="ih-pill-name"></span>' +
+        '<span class="ih-pill-sep">·</span>' +
+        '<button type="button" class="ih-pill-change" aria-label="Change name">Change</button>';
+      pill.querySelector('.ih-pill-change').addEventListener('click', changeName);
+      document.body.appendChild(pill);
+    }
+    pill.querySelector('.ih-pill-name').textContent = name;
+  }
+
+  function changeName() {
+    clearName();
+    location.reload();
+  }
+
+  // ─── Toast (small "Saved ✓" notification) ─────────────
+  function toast(message, isError) {
+    var el = document.createElement('div');
+    el.className = 'ih-tracker-toast' + (isError ? ' is-error' : '');
+    el.innerHTML = '<span class="dot"></span><span>' + escapeHtml(message) + '</span>';
+    document.body.appendChild(el);
+    requestAnimationFrame(function () { el.classList.add('is-shown'); });
+    setTimeout(function () {
+      el.classList.remove('is-shown');
+      setTimeout(function () { el.remove(); }, 240);
+    }, 2400);
+  }
+  function escapeHtml(s) {
+    var d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+  }
+
+  // ─── Public API ───────────────────────────────────────
+  function ensureName() {
+    return new Promise(function (resolve) {
+      var n = readName();
+      if (n) { ensurePill(); resolve(n); return; }
+      showModal().then(resolve);
+    });
+  }
+
+  function sendResult(testName, score) {
+    var data = {
+      name:  readName(),
+      test:  String(testName || ''),
+      score: (score === undefined || score === null) ? '' : score,
+      date:  new Date().toISOString()
+    };
+    // Always log so the user can verify integration even before deploying Apps Script
+    try { console.log('[IELTS Tracker] result', data); } catch (e) {}
+
+    if (!WEB_APP_URL) {
+      console.warn('[IELTS Tracker] WEB_APP_URL is empty — set it in tracker.js to enable Google Sheets logging.');
+      toast('Result saved locally (Sheets URL not set)', true);
+      return Promise.resolve(false);
+    }
+
+    // Content-Type text/plain avoids CORS preflight; Apps Script reads raw body.
+    return fetch(WEB_APP_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body:    JSON.stringify(data),
+      keepalive: true
+    }).then(function (res) {
+      var ok = res && (res.ok || res.type === 'opaque');
+      toast(ok ? 'Result saved ✓' : 'Could not save result', !ok);
+      return ok;
+    }).catch(function (err) {
+      console.warn('[IELTS Tracker] send failed:', err);
+      toast('Could not save result', true);
+      return false;
+    });
+  }
+
+  function init() {
+    injectStyles();
+    ensureName();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  window.IELTSTracker = {
+    getName:     readName,
+    ensureName:  ensureName,
+    sendResult:  sendResult,
+    changeName:  changeName
+  };
+})();

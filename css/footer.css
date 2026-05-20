@@ -1,0 +1,240 @@
+/* IELTS Hub — Contact Footer
+   Standalone stylesheet used by js/footer.js.
+   Namespaced with .ih-footer to avoid clashing with host pages. */
+
+.ih-footer {
+  --ih-fg:        #f8fafc;
+  --ih-fg-muted:  #94a3b8;
+  --ih-fg-soft:   #cbd5e1;
+  --ih-border:    rgba(255, 255, 255, 0.08);
+  --ih-border-strong: rgba(255, 255, 255, 0.16);
+  --ih-accent:    #0088cc;
+  --ih-accent-2:  #2AABEE;
+  --ih-tg-grad:   linear-gradient(135deg, #2AABEE 0%, #0088cc 100%);
+  --ih-radius:    14px;
+  --ih-radius-lg: 16px;
+
+  position: relative;
+  margin-top: 80px;
+  padding: 72px 24px 32px;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(0, 136, 204, 0.16), transparent 60%),
+    linear-gradient(180deg, #0f172a 0%, #0b1322 100%);
+  color: var(--ih-fg);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Subtle dot pattern */
+.ih-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  background-position: 0 0;
+  opacity: 0.8;
+  mask-image:      radial-gradient(900px 420px at 50% 28%, black 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(900px 420px at 50% 28%, black 0%, transparent 78%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ih-footer-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.ih-footer-content {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 620ms cubic-bezier(0.4, 0, 0.2, 1), transform 620ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ih-footer.is-visible .ih-footer-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ih-footer-kicker {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ih-accent-2);
+  padding: 6px 12px;
+  background: rgba(0, 136, 204, 0.14);
+  border: 1px solid rgba(0, 136, 204, 0.22);
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.ih-footer-title {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ih-footer-sub {
+  margin: 0 auto 36px;
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ih-fg-soft);
+}
+
+/* CTA row */
+.ih-footer-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ih-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px 14px 16px;
+  min-height: 64px;
+  min-width: 240px;
+  border-radius: var(--ih-radius-lg);
+  text-decoration: none;
+  font-family: inherit;
+  transition:
+    transform     260ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow    260ms ease,
+    background    260ms ease,
+    border-color  260ms ease,
+    color         260ms ease;
+  will-change: transform;
+}
+
+.ih-cta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.14);
+  flex-shrink: 0;
+}
+.ih-cta-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ih-cta-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+  flex: 1;
+  min-width: 0;
+}
+.ih-cta-label {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.ih-cta-handle {
+  margin-top: 3px;
+  font-size: 12px;
+  opacity: 0.78;
+  font-feature-settings: 'tnum';
+}
+
+.ih-cta-chev {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1), opacity 220ms ease;
+  flex-shrink: 0;
+}
+.ih-cta-chev svg { width: 14px; height: 14px; }
+.ih-cta:hover .ih-cta-chev { transform: translate(2px, -2px); opacity: 1; }
+
+/* Primary — Telegram gradient */
+.ih-cta-primary {
+  background: var(--ih-tg-grad);
+  color: #ffffff;
+  box-shadow:
+    0 10px 24px rgba(0, 136, 204, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.ih-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 36px rgba(0, 136, 204, 0.46),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.ih-cta-primary:active { transform: translateY(0); }
+
+/* Secondary — glassmorphism */
+.ih-cta-secondary {
+  color: var(--ih-fg);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--ih-border);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+}
+.ih-cta-secondary .ih-cta-icon {
+  background: rgba(0, 136, 204, 0.22);
+  color: var(--ih-accent-2);
+}
+.ih-cta-secondary:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(0, 136, 204, 0.5);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
+}
+.ih-cta-secondary:active { transform: translateY(0); }
+
+.ih-cta:focus-visible {
+  outline: 2px solid var(--ih-accent-2);
+  outline-offset: 3px;
+}
+
+/* Bottom strip */
+.ih-footer-divider {
+  margin: 56px auto 22px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ih-border-strong), transparent);
+}
+.ih-footer-bottom {
+  text-align: center;
+  font-size: 12px;
+  color: var(--ih-fg-muted);
+  letter-spacing: 0.01em;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ih-footer-content { opacity: 1; transform: none; transition: none; }
+  .ih-cta, .ih-cta-chev { transition: none !important; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .ih-footer { padding: 56px 18px 28px; margin-top: 56px; }
+  .ih-footer-actions { flex-direction: column; align-items: stretch; }
+  .ih-cta { min-width: 0; width: 100%; }
+  .ih-footer-divider { margin: 44px auto 18px; }
+}
