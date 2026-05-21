@@ -6,7 +6,64 @@ A static, single-page site that lists IELTS practice tests grouped by category. 
 
 ---
 
-## Adding a new test
+## 🚀 Adding a new test (READ THIS FIRST)
+
+Every new test needs **TWO things** or it won't work properly. Do both. Don't skip step 1 — that's the one everyone forgets.
+
+### ✅ Step 1 — Paste this ONE line into your test page
+
+In your test HTML file (the one students open), put this line **right before `</body>`**:
+
+```html
+<!-- IELTS Hub auto-loader: name modal + footer + Sheets logging -->
+<script src="https://maqsudjon-cell.github.io/ielts-hub/js/test-page-auto.js" defer></script>
+```
+
+**Without this line:** the page is just a quiz — no name modal, no footer, no score logging to your Google Sheet.
+
+**With this line:** you get all three automatically. Zero per-page configuration.
+
+### ✅ Step 2 — Register the test in [`tests.json`](./tests.json)
+
+Edit https://github.com/maqsudjon-cell/ielts-hub/blob/main/tests.json (pencil ✏️ icon, even works from mobile) and add a new entry to the `tests` array:
+
+```json
+{
+  "title":      "My New Test Name",
+  "category":   "Listening",
+  "url":        "https://maqsudjon-cell.github.io/<your-repo>/<your-file>.html",
+  "date":       "YYYY-MM-DD",
+  "difficulty": "Band 6-7"
+}
+```
+
+**Without this:** the test won't appear on the hub homepage.
+
+`category` must be one of: `Listening`, `Reading`, `Writing`, `Speaking`, `Tools`.
+
+### 🧪 How to verify both steps worked
+
+Open your test page in a fresh browser tab. You should see:
+
+| ✅ Working | ❌ Step 1 forgotten |
+| --- | --- |
+| Name modal pops up on first visit | No modal |
+| "Hi, {name} · Change" pill in the corner | No pill |
+| Telegram footer at the bottom of the page | No footer |
+| After you submit, the score lands in your Google Sheet within ~5s | Nothing in the sheet |
+
+And on https://maqsudjon-cell.github.io/ielts-hub/ — your new test should appear on a card.
+
+If anything's off, open DevTools console on the test page and run:
+
+```js
+IELTSAuto.diagnose();
+// Shows: { title, score, sent, patterns }
+```
+
+---
+
+## More about `tests.json`
 
 You don't need to touch any code. All test data lives in **[`tests.json`](./tests.json)** at the root of this repo. Edit that file — even from the GitHub mobile app — and the site updates within ~30 seconds.
 
@@ -65,22 +122,20 @@ You don't need to touch any code. All test data lives in **[`tests.json`](./test
 
 ---
 
-## Adding a new test **page** (the HTML file students take)
+## Test-page auto-loader — what it does, and overrides
 
-Test pages live in their own GitHub repos (e.g. `ctna5`, `CDI`, …). When you create a new one, paste **one line** before `</body>`:
-
-```html
-<script src="https://maqsudjon-cell.github.io/ielts-hub/js/test-page-auto.js" defer></script>
-```
-
-That single tag automatically:
+The script tag from [Step 1](#-step-1--paste-this-one-line-into-your-test-page) above does all of this automatically:
 
 - Loads **`tracker.js`** → name modal on first visit, "Hi, {name} · Change" pill thereafter
 - Loads **`footer.js`** → premium Telegram contact footer
 - Detects the test title from the page's `<h1>` (or `<title>`)
 - Watches the page's result modal — when it opens, reads the displayed score and calls `IELTSTracker.sendResult(title, score)` for you
 
-**No per-page configuration needed.** If the auto-detector somehow misses your custom modal, drop these meta tags in `<head>`:
+**No per-page configuration needed** for the standard MockLab / Cambridge / Trainer test layouts. The auto-detector handles them all.
+
+### When auto-detection misses your custom modal
+
+If you have a non-standard results modal, drop these meta tags in `<head>` to point the tracker at the right selectors:
 
 ```html
 <meta name="test-title"          content="Custom Test Name">
@@ -88,12 +143,14 @@ That single tag automatically:
 <meta name="test-score-selector" content="#myScoreText">
 ```
 
-**Sanity-check in DevTools console:**
+### Debugging in DevTools console
 
 ```js
 IELTSAuto.diagnose();
 // → { title: "...", score: null|"...", sent: false, patterns: [...] }
 ```
+
+`sent: false` after submitting means the score wasn't logged — usually a selector mismatch. Add the meta tags above.
 
 ---
 
