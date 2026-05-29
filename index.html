@@ -755,7 +755,7 @@
         const da = a.date || '';
         const db = b.date || '';
         if (sort === 'oldest') return da.localeCompare(db) || extractNum(a.title) - extractNum(b.title);
-        return db.localeCompare(da) || extractNum(a.title) - extractNum(b.title);
+        return db.localeCompare(da) || extractNum(b.title) - extractNum(a.title);
       });
       return arr;
     }
