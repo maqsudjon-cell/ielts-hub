@@ -420,6 +420,10 @@
       .card { animation: none; opacity: 1; transform: none; }
       * { transition-duration: 0.01ms !important; }
     }
+    /* When switching categories, fade in instantly on mobile */
+    @media (max-width: 640px) {
+      .card { animation-duration: 200ms; animation-delay: 0ms !important; }
+    }
 
     .card-top {
       display: flex;
@@ -789,12 +793,15 @@
           '</button>'
         );
       }).join('');
-      pills.querySelectorAll('.pill').forEach(btn => {
-        btn.addEventListener('click', () => {
-          state.activeCategory = btn.dataset.cat;
-          renderPills();
-          render();
-        });
+      // Use event delegation instead of per-button listeners
+      pills.addEventListener('click', function onPillClick(e) {
+        const btn = e.target.closest('.pill');
+        if (!btn) return;
+        const cat = btn.dataset.cat;
+        if (cat === state.activeCategory) return;
+        state.activeCategory = cat;
+        renderPills();
+        render();
       });
     }
 
@@ -895,6 +902,14 @@
       }
 
       content.innerHTML = html;
+
+      // Re-stripe card animation delays smoothly - only if cards exist
+      const cards = content.querySelectorAll('.card');
+      if (cards.length > 0) {
+        requestAnimationFrame(() => {
+          cards.forEach((card, i) => card.style.setProperty('--i', i));
+        });
+      }
     }
 
     // ─────────── Events ───────────
@@ -903,8 +918,29 @@
       state.search = value;
       renderPills();
       render();
-    }, 150);
-    searchInput.addEventListener('input', e => onSearch(e.target.value));
+    }, 200); // slightly longer debounce to avoid flicker on slow devices
+
+    searchInput.addEventListener('input', e => {
+      const val = e.target.value;
+      // Immediately update the pill counts visually
+      const pills = document.querySelectorAll('.pill');
+      pills.forEach(btn => {
+        const cat = btn.dataset.cat;
+        const count = countByCategoryFast(cat, val);
+        const countEl = btn.querySelector('.pill-count');
+        if (countEl) countEl.textContent = count;
+      });
+      onSearch(val);
+    });
+
+    // Fast count helper for instant pill update
+    function countByCategoryFast(cat, searchVal) {
+      const q = searchVal.toLowerCase().trim();
+      return state.tests.filter(t => {
+        const sMatch = !q || String(t.title || '').toLowerCase().includes(q);
+        return sMatch && (cat === 'All' || t.category === cat);
+      }).length;
+    }
 
     document.getElementById('sort').addEventListener('change', e => {
       state.sort = e.target.value;
