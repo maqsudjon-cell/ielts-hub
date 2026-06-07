@@ -60,6 +60,11 @@
     { container: '#resultsModal.open',  score: '#modalScore' },
     // Single-passage reading template (e.g. Kakapo, Manatees)
     { container: '#result-panel.show',  score: '#score-num' },
+    // CDI multi-passage reading template (Submit Final Answers → showResults):
+    // results render into #screen-results with a .score-hero; grab the raw "X / 40".
+    { container: '#screen-results',     score: '.score-hero .stat strong' },
+    // Same template, fallback to band score if the raw-score cell ever changes.
+    { container: '#screen-results',     score: '.score-hero .band' },
     // Generic modal-overlay pattern
     { container: '.modal-overlay.open', score: '.modal-score' },
     // Trainer 2 series alt: body class signals submission
