@@ -330,16 +330,22 @@
       return Promise.resolve(false);
     }
 
-    // Content-Type text/plain avoids CORS preflight; Apps Script reads raw body.
+    // IMPORTANT: mode 'no-cors' is required for Apps Script.
+    // Apps Script answers a POST with a 302 redirect to googleusercontent.com,
+    // which sends no CORS headers — in default ('cors') mode the browser blocks
+    // that redirect and the fetch rejects even though the row was written.
+    // 'no-cors' sends a simple request (text/plain is safelisted, no preflight),
+    // the row is written, and we get an opaque response we simply treat as success.
     return fetch(WEB_APP_URL, {
       method:  'POST',
+      mode:    'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body:    JSON.stringify(data),
       keepalive: true
-    }).then(function (res) {
-      var ok = res && (res.ok || res.type === 'opaque');
-      toast(ok ? 'Result saved ✓' : 'Could not save result', !ok);
-      return ok;
+    }).then(function () {
+      // Opaque response: status is unreadable by design, but the write has happened.
+      toast('Result saved ✓', false);
+      return true;
     }).catch(function (err) {
       console.warn('[IELTS Tracker] send failed:', err);
       toast('Could not save result', true);
