@@ -113,9 +113,9 @@
     '.ih-tracker-btn:active{transform:translateY(0);filter:brightness(0.96);}',
     '.ih-tracker-btn:focus-visible{outline:2px solid #fff;outline-offset:3px;}',
 
-    /* Change-name pill */
+    /* Change-name pill — bottom-right to avoid clashing with test-page top headers (timer, fullscreen, menu) */
     '#ih-tracker-pill{',
-    '  position:fixed;top:16px;right:16px;z-index:2147483500;',
+    '  position:fixed;bottom:16px;right:16px;z-index:2147483500;',
     '  display:inline-flex;align-items:center;gap:8px;',
     '  padding:8px 6px 8px 14px;',
     '  background:rgba(15,23,42,0.6);',
@@ -163,7 +163,7 @@
     '@media (max-width:480px){',
     '  .ih-tracker-card{padding:24px;border-radius:18px;}',
     '  .ih-tracker-card h2{font-size:22px;}',
-    '  #ih-tracker-pill{top:12px;right:12px;font-size:12px;padding:6px 4px 6px 12px;}',
+    '  #ih-tracker-pill{bottom:12px;right:12px;font-size:12px;padding:6px 4px 6px 12px;}',
     '}',
 
     /* Reduced motion */
