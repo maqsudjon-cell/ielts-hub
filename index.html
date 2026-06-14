@@ -599,8 +599,53 @@
     /* ─────────── Misc ─────────── */
     ::selection { background: var(--accent-soft); color: var(--accent); }
   </style>
+<style>
+#pg-loader{
+  position:fixed;inset:0;z-index:99999;display:grid;place-items:center;align-content:center;gap:24px;
+  background:#060A09;transition:opacity .6s ease,visibility .6s ease;
+}
+#pg-loader.pg-hide{opacity:0;visibility:hidden;pointer-events:none}
+#pg-loader .pg-mark{width:104px;height:104px}
+#pg-loader svg{width:100%;height:100%;overflow:visible}
+#pg-loader .pg-spark{transform-box:view-box;transform-origin:100px 100px;animation:pgL-spin 2.4s linear infinite}
+#pg-loader .pg-ray{
+  stroke:#34E0A1;stroke-width:13;stroke-linecap:round;
+  filter:drop-shadow(0 0 3px rgba(52,224,161,.7)) drop-shadow(0 0 9px rgba(52,224,161,.4));
+  transform-box:view-box;transform-origin:100px 100px;
+  animation:pgL-twinkle 2.4s ease-in-out infinite;animation-delay:calc(var(--i) * -0.3s);
+}
+#pg-loader .pg-word{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:20px;letter-spacing:.5px;color:#e7f2ee}
+#pg-loader .pg-word b{color:#34E0A1}
+@keyframes pgL-spin{to{transform:rotate(360deg)}}
+@keyframes pgL-twinkle{
+  0%,100%{transform:scale(.74);stroke:#34E0A1;filter:drop-shadow(0 0 3px rgba(52,224,161,.7)) drop-shadow(0 0 9px rgba(52,224,161,.4))}
+  50%{transform:scale(1);stroke:#A8FFDD;filter:drop-shadow(0 0 5px #A8FFDD) drop-shadow(0 0 16px rgba(52,224,161,.6))}
+}
+html[data-theme="light"] #pg-loader{background:#FAFAF9}
+html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
+@media(prefers-reduced-motion:reduce){
+  #pg-loader .pg-spark,#pg-loader .pg-ray{animation:none}#pg-loader .pg-ray{transform:scale(.92)}
+}
+</style>
 </head>
 <body>
+<div id="pg-loader" role="status" aria-label="Loading pangea8">
+  <div class="pg-mark">
+    <svg viewBox="0 0 200 200" aria-hidden="true">
+      <g class="pg-spark">
+        <line class="pg-ray" style="--i:0" x1="130" y1="100" x2="178" y2="100"/>
+        <line class="pg-ray" style="--i:1" x1="121.2" y1="121.2" x2="155.2" y2="155.2"/>
+        <line class="pg-ray" style="--i:2" x1="100" y1="130" x2="100" y2="178"/>
+        <line class="pg-ray" style="--i:3" x1="78.8" y1="121.2" x2="44.8" y2="155.2"/>
+        <line class="pg-ray" style="--i:4" x1="70" y1="100" x2="22" y2="100"/>
+        <line class="pg-ray" style="--i:5" x1="78.8" y1="78.8" x2="44.8" y2="44.8"/>
+        <line class="pg-ray" style="--i:6" x1="100" y1="70" x2="100" y2="22"/>
+        <line class="pg-ray" style="--i:7" x1="121.2" y1="78.8" x2="155.2" y2="44.8"/>
+      </g>
+    </svg>
+  </div>
+  <div class="pg-word">pangea<b>8</b></div>
+</div>
   <div class="grain" aria-hidden="true"></div>
 
   <div class="container">
@@ -743,6 +788,8 @@
           '<div class="empty"><div class="empty-icon">' + warningSvg() + '</div>' +
           '<h3>Could not load tests</h3>' +
           '<p>Check that <code class="mono">tests.json</code> is reachable. (' + escapeHtml(err.message) + ')</p></div>';
+      } finally {
+        if (window.pangeaLoader) window.pangeaLoader.hide();
       }
     }
 
@@ -952,6 +999,24 @@
     });
 
     applyTheme(document.documentElement.dataset.theme || 'light');
+    // ─────────── pangea8 loader ───────────
+    (function(){
+      var el = document.getElementById('pg-loader');
+      if(!el){ window.pangeaLoader = {show:function(){},hide:function(){}}; return; }
+      var start = Date.now(), MIN = 600, hidden = false;
+      function hide(){
+        if(hidden) return; hidden = true;
+        var wait = Math.max(0, MIN - (Date.now() - start));
+        setTimeout(function(){
+          el.classList.add('pg-hide');
+          setTimeout(function(){ el.style.display = 'none'; }, 600);
+        }, wait);
+      }
+      function show(){ hidden = false; el.style.display = 'grid'; el.style.visibility = 'visible'; el.classList.remove('pg-hide'); start = Date.now(); }
+      window.pangeaLoader = { show:show, hide:hide };
+      setTimeout(hide, 8000); // safety
+    })();
+
     loadData();
   </script>
 
