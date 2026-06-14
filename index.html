@@ -602,7 +602,7 @@
 <style>
 #pg-loader{
   position:fixed;inset:0;z-index:99999;display:grid;place-items:center;align-content:center;gap:24px;
-  background:#060A09;transition:opacity .6s ease,visibility .6s ease;
+  background:var(--bg,#FAFAF9);transition:opacity .6s ease,visibility .6s ease;
 }
 #pg-loader.pg-hide{opacity:0;visibility:hidden;pointer-events:none}
 #pg-loader .pg-mark{width:104px;height:104px}
@@ -614,7 +614,7 @@
   transform-box:view-box;transform-origin:100px 100px;
   animation:pgL-twinkle 2.4s ease-in-out infinite;animation-delay:calc(var(--i) * -0.3s);
 }
-#pg-loader .pg-word{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:20px;letter-spacing:.5px;color:#e7f2ee}
+#pg-loader .pg-word{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:20px;letter-spacing:.5px;color:var(--text-primary,#1a1a1a)}
 #pg-loader .pg-word b{color:#34E0A1}
 @keyframes pgL-spin{to{transform:rotate(360deg)}}
 @keyframes pgL-twinkle{
