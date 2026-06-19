@@ -775,7 +775,7 @@ html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
     // ─────────── Data ───────────
     async function loadData() {
       try {
-        const res = await fetch('tests.json', { cache: 'no-store' });
+        const res = await fetch('tests.json?t=' + Date.now(), { cache: 'no-store' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         state.tests = Array.isArray(data.tests) ? data.tests : [];
