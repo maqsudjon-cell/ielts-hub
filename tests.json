@@ -8,6 +8,14 @@
   ],
   "tests": [
     {
+      "title": "IELTS Speaking Lab",
+      "category": "Speaking",
+      "url": "https://maqsudjon-cell.github.io/pangea8-speaking/",
+      "date": "2026-06-22",
+      "difficulty": "Parts 1 · 2 · 3 · Jan–Apr 2026 · record & get feedback",
+      "description": "Live question bank — 166 topics with mic recording, teacher & peer feedback."
+    },
+    {
       "title": "Pierics — Word Game",
       "category": "Tools",
       "url": "http://pierics.com",
