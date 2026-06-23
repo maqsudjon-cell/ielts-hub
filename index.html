@@ -88,7 +88,7 @@
       --grain-opacity: 0.025;
     }
 
-    html { color-scheme: light dark; }
+    html { color-scheme: light dark; overflow-x: hidden; }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -479,8 +479,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      flex-wrap: wrap;
+      gap: 8px 12px;
       padding-top: 6px;
+      min-width: 0;
     }
     .card-date {
       display: inline-flex;
@@ -489,6 +491,9 @@
       font-size: 13px;
       color: var(--muted);
       font-feature-settings: 'tnum';
+      flex-shrink: 0;
+      min-width: 0;
+      white-space: nowrap;
     }
     .card-date svg { width: 13px; height: 13px; }
     .difficulty {
@@ -501,7 +506,15 @@
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.01em;
-      white-space: nowrap;
+      /* allow long labels (e.g. Speaking blurb) to wrap instead of
+         forcing horizontal overflow / iOS zoom-shake */
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      max-width: 100%;
+      min-width: 0;
+      text-align: right;
+      line-height: 1.4;
     }
 
     /* ─────────── Empty State ─────────── */
