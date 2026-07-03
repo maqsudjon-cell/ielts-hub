@@ -2,7 +2,7 @@
 
 A static, single-page site that lists IELTS practice tests grouped by category. Hosted on GitHub Pages.
 
-**Live site:** https://maqsudjon-cell.github.io/ielts-hub/
+**Live site:** https://pangea8.com/ielts-hub/
 
 ---
 
@@ -16,7 +16,7 @@ In your test HTML file (the one students open), put this line **right before `</
 
 ```html
 <!-- IELTS Hub auto-loader: name modal + footer + Sheets logging -->
-<script src="https://maqsudjon-cell.github.io/ielts-hub/js/test-page-auto.js" defer></script>
+<script src="https://pangea8.com/ielts-hub/js/test-page-auto.js" defer></script>
 ```
 
 **Without this line:** the page is just a quiz — no name modal, no footer, no score logging to your Google Sheet.
@@ -31,7 +31,7 @@ Edit https://github.com/maqsudjon-cell/ielts-hub/blob/main/tests.json (pencil �
 {
   "title":      "My New Test Name",
   "category":   "Listening",
-  "url":        "https://maqsudjon-cell.github.io/<your-repo>/<your-file>.html",
+  "url":        "https://pangea8.com/<your-repo>/<your-file>.html",
   "date":       "YYYY-MM-DD",
   "difficulty": "Band 6-7"
 }
@@ -52,7 +52,7 @@ Open your test page in a fresh browser tab. You should see:
 | Telegram footer at the bottom of the page | No footer |
 | After you submit, the score lands in your Google Sheet within ~5s | Nothing in the sheet |
 
-And on https://maqsudjon-cell.github.io/ielts-hub/ — your new test should appear on a card.
+And on https://pangea8.com/ielts-hub/ — your new test should appear on a card.
 
 If anything's off, open DevTools console on the test page and run:
 
@@ -103,7 +103,7 @@ You don't need to touch any code. All test data lives in **[`tests.json`](./test
     {
       "title": "Mocklab Essential Test 5",
       "category": "Listening",
-      "url": "https://maqsudjon-cell.github.io/mocklabtest5listening/mocklab-essential-test5-listening.html",
+      "url": "https://pangea8.com/mocklabtest5listening/mocklab-essential-test5-listening.html",
       "date": "2026-05-19",
       "difficulty": "Band 6-7"
     },

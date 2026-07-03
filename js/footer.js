@@ -3,7 +3,7 @@
  * Self-contained: injects a link to footer.css and renders a premium contact section.
  *
  * Usage on any page (one line, anywhere in <body> or <head>):
- *   <script src="https://maqsudjon-cell.github.io/ielts-hub/js/footer.js" defer></script>
+ *   <script src="https://pangea8.com/ielts-hub/js/footer.js" defer></script>
  */
 (function () {
   'use strict';
@@ -14,7 +14,7 @@
       var s = document.currentScript;
       if (s && s.src) return s.src.replace(/\/js\/footer\.js(\?.*)?$/, '/css/footer.css');
     } catch (e) {}
-    return 'https://maqsudjon-cell.github.io/ielts-hub/css/footer.css';
+    return 'https://pangea8.com/ielts-hub/css/footer.css';
   })();
 
   var FOOTER_CLASS = 'ih-footer';
