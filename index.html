@@ -427,6 +427,13 @@
     /* When switching categories, fade in instantly on mobile */
     @media (max-width: 640px) {
       .card { animation-duration: 200ms; animation-delay: 0ms !important; }
+
+      /* stack the hero on phones: buttons row on top, full-width text below
+         (otherwise the pills squeeze the title into one word per line) */
+      .hero { flex-wrap: wrap; row-gap: 18px; }
+      .hero-text { flex: 1 1 100%; order: 2; }
+      .results-link, .install-btn, .theme-toggle { order: 1; }
+      .results-link { margin-right: auto; }
     }
 
     .card-top {
