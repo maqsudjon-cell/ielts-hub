@@ -347,6 +347,39 @@
     });
   }
 
+  /* Small celebration burst when a result is saved. No-op on reduced motion. */
+  function confetti() {
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var colors = ['#10B981', '#34D399', '#2DD4BF', '#22D3EE', '#F59E0B', '#EC4899'];
+      var frag = document.createDocumentFragment();
+      var pieces = [];
+      for (var i = 0; i < 28; i++) {
+        var el = document.createElement('div');
+        var size = 6 + Math.random() * 6;
+        el.style.cssText = 'position:fixed;z-index:2147483647;pointer-events:none;top:-12px;left:' +
+          (10 + Math.random() * 80) + 'vw;width:' + size + 'px;height:' + (size * 0.6) + 'px;border-radius:2px;background:' +
+          colors[i % colors.length] + ';opacity:1;';
+        frag.appendChild(el);
+        pieces.push({ el: el, x: (Math.random() - 0.5) * 2, r: Math.random() * 360, v: 2 + Math.random() * 3 });
+      }
+      document.body.appendChild(frag);
+      var start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        var t = (ts - start) / 1000;
+        var done = t > 1.8;
+        pieces.forEach(function (p) {
+          p.el.style.transform = 'translate(' + (p.x * t * 60) + 'px,' + (p.v * t * t * 160) + 'px) rotate(' + (p.r + t * 320) + 'deg)';
+          if (t > 1.2) p.el.style.opacity = String(Math.max(0, 1 - (t - 1.2) / 0.6));
+        });
+        if (done) pieces.forEach(function (p) { p.el.remove(); });
+        else requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    } catch (e) {}
+  }
+
   function sendResult(testName, score) {
     var data = {
       name:  readName(),
@@ -370,6 +403,8 @@
       toast('Result saved locally (Sheets URL not set)', true);
       return Promise.resolve(false);
     }
+
+    confetti();
 
     // Show confirmation immediately — don't make the student wait on the network.
     // The write happens server-side, and a no-cors response is opaque (unreadable)

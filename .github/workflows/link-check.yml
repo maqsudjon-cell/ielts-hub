@@ -1,0 +1,52 @@
+name: Check test links
+on:
+  schedule:
+    - cron: '0 3 * * 1'   # every Monday 03:00 UTC (08:00 Tashkent)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check every URL in tests.json
+        run: |
+          python3 - <<'EOF'
+          import json, urllib.request
+
+          fails = []
+          tests = json.load(open('tests.json'))['tests']
+          for t in tests:
+              url = (t.get('url') or '').strip()
+              if not url:
+                  continue
+              req = urllib.request.Request(url, method='HEAD',
+                                           headers={'User-Agent': 'pangea8-linkcheck'})
+              try:
+                  r = urllib.request.urlopen(req, timeout=25)
+                  if r.status >= 400:
+                      fails.append(f"HTTP {r.status} — {t.get('title')} — {url}")
+              except Exception as e:
+                  fails.append(f"{e} — {t.get('title')} — {url}")
+
+          with open('fails.txt', 'w') as f:
+              f.write('\n'.join(fails))
+          print(f"checked {len(tests)}, broken: {len(fails)}")
+          print('\n'.join(fails))
+          EOF
+
+      - name: Open an issue if something is broken
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -s fails.txt ]; then
+            gh issue create \
+              --title "🔗 Broken test links found ($(date +%F))" \
+              --body "$(printf 'The weekly link check found broken test URLs:\n\n```\n%s\n```\n\nFix the test repo or update tests.json.' "$(cat fails.txt)")" \
+              -R "${{ github.repository }}"
+          fi

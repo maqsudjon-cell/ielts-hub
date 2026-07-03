@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My results — IELTS Practice Hub</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme');
+        var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+      } catch (e) { document.documentElement.dataset.theme = 'light'; }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --bg: #FAFAF9; --surface: #FFFFFF; --text: #0A0A0A; --muted: #6B7280;
+      --border: #E5E7EB; --accent: #047857; --accent-soft: rgba(4,120,87,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #0A0A0A; --surface: #111111; --text: #FAFAFA; --muted: #A1A1AA;
+      --border: #1F1F1F; --accent: #10B981; --accent-soft: rgba(16,185,129,0.12);
+    }
+    html { color-scheme: light dark; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif; line-height: 1.5;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
+    .back { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; text-decoration: none; margin-bottom: 22px; }
+    .back:hover { color: var(--accent); }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 28px; margin: 0 0 4px; }
+    .sub { color: var(--muted); font-size: 14px; margin: 0 0 24px; }
+    .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 26px; }
+    .stat {
+      flex: 1; min-width: 140px; padding: 16px; border-radius: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+    }
+    .stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 26px; color: var(--accent); }
+    .stat span { font-size: 12.5px; color: var(--muted); }
+    .row {
+      display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px;
+      background: var(--surface); border: 1px solid var(--border); margin-bottom: 8px;
+    }
+    .row .name { flex: 1; font-weight: 600; font-size: 14.5px; overflow-wrap: anywhere; }
+    .row .name small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .score {
+      padding: 4px 12px; border-radius: 999px; font-weight: 700; font-size: 14px;
+      background: var(--accent-soft); color: var(--accent); white-space: nowrap;
+    }
+    .empty { text-align: center; color: var(--muted); padding: 60px 10px; }
+    .empty a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .clear {
+      display: block; margin: 28px auto 0; padding: 10px 20px; border-radius: 999px;
+      border: 1px solid var(--border); background: none; color: var(--muted);
+      font: inherit; font-size: 13.5px; cursor: pointer;
+    }
+    .clear:hover { color: #DC2626; border-color: #DC2626; }
+    .note { text-align: center; color: var(--muted); font-size: 12px; margin-top: 14px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="./">‹ Back to hub</a>
+    <h1>My results</h1>
+    <p class="sub">Practice history saved on this device.</p>
+    <div class="stats" id="stats"></div>
+    <div id="list"></div>
+    <button class="clear" id="clearBtn" hidden>Clear history</button>
+    <p class="note" id="note" hidden>History is stored only in this browser.</p>
+  </div>
+  <script>
+    (function () {
+      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+      var hist = [];
+      try { hist = JSON.parse(localStorage.getItem('p8_results') || '[]'); } catch (e) {}
+      var list = document.getElementById('list');
+      var stats = document.getElementById('stats');
+
+      if (!hist.length) {
+        list.innerHTML = '<div class="empty"><p>No results yet.</p><p><a href="./">Take a test</a> — your scores will appear here automatically.</p></div>';
+        return;
+      }
+
+      var distinct = {};
+      var scored = [];
+      hist.forEach(function (r) {
+        distinct[r.test || r.href] = true;
+        var s = parseFloat(r.score);
+        if (!isNaN(s)) scored.push(s);
+      });
+      var best = scored.length ? Math.max.apply(null, scored) : null;
+      stats.innerHTML =
+        '<div class="stat"><b>' + hist.length + '</b><span>attempts</span></div>' +
+        '<div class="stat"><b>' + Object.keys(distinct).length + '</b><span>different tests</span></div>' +
+        (best !== null ? '<div class="stat"><b>' + esc(best) + '</b><span>best score</span></div>' : '');
+
+      list.innerHTML = hist.slice().reverse().map(function (r) {
+        var d = r.date ? new Date(r.date) : null;
+        var when = d && !isNaN(d) ? d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) + ', ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : '';
+        var score = (r.score !== '' && r.score != null) ? '<span class="score">' + esc(r.score) + '</span>' : '<span class="score">✓</span>';
+        return '<div class="row"><div class="name">' + esc(r.test || 'Test') + '<small>' + esc(when) + '</small></div>' + score + '</div>';
+      }).join('');
+
+      var btn = document.getElementById('clearBtn');
+      btn.hidden = false;
+      document.getElementById('note').hidden = false;
+      btn.addEventListener('click', function () {
+        if (!confirm('Delete all local practice history?')) return;
+        try { localStorage.removeItem('p8_results'); } catch (e) {}
+        location.reload();
+      });
+    })();
+  </script>
+</body>
+</html>

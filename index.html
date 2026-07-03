@@ -37,7 +37,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" />
 
   <style>
     /* ─────────── Reset / Base ─────────── */
@@ -549,6 +549,34 @@
     .install-btn.show { display: inline-flex; }
     .install-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
 
+    /* "My results" pill link in the hero */
+    .results-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: border-color var(--t-fast), transform var(--t-fast);
+    }
+    .results-link:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+    /* per-category done counter */
+    .cat-done {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* brand display font for headings (matches the landing page) */
+    h1, .category-header h2 { font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif; }
+
     .difficulty {
       display: inline-flex;
       align-items: center;
@@ -721,6 +749,11 @@ html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
         <h1>IELTS Practice Hub</h1>
         <p class="subtitle">Curated mock tests &amp; tools for IELTS practice — Listening, Reading, Writing, Speaking, and more.</p>
       </div>
+
+      <a class="results-link" href="results.html" aria-label="My results">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        My results
+      </a>
 
       <button class="install-btn" id="installBtn" type="button" aria-label="Install app">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
@@ -965,8 +998,9 @@ html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
           if (!r || !r.href) return;
           const k = resultKeyFromUrl(r.href);
           const s = parseFloat(r.score);
-          if (!map[k]) map[k] = { best: null, count: 0 };
+          if (!map[k]) map[k] = { best: null, count: 0, last: '' };
           map[k].count++;
+          if (r.date && r.date > map[k].last) map[k].last = r.date;
           if (!isNaN(s) && (map[k].best === null || s > map[k].best)) map[k].best = s;
         });
       } catch (e) {}
@@ -1023,14 +1057,39 @@ html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
 
       let idx = 0;
       let html = '';
+
+      // "Continue practising" — the student's most recent tests (local history)
+      if (state.activeCategory === 'All' && !state.search.trim()) {
+        const recent = state.tests
+          .map(t => ({ t, r: myResults[resultKeyFromUrl(t.url || '')] }))
+          .filter(x => x.r && x.r.last)
+          .sort((a, b) => b.r.last.localeCompare(a.r.last))
+          .slice(0, 3);
+        if (recent.length) {
+          html +=
+            '<section class="category-section">' +
+              '<div class="category-header">' +
+                '<span class="cat-dot" style="background:var(--accent)"></span>' +
+                '<h2>Continue practising</h2>' +
+                '<span class="cat-count">' + recent.length + '</span>' +
+              '</div>' +
+              '<div class="cards-grid">' +
+                recent.map(x => buildCard(x.t, idx++)).join('') +
+              '</div>' +
+            '</section>';
+        }
+      }
+
       for (const g of groups) {
         if (g.items.length === 0) continue;
+        const done = g.items.filter(t => myResults[resultKeyFromUrl(t.url || '')]).length;
         html +=
           '<section class="category-section">' +
             '<div class="category-header">' +
               '<span class="cat-dot" data-c="' + escapeHtml(g.cat) + '"></span>' +
               '<h2>' + escapeHtml(g.cat) + '</h2>' +
               '<span class="cat-count">' + g.items.length + '</span>' +
+              (done ? '<span class="cat-done">✓ ' + done + ' done</span>' : '') +
             '</div>' +
             '<div class="cards-grid">' +
               g.items.map(t => buildCard(t, idx++)).join('') +
