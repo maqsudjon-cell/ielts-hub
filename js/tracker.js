@@ -357,6 +357,14 @@
     // Always log so the user can verify integration even before deploying Apps Script
     try { console.log('[IELTS Tracker] result', data); } catch (e) {}
 
+    // Local history — the hub (same origin) reads this to show "done" badges.
+    try {
+      var hist = JSON.parse(localStorage.getItem('p8_results') || '[]');
+      hist.push({ test: data.test, score: data.score, href: location.href, date: data.date });
+      if (hist.length > 300) hist = hist.slice(-300);
+      localStorage.setItem('p8_results', JSON.stringify(hist));
+    } catch (e) {}
+
     if (!WEB_APP_URL) {
       console.warn('[IELTS Tracker] WEB_APP_URL is empty — set it in tracker.js to enable Google Sheets logging.');
       toast('Result saved locally (Sheets URL not set)', true);
