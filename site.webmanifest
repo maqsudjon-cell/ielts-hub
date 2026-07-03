@@ -1,12 +1,16 @@
 {
-  "name": "Pangea8",
+  "id": "/ielts-hub/",
+  "name": "Pangea8 — IELTS Practice Hub",
   "short_name": "Pangea8",
+  "description": "Free IELTS practice tests: Listening, Reading, Writing, Speaking.",
   "icons": [
-    { "src": "/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/ielts-hub/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/ielts-hub/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/ielts-hub/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "theme_color": "#011a1e",
   "background_color": "#011a1e",
   "display": "standalone",
-  "start_url": "/"
+  "start_url": "/ielts-hub/",
+  "scope": "/ielts-hub/"
 }
