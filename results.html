@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" />
   <style>
     *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
     :root {
       --bg: #FAFAF9; --surface: #FFFFFF; --text: #0A0A0A; --muted: #6B7280;
       --border: #E5E7EB; --accent: #047857; --accent-soft: rgba(4,120,87,0.08);
@@ -56,6 +57,25 @@
       padding: 4px 12px; border-radius: 999px; font-weight: 700; font-size: 14px;
       background: var(--accent-soft); color: var(--accent); white-space: nowrap;
     }
+    .sync {
+      padding: 16px; border-radius: 14px; margin-bottom: 26px;
+      background: var(--surface); border: 1px solid var(--border);
+    }
+    .sync-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .sync-row > div { flex: 1; min-width: 200px; }
+    .sync b { font-size: 14.5px; }
+    .sync small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 3px; line-height: 1.5; }
+    .gbtn {
+      display: inline-flex; align-items: center; gap: 9px; padding: 10px 18px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text);
+      font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; white-space: nowrap;
+    }
+    .gbtn:hover { border-color: var(--accent); }
+    .gbtn[disabled] { opacity: .6; cursor: default; }
+    .signout { background: none; border: none; color: var(--muted); font: inherit; font-size: 12.5px; cursor: pointer; text-decoration: underline; padding: 0; }
+    .section-h { font-family: 'Space Grotesk', sans-serif; font-size: 16px; margin: 26px 0 10px; }
+    #cloudList { margin-top: 14px; }
+    #cloudList .row:last-child { margin-bottom: 0; }
     .empty { text-align: center; color: var(--muted); padding: 60px 10px; }
     .empty a { color: var(--accent); font-weight: 600; text-decoration: none; }
     .clear {
@@ -73,6 +93,20 @@
     <h1>My results</h1>
     <p class="sub">Practice history saved on this device.</p>
     <div class="stats" id="stats"></div>
+    <div class="sync" id="sync">
+      <div class="sync-row">
+        <div>
+          <b>Sync across devices</b>
+          <small id="syncState">Sign in with Google — your results will follow you on any phone or computer.</small>
+        </div>
+        <button class="gbtn" id="googleBtn" type="button">
+          <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.7l6.2 5.2C36.9 40.4 44 35 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
+          Sign in with Google
+        </button>
+      </div>
+      <div id="cloudList"></div>
+    </div>
+    <h2 class="section-h" id="localH" hidden>On this device</h2>
     <div id="list"></div>
     <button class="clear" id="clearBtn" hidden>Clear history</button>
     <p class="note" id="note" hidden>History is stored only in this browser.</p>
@@ -103,6 +137,7 @@
         '<div class="stat"><b>' + Object.keys(distinct).length + '</b><span>different tests</span></div>' +
         (best !== null ? '<div class="stat"><b>' + esc(best) + '</b><span>best score</span></div>' : '');
 
+      document.getElementById('localH').hidden = false;
       list.innerHTML = hist.slice().reverse().map(function (r) {
         var d = r.date ? new Date(r.date) : null;
         var when = d && !isNaN(d) ? d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) + ', ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : '';
@@ -118,6 +153,73 @@
         try { localStorage.removeItem('p8_results'); } catch (e) {}
         location.reload();
       });
+    })();
+  </script>
+  <script src="js/firebase-init.js" defer></script>
+  <script>
+    /* Cross-device sync: sign in with Google, read own results from Firestore. */
+    (function () {
+      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+      var stateEl, gbtn, cloud;
+
+      function fmt(d) {
+        if (!d || isNaN(d)) return '';
+        return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) + ', ' +
+               d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+      }
+
+      function showSignedIn(fb, user) {
+        stateEl.innerHTML = 'Synced as <b>' + esc(user.email || user.displayName || 'Google account') + '</b> · ' +
+          '<button class="signout" id="soBtn" type="button">Sign out</button>';
+        gbtn.hidden = true;
+        document.getElementById('soBtn').addEventListener('click', function () {
+          window.IHFirebase.signOut().then(function () { location.reload(); });
+        });
+        cloud.innerHTML = '<small style="color:var(--muted)">Loading your results…</small>';
+        fb.db.collection('results').where('uid', '==', user.uid).get().then(function (snap) {
+          var rows = [];
+          snap.forEach(function (doc) {
+            var r = doc.data();
+            rows.push({ test: r.test, score: r.score, name: r.name, d: r.ts && r.ts.toDate ? r.ts.toDate() : null });
+          });
+          rows.sort(function (a, b) { return (b.d ? b.d.getTime() : 0) - (a.d ? a.d.getTime() : 0); });
+          if (!rows.length) {
+            cloud.innerHTML = '<small style="color:var(--muted)">No synced results yet — new test results will appear here from any device where you are signed in.</small>';
+            return;
+          }
+          cloud.innerHTML = '<h2 class="section-h" style="margin-top:6px">All devices (' + rows.length + ')</h2>' +
+            rows.slice(0, 100).map(function (r) {
+              return '<div class="row"><div class="name">' + esc(r.test || 'Test') +
+                     '<small>' + esc(fmt(r.d)) + '</small></div><span class="score">' + esc(r.score) + '</span></div>';
+            }).join('');
+        }).catch(function (err) {
+          cloud.innerHTML = '<small style="color:var(--muted)">Could not load synced results (' + esc(err && err.code) + ').</small>';
+        });
+      }
+
+      function boot() {
+        stateEl = document.getElementById('syncState');
+        gbtn = document.getElementById('googleBtn');
+        cloud = document.getElementById('cloudList');
+        if (!window.IHFirebase) { stateEl.textContent = 'Sync is unavailable right now.'; gbtn.disabled = true; return; }
+        window.IHFirebase.ready.then(function (fb) {
+          if (!fb) { stateEl.textContent = 'Sync is unavailable right now.'; gbtn.disabled = true; return; }
+          if (fb.user && !fb.user.isAnonymous) showSignedIn(fb, fb.user);
+        });
+        gbtn.addEventListener('click', function () {
+          gbtn.disabled = true;
+          window.IHFirebase.signInWithGoogle().then(function (user) {
+            gbtn.disabled = false;
+            window.IHFirebase.ready.then(function (fb) { showSignedIn(fb, user); });
+          }).catch(function (err) {
+            gbtn.disabled = false;
+            stateEl.textContent = 'Sign-in failed (' + (err && err.code || 'error') + '). Try again.';
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+      else boot();
     })();
   </script>
 </body>

@@ -22,6 +22,35 @@
   var MODAL_ID    = 'ih-tracker-modal';
   var PILL_ID     = 'ih-tracker-pill';
 
+  // Firebase results database — loaded lazily. Everything here degrades
+  // gracefully: if Firebase is blocked or misconfigured, the Sheets
+  // pipeline below still works untouched.
+  var FIREBASE_INIT_URL = 'https://pangea8.com/ielts-hub/js/firebase-init.js';
+  function ensureFirebase() {
+    if (window.IHFirebase) return window.IHFirebase.ready;
+    return new Promise(function (resolve) {
+      var s = document.createElement('script');
+      s.src = FIREBASE_INIT_URL;
+      s.defer = true;
+      s.onload = function () { resolve(window.IHFirebase ? window.IHFirebase.ready : null); };
+      s.onerror = function () { resolve(null); };
+      (document.head || document.documentElement).appendChild(s);
+    });
+  }
+
+  function syncStudent(name) {
+    if (!name) return;
+    ensureFirebase().then(function (fb) {
+      if (!fb || !fb.user) return;
+      fb.db.collection('students').doc(fb.user.uid).set({
+        name: name,
+        updatedAt: fb.firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true }).catch(function (err) {
+        console.warn('[IELTS Tracker] student sync failed:', err && err.code);
+      });
+    });
+  }
+
   // ─── CSS (injected once) ───────────────────────────────
   var CSS = [
     '.ih-tracker-root,#ih-tracker-pill{',
@@ -398,6 +427,27 @@
       localStorage.setItem('p8_results', JSON.stringify(hist));
     } catch (e) {}
 
+    // ─── Firestore write (fire-and-forget, independent of Sheets) ───
+    // Security rules accept numeric scores 0–40 only; anything else is
+    // skipped here so a rules rejection never surfaces to the student.
+    var numScore = Number(data.score);
+    if (Number.isFinite(numScore) && numScore >= 0 && numScore <= 40) {
+      ensureFirebase().then(function (fb) {
+        if (!fb || !fb.user) return;
+        fb.db.collection('results').add({
+          uid:   fb.user.uid,
+          name:  data.name,
+          test:  data.test.slice(0, 180),
+          score: numScore,
+          ts:    fb.firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function () {
+          console.log('[IELTS Tracker] result saved to Firestore');
+        }).catch(function (err) {
+          console.warn('[IELTS Tracker] Firestore write failed:', err && err.code);
+        });
+      });
+    }
+
     if (!WEB_APP_URL) {
       console.warn('[IELTS Tracker] WEB_APP_URL is empty — set it in tracker.js to enable Google Sheets logging.');
       toast('Result saved locally (Sheets URL not set)', true);
@@ -435,7 +485,7 @@
 
   function init() {
     injectStyles();
-    ensureName();
+    ensureName().then(syncStudent);
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
