@@ -8,6 +8,14 @@
   ],
   "tests": [
     {
+      "title": "IELTS Band Calculator",
+      "category": "Tools",
+      "url": "https://pangea8.com/band-calculator/",
+      "date": "2026-07-04",
+      "difficulty": "Listening & Reading · raw→band · overall",
+      "description": "Convert a raw Listening or Reading score (out of 40) into a band, and work out your overall band from all four skills — Academic & General Training."
+    },
+    {
       "title": "CDI Reading 11",
       "category": "Reading",
       "url": "https://pangea8.com/cdi-reading-11/",
