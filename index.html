@@ -890,6 +890,7 @@ html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         state.tests = Array.isArray(data.tests) ? data.tests : [];
+        window.__p8Count = state.tests.length;
         renderPills();
         renderTotalLine();
         renderLastUpdated();
@@ -1198,7 +1199,8 @@ html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
 <script>
 function shareHub(platform) {
   var url = encodeURIComponent(window.location.href);
-  var text = encodeURIComponent("IELTS Practice Hub — 51 Listening Test, band calculator, and more. Check it out!");
+  var count = (window.__p8Count && window.__p8Count >= 10) ? (Math.floor(window.__p8Count / 10) * 10 + '+') : '100+';
+  var text = encodeURIComponent("IELTS Practice Hub — " + count + " free practice tests (Listening, Reading, Writing, Speaking), a band calculator, and more. Check it out!");
   var urlOnly = window.location.href;
   if (platform === 'telegram') {
     window.open("https://t.me/share/url?url=" + url + "&text=" + text, "_blank", "width=600,height=400");
