@@ -409,6 +409,54 @@
     } catch (e) {}
   }
 
+
+  /* ─── Full Mock cross-promo ──────────────────────────
+     Shown once per 24h, ~4s after a result is saved (high-intent moment,
+     never during a test). Dismissible, auto-hides after 30s, tiny footprint
+     on mobile and desktop. */
+  function showFullMockPromo() {
+    try {
+      if (location.pathname.indexOf('/full-mock/') === 0) return;
+      var KEY = 'p8_fm_promo_ts';
+      var last = Number(localStorage.getItem(KEY) || 0);
+      if (Date.now() - last < 24 * 60 * 60 * 1000) return;
+      localStorage.setItem(KEY, String(Date.now()));
+
+      var st = document.createElement('style');
+      st.textContent =
+        '.p8-fm-promo{position:fixed;right:16px;bottom:16px;z-index:2147483000;max-width:330px;' +
+        'background:#0f1512;color:#fafafa;border:1px solid #1f3d31;border-radius:16px;padding:16px 18px;' +
+        'box-shadow:0 12px 40px rgba(0,0,0,.45);font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:1.5;' +
+        'transform:translateY(16px);opacity:0;transition:transform .35s,opacity .35s}' +
+        '.p8-fm-promo.on{transform:none;opacity:1}' +
+        '.p8-fm-promo .tag{display:inline-block;background:#10B981;color:#04120c;font-weight:800;font-size:10px;' +
+        'letter-spacing:.08em;border-radius:6px;padding:3px 8px;margin-bottom:8px}' +
+        '.p8-fm-promo b{color:#34D399}' +
+        '.p8-fm-promo .x{position:absolute;top:8px;right:10px;background:none;border:none;color:#9ca3af;' +
+        'font-size:15px;cursor:pointer;padding:4px}' +
+        '.p8-fm-promo a.go{display:inline-block;margin-top:10px;background:linear-gradient(135deg,#0D9268,#34D399);' +
+        'color:#fff;text-decoration:none;font-weight:700;border-radius:10px;padding:9px 16px;font-size:13.5px}' +
+        '@media(max-width:600px){.p8-fm-promo{left:12px;right:12px;bottom:12px;max-width:none}}';
+      document.head.appendChild(st);
+
+      var el = document.createElement('div');
+      el.className = 'p8-fm-promo';
+      el.innerHTML =
+        '<button class="x" aria-label="Close">\u2715</button>' +
+        '<span class="tag">NEW \u00b7 FULL MOCK</span>' +
+        '<div>Ready for the real exam? <b>Listening + Reading + Writing</b> in one sitting \u2014 ' +
+        'real timers, AI-marked writing, instant IELTS-style result sheet.</div>' +
+        '<div style="margin-top:6px;color:#9ca3af;font-size:12.5px">Just <b>10 000 UZS</b> \u2014 the cheapest full mock around.</div>' +
+        '<a class="go" href="https://pangea8.com/full-mock/">Try the Full Mock \u2192</a>';
+      document.body.appendChild(el);
+      requestAnimationFrame(function () { el.classList.add('on'); });
+
+      function hide() { el.classList.remove('on'); setTimeout(function () { el.remove(); }, 400); }
+      el.querySelector('.x').addEventListener('click', hide);
+      setTimeout(hide, 30000);
+    } catch (e) {}
+  }
+
   function sendResult(testName, score) {
     var data = {
       name:  readName(),
@@ -455,6 +503,7 @@
     }
 
     confetti();
+    setTimeout(showFullMockPromo, 4000);
 
     // Show confirmation immediately — don't make the student wait on the network.
     // The write happens server-side, and a no-cors response is opaque (unreadable)

@@ -64,6 +64,7 @@
       --grain-opacity: 0.018;
 
       /* Category dot colors */
+      --cat-fullmock: #10B981;
       --cat-listening: #3B82F6;
       --cat-reading: #F59E0B;
       --cat-writing: #8B5CF6;
@@ -358,6 +359,7 @@
       flex-shrink: 0;
       background: var(--muted);
     }
+    .cat-dot[data-c="Full Mock"] { background: var(--cat-fullmock); }
     .cat-dot[data-c="Listening"] { background: var(--cat-listening); }
     .cat-dot[data-c="Reading"]   { background: var(--cat-reading); }
     .cat-dot[data-c="Writing"]   { background: var(--cat-writing); }
@@ -830,7 +832,7 @@ html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
   <script>
     'use strict';
 
-    const CATEGORIES = ['Listening', 'Reading', 'Writing', 'Speaking', 'Tools']; 
+    const CATEGORIES = ['Full Mock', 'Listening', 'Reading', 'Writing', 'Speaking', 'Tools']; 
 
     const state = {
       tests: [],
