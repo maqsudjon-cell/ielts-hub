@@ -9,12 +9,12 @@
   ],
   "tests": [
     {
-      "title": "IELTS Full Mock Exam",
+      "title": "IELTS Full Mock Exams",
       "category": "Full Mock",
       "url": "https://pangea8.com/full-mock/",
       "date": "2026-07-06",
-      "difficulty": "Listening + Reading + Writing · one sitting · ~2h 35m",
-      "description": "The real exam experience: all three papers back-to-back with strict timers, AI-marked writing and an instant IELTS-style result sheet. 10 000 UZS — the cheapest full mock around."
+      "difficulty": "5 mocks · Listening + Reading + Writing · ~2h 35m",
+      "description": "The real exam experience: five full mocks, each with all three papers back-to-back, strict timers, AI-marked writing and an instant IELTS-style result sheet. 10 000 UZS per mock — the cheapest around."
     },
     {
       "title": "IELTS Band Calculator",
