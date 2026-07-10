@@ -14,6 +14,8 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
+<link rel="canonical" href="https://flarestamina.com/ielts-hub/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"FLARESTAMINA — IELTS Practice Hub","url":"https://flarestamina.com/ielts-hub/","description":"100+ free IELTS practice tests with instant scoring: Listening, Reading, Writing, Speaking, full mocks and Cambridge 21.","isPartOf":{"@type":"WebSite","name":"FLARESTAMINA","url":"https://flarestamina.com/"}}</script>
 <script>
 // theme before paint — dark is the default identity
 (function () {
@@ -52,7 +54,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
 /* ── top bar ── */
 .bar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border)}
-.bar-in{max-width:1080px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:16px}
+.bar-in{max-width:1320px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:16px}
 .brand{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-weight:800;font-size:14px;letter-spacing:.06em;flex-shrink:0}
 .brand svg{width:20px;height:20px}
 .brand b{color:var(--accent);font-weight:800}
@@ -74,7 +76,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .install:hover{background:var(--accent);color:var(--on-accent)}
 
 /* ── layout ── */
-.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
+.wrap{max-width:1320px;margin:0 auto;padding:28px 24px 60px}
 .kick{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
 h1{font-family:var(--mono);font-size:clamp(20px,3.4vw,26px);font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
 .sub{color:var(--muted);font-size:13.5px;margin-bottom:24px}
@@ -101,9 +103,8 @@ h1{font-family:var(--mono);font-size:clamp(20px,3.4vw,26px);font-weight:700;lett
 .chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
 .chip .n{opacity:.65;margin-left:4px}
 
-/* ── grid ── */
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+/* ── grid — fills any screen width, 1→4+ columns ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.bar-in{gap:10px}.search{max-width:none}}
 .card{
   display:flex;flex-direction:column;gap:8px;min-width:0;
@@ -133,7 +134,7 @@ h1{font-family:var(--mono);font-size:clamp(20px,3.4vw,26px);font-weight:700;lett
 
 /* ── footer ── */
 footer{border-top:1px solid var(--border);margin-top:22px}
-.foot{max-width:1080px;margin:0 auto;padding:22px 20px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.foot{max-width:1320px;margin:0 auto;padding:22px 24px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
 .foot a{color:var(--muted);border-bottom:1px dotted var(--border-strong)}
 .foot a:hover{color:var(--accent);border-color:var(--accent)}
 @media(prefers-reduced-motion:no-preference){
@@ -270,7 +271,7 @@ footer{border-top:1px solid var(--border);margin-top:22px}
     var shown = 0;
     TESTS.forEach(function (t, i) {
       if (cat !== 'All' && t.category !== cat) return;
-      if (ql && (t.title + ' ' + (t.description || '')).toLowerCase().indexOf(ql) === -1) return;
+      if (ql && (t.title + ' ' + t.category + ' ' + (t.description || '')).toLowerCase().indexOf(ql) === -1) return;
       shown++;
       var a = document.createElement('a');
       a.className = 'card' + (t.category === 'Full Mock' ? ' paid' : '');
