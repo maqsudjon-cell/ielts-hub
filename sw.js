@@ -1,5 +1,5 @@
-/* Pangea8 Hub service worker — offline shell + fast repeat visits */
-const CACHE = 'pangea8-hub-v1';
+/* Flarestamina Hub service worker — offline shell + fast repeat visits */
+const CACHE = 'Flarestamina-hub-v1';
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
