@@ -1,1240 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IELTS Practice Hub</title>
-  <meta name="description" content="A curated hub of IELTS practice tests across Listening, Reading, Writing, and Speaking." />
-  <meta name="theme-color" content="#FAFAF9" />
-
-  <meta property="og:title" content="IELTS Practice Hub" />
-  <meta property="og:description" content="Curated mock tests for Listening, Reading, Writing, and Speaking." />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
-
-  <link rel="icon" href="favicon.ico" sizes="any" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-  <link rel="manifest" href="site.webmanifest" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Flarestamina" />
-
-  <script>
-    // Theme bootstrap — runs before paint to avoid flash
-    (function () {
-      try {
-        var stored = localStorage.getItem('theme');
-        var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.dataset.theme = theme;
-      } catch (e) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    })();
-  </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" />
-
-  <style>
-    /* ─────────── Reset / Base ─────────── */
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body, h1, h2, h3, p, button, input, select, figure { margin: 0; padding: 0; }
-    button { background: none; border: none; font: inherit; color: inherit; cursor: pointer; }
-    a { color: inherit; text-decoration: none; }
-
-    :root {
-      /* Light theme */
-      --bg: #FAFAF9;
-      --surface: #FFFFFF;
-      --surface-hover: #FAFAF9;
-      --text: #0A0A0A;
-      --muted: #6B7280;
-      --border: #E5E7EB;
-      --border-strong: #D4D4D8;
-      --accent: #D9480F;
-      --accent-rgb: 217, 72, 15;
-      --accent-soft: rgba(4, 120, 87, 0.08);
-      --shadow-card: 0 1px 2px rgba(10, 10, 10, 0.03);
-      --shadow-card-hover: 0 8px 24px rgba(10, 10, 10, 0.06);
-      --shadow-focus: 0 0 0 4px rgba(4, 120, 87, 0.15);
-      --grain-opacity: 0.018;
-
-      /* Category dot colors */
-      --cat-fullmock: #10B981;
-      --cat-listening: #3B82F6;
-      --cat-reading: #F59E0B;
-      --cat-writing: #8B5CF6;
-      --cat-speaking: #EC4899;
-
-      /* Motion */
-      --ease: cubic-bezier(0.4, 0, 0.2, 1);
-      --t-fast: 150ms;
-      --t-base: 200ms;
-    }
-
-    [data-theme="dark"] {
-      --bg: #0A0A0A;
-      --surface: #111111;
-      --surface-hover: #161616;
-      --text: #FAFAFA;
-      --muted: #A1A1AA;
-      --border: #1F1F1F;
-      --border-strong: #2A2A2A;
-      --accent: #FF5A1F;
-      --accent-rgb: 255, 90, 31;
-      --accent-soft: rgba(16, 185, 129, 0.12);
-      --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
-      --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
-      --shadow-focus: 0 0 0 4px rgba(16, 185, 129, 0.25);
-      --grain-opacity: 0.025;
-    }
-
-    html { color-scheme: light dark; overflow-x: hidden; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
-      min-height: 100vh;
-      font-feature-settings: 'cv11', 'ss01';
-    }
-
-    code, .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; }
-
-    /* ─────────── Grain Texture ─────────── */
-    .grain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 100;
-      opacity: var(--grain-opacity);
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-      mix-blend-mode: overlay;
-    }
-
-    /* ─────────── Container ─────────── */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 24px 64px;
-    }
-    @media (min-width: 768px) {
-      .container { padding: 80px 48px 96px; }
-    }
-
-    /* ─────────── Hero ─────────── */
-    .hero {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 48px;
-    }
-    .hero-text { flex: 1; min-width: 0; }
-    .kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 11px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      font-feature-settings: 'tnum';
-    }
-    .kicker::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-    h1 {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      color: var(--text);
-    }
-    @media (min-width: 768px) {
-      h1 { font-size: 48px; }
-    }
-    .subtitle {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 560px;
-    }
-
-    /* ─────────── Theme Toggle ─────────── */
-    .theme-toggle {
-      flex-shrink: 0;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text);
-      transition: all var(--t-base) var(--ease);
-    }
-    .theme-toggle:hover { border-color: var(--border-strong); transform: translateY(-1px); }
-    .theme-toggle:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
-    .theme-toggle svg { width: 18px; height: 18px; transition: transform var(--t-base) var(--ease), opacity var(--t-fast); }
-    .theme-toggle .sun { display: none; }
-    .theme-toggle .moon { display: block; }
-    [data-theme="dark"] .theme-toggle .sun { display: block; }
-    [data-theme="dark"] .theme-toggle .moon { display: none; }
-
-    /* ─────────── Search ─────────── */
-    .search-wrap {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    .search-wrap > svg {
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
-      color: var(--muted);
-      pointer-events: none;
-    }
-    .search-wrap input {
-      width: 100%;
-      height: 56px;
-      padding: 0 18px 0 48px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--surface);
-      color: var(--text);
-      font: 15px/1.5 'Inter', sans-serif;
-      outline: none;
-      transition: border-color var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease), background-color var(--t-base) var(--ease);
-    }
-    .search-wrap input::placeholder { color: var(--muted); }
-    .search-wrap input:focus { border-color: var(--accent); box-shadow: var(--shadow-focus); }
-
-    /* ─────────── Controls Row ─────────── */
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 12px;
-    }
-    .pills {
-      display: flex;
-      gap: 8px;
-      flex: 1;
-      min-width: 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding-bottom: 2px;
-      mask-image: linear-gradient(to right, black 0, black calc(100% - 24px), transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, black 0, black calc(100% - 24px), transparent 100%);
-    }
-    @media (min-width: 768px) {
-      .pills { mask-image: none; -webkit-mask-image: none; }
-    }
-    .pills::-webkit-scrollbar { display: none; }
-
-    .pill {
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      height: 36px;
-      padding: 0 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 500;
-      transition: all var(--t-base) var(--ease);
-      white-space: nowrap;
-    }
-    .pill:hover { border-color: var(--border-strong); }
-    .pill:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
-    .pill.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-    [data-theme="dark"] .pill.active { color: #0A0A0A; font-weight: 600; }
-    .pill-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 20px;
-      height: 20px;
-      padding: 0 6px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 600;
-      font-feature-settings: 'tnum';
-    }
-    .pill.active .pill-count {
-      background: rgba(255, 255, 255, 0.22);
-      color: #fff;
-    }
-    [data-theme="dark"] .pill.active .pill-count {
-      background: rgba(10, 10, 10, 0.18);
-      color: #0A0A0A;
-    }
-
-    .sort-wrap {
-      position: relative;
-      flex-shrink: 0;
-    }
-    .sort-wrap select {
-      appearance: none;
-      -webkit-appearance: none;
-      height: 36px;
-      padding: 0 34px 0 14px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--surface);
-      color: var(--text);
-      font: 500 13px 'Inter', sans-serif;
-      transition: all var(--t-base) var(--ease);
-    }
-    .sort-wrap select:hover { border-color: var(--border-strong); }
-    .sort-wrap select:focus-visible { outline: none; box-shadow: var(--shadow-focus); border-color: var(--accent); }
-    .sort-wrap .chev {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 14px;
-      height: 14px;
-      color: var(--muted);
-      pointer-events: none;
-    }
-
-    /* ─────────── Total Line ─────────── */
-    .total-line {
-      margin: 16px 0 28px;
-      font-size: 13px;
-      color: var(--muted);
-      font-feature-settings: 'tnum';
-    }
-    .total-line strong { color: var(--text); font-weight: 600; }
-
-    /* ─────────── Category Sections ─────────── */
-    .category-section { margin-bottom: 40px; }
-    .category-section:last-child { margin-bottom: 0; }
-
-    .category-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-bottom: 14px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-    }
-    .cat-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      background: var(--muted);
-    }
-    .cat-dot[data-c="Full Mock"] { background: var(--cat-fullmock); }
-    .cat-dot[data-c="Listening"] { background: var(--cat-listening); }
-    .cat-dot[data-c="Reading"]   { background: var(--cat-reading); }
-    .cat-dot[data-c="Writing"]   { background: var(--cat-writing); }
-    .cat-dot[data-c="Speaking"]  { background: var(--cat-speaking); }
-    .cat-dot[data-c="Tools"]     { background: var(--cat-tools); }
-    :root {
-      --cat-tools: #8b5cf6;
-    }
-    .category-header h2 {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--text);
-    }
-    .category-header .cat-count {
-      margin-left: 4px;
-      font-size: 13px;
-      color: var(--muted);
-      font-feature-settings: 'tnum';
-    }
-
-    /* ─────────── Cards Grid ─────────── */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-    @media (min-width: 640px)  { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
-
-    .card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      padding: 24px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: var(--shadow-card);
-      transition: transform var(--t-base) var(--ease),
-                  border-color var(--t-base) var(--ease),
-                  box-shadow var(--t-base) var(--ease),
-                  background-color var(--t-base) var(--ease);
-      min-height: 168px;
-
-      opacity: 0;
-      transform: translateY(8px);
-      animation: card-in 480ms var(--ease) forwards;
-      animation-delay: calc(var(--i, 0) * 45ms);
-    }
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(var(--accent-rgb), 0.35);
-      box-shadow: var(--shadow-card-hover);
-    }
-    .card:active { transform: scale(0.985) translateY(0); transition-duration: 80ms; }
-    .card:focus-visible { outline: none; box-shadow: var(--shadow-focus); border-color: var(--accent); }
-
-    @keyframes card-in {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .card { animation: none; opacity: 1; transform: none; }
-      * { transition-duration: 0.01ms !important; }
-    }
-    /* When switching categories, fade in instantly on mobile */
-    @media (max-width: 640px) {
-      .card { animation-duration: 200ms; animation-delay: 0ms !important; }
-
-      /* stack the hero on phones: buttons row on top, full-width text below
-         (otherwise the pills squeeze the title into one word per line) */
-      .hero { flex-wrap: wrap; row-gap: 18px; }
-      .hero-text { flex: 1 1 100%; order: 2; }
-      .results-link, .install-btn, .theme-toggle { order: 1; }
-      .results-link { margin-right: auto; }
-    }
-
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .card-cat {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 4px 10px 4px 9px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-    }
-    .card-cat .cat-dot { width: 7px; height: 7px; }
-
-    .card-arrow {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      transition: transform var(--t-base) var(--ease), color var(--t-base) var(--ease), background-color var(--t-base) var(--ease);
-      flex-shrink: 0;
-      margin: -6px -6px 0 0;
-    }
-    .card-arrow svg { width: 16px; height: 16px; transition: transform var(--t-base) var(--ease); }
-    .card:hover .card-arrow { color: var(--accent); background: var(--accent-soft); }
-    .card:hover .card-arrow svg { transform: translate(2px, -2px); }
-
-    .card-title {
-      font-size: 17px;
-      font-weight: 600;
-      line-height: 1.35;
-      letter-spacing: -0.01em;
-      color: var(--text);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      word-break: break-word;
-    }
-
-    .card-footer {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px 12px;
-      padding-top: 6px;
-      min-width: 0;
-    }
-    .card-date {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--muted);
-      font-feature-settings: 'tnum';
-      flex-shrink: 0;
-      min-width: 0;
-      white-space: nowrap;
-    }
-    .card-date svg { width: 13px; height: 13px; }
-    /* NEW badge (tests added in the last 14 days) */
-    .badge-new {
-      display: inline-flex;
-      align-items: center;
-      margin-left: 8px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      vertical-align: 2px;
-    }
-
-    /* Done badge (student already took this test — from local history) */
-    .badge-done {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      background: transparent;
-      font-size: 11px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    /* Install-app button (shown only when the browser offers install) */
-    .install-btn {
-      display: none;
-      align-items: center;
-      gap: 7px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font: inherit;
-      font-size: 13.5px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: border-color var(--t-fast), transform var(--t-fast);
-    }
-    .install-btn.show { display: inline-flex; }
-    .install-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
-
-    /* "My results" pill link in the hero */
-    .results-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      text-decoration: none;
-      font-size: 13.5px;
-      font-weight: 600;
-      transition: border-color var(--t-fast), transform var(--t-fast);
-    }
-    .results-link:hover { border-color: var(--accent); transform: translateY(-1px); }
-
-    /* per-category done counter */
-    .cat-done {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-
-    /* brand display font for headings (matches the landing page) */
-    h1, .category-header h2 { font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif; }
-
-    .difficulty {
-      display: inline-flex;
-      align-items: center;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      /* allow long labels (e.g. Speaking blurb) to wrap instead of
-         forcing horizontal overflow / iOS zoom-shake */
-      white-space: normal;
-      overflow-wrap: anywhere;
-      word-break: break-word;
-      max-width: 100%;
-      min-width: 0;
-      text-align: right;
-      line-height: 1.4;
-    }
-
-    /* ─────────── Empty State ─────────── */
-    .empty {
-      text-align: center;
-      padding: 64px 24px;
-      background: var(--surface);
-      border: 1px dashed var(--border);
-      border-radius: 16px;
-    }
-    .empty-icon {
-      width: 56px;
-      height: 56px;
-      margin: 0 auto 16px;
-      border-radius: 16px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .empty-icon svg { width: 26px; height: 26px; }
-    .empty h3 {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-    .empty p { color: var(--muted); font-size: 14px; }
-    .empty p code { background: var(--bg); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border); }
-
-    /* ─────────── Loading ─────────── */
-    .loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 48px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .loading .spinner {
-      width: 14px;
-      height: 14px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ─────────── Footer ─────────── */
-    .page-footer {
-      margin-top: 72px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      font-size: 13px;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .page-footer .sep { opacity: 0.5; }
-    .credit { font-size: 13px; }
-    .share-mini {
-      display: inline-flex;
-      align-items: center;
-      gap: 2px;
-    }
-    .share-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-right: 4px;
-    }
-    .share-mini-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.15s;
-      padding: 0;
-    }
-    .share-mini-btn:hover {
-      background: var(--surface-hover);
-      color: var(--text);
-    }
-
-    /* ─────────── Misc ─────────── */
-    ::selection { background: var(--accent-soft); color: var(--accent); }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLARESTAMINA — IELTS Practice Hub</title>
+<meta name="description" content="Free IELTS practice: 100+ listening and reading tests, Cambridge 21, full mocks, speaking and writing labs. One account, every tool.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="FLARESTAMINA — IELTS Practice Hub">
+<meta property="og:description" content="100+ free IELTS tests with instant scoring. One account, every tool.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://flarestamina.com/og-image.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<script>
+// theme before paint — dark is the default identity
+(function () {
+  try {
+    var t = localStorage.getItem('theme') || 'dark';
+    document.documentElement.dataset.theme = t;
+  } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap">
 <style>
-#pg-loader{
-  position:fixed;inset:0;z-index:99999;display:grid;place-items:center;align-content:center;gap:24px;
-  background:var(--bg,#FAFAF9);transition:opacity .6s ease,visibility .6s ease;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000; --surface:#0A0A0A; --card:#0D0D0D;
+  --border:#232323; --border-strong:#3a3a3a;
+  --text:#EDEDED; --muted:#8A8A8A; --faint:#555;
+  --accent:#FF5A1F; --on-accent:#180702;
+  --red:#D71921;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
 }
-#pg-loader.pg-hide{opacity:0;visibility:hidden;pointer-events:none}
-#pg-loader .pg-mark{width:104px;height:104px}
-#pg-loader svg{width:100%;height:100%;overflow:visible}
-#pg-loader .pg-spark{transform-box:view-box;transform-origin:100px 100px;animation:pgL-spin 2.4s linear infinite}
-#pg-loader .pg-ray{
-  stroke:#FF5A1F;stroke-width:13;stroke-linecap:round;
-  filter:drop-shadow(0 0 3px rgba(255,90,31,.7)) drop-shadow(0 0 9px rgba(255,90,31,.4));
-  transform-box:view-box;transform-origin:100px 100px;
-  animation:pgL-twinkle 2.4s ease-in-out infinite;animation-delay:calc(var(--i) * -0.3s);
+html[data-theme="light"]{
+  --bg:#FAFAF9; --surface:#FFF; --card:#FFF;
+  --border:#E5E5E3; --border-strong:#CFCFCC;
+  --text:#111; --muted:#666; --faint:#999;
+  --accent:#D9480F; --on-accent:#FFF;
 }
-#pg-loader .pg-word{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:20px;letter-spacing:.5px;color:var(--text-primary,#1a1a1a)}
-#pg-loader .pg-word b{color:#FF5A1F}
-@keyframes pgL-spin{to{transform:rotate(360deg)}}
-@keyframes pgL-twinkle{
-  0%,100%{transform:scale(.74);stroke:#FF5A1F;filter:drop-shadow(0 0 3px rgba(255,90,31,.7)) drop-shadow(0 0 9px rgba(255,90,31,.4))}
-  50%{transform:scale(1);stroke:#FFB38A;filter:drop-shadow(0 0 5px #FFB38A) drop-shadow(0 0 16px rgba(255,90,31,.6))}
+html{scrollbar-color:var(--border-strong) var(--bg)}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+::selection{background:var(--accent);color:var(--on-accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* ── top bar ── */
+.bar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border)}
+.bar-in{max-width:1080px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-weight:800;font-size:14px;letter-spacing:.06em;flex-shrink:0}
+.brand svg{width:20px;height:20px}
+.brand b{color:var(--accent);font-weight:800}
+.search{flex:1;max-width:340px;margin-left:auto}
+.search input{
+  width:100%;height:34px;padding:0 12px;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);font-family:var(--mono);font-size:12.5px;outline:none;
 }
-html[data-theme="light"] #pg-loader{background:#FAFAF9}
-html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
-@media(prefers-reduced-motion:reduce){
-  #pg-loader .pg-spark,#pg-loader .pg-ray{animation:none}#pg-loader .pg-ray{transform:scale(.92)}
+.search input:focus{border-color:var(--accent)}
+.search input::placeholder{color:var(--faint)}
+.acct{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.acct b{color:var(--text);font-weight:500}
+.acct:hover b{color:var(--accent)}
+.tgl{font-size:14px;color:var(--muted);padding:4px 6px}
+.tgl:hover{color:var(--text)}
+.install{display:none;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:5px 11px;white-space:nowrap}
+.install.on{display:inline-block}
+.install:hover{background:var(--accent);color:var(--on-accent)}
+
+/* ── layout ── */
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
+.kick{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{font-family:var(--mono);font-size:clamp(20px,3.4vw,26px);font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.sub{color:var(--muted);font-size:13.5px;margin-bottom:24px}
+
+/* ── continue strip ── */
+.cont{
+  display:none;align-items:baseline;gap:10px;flex-wrap:wrap;
+  border:1px solid var(--border);border-left:2px solid var(--accent);border-radius:10px;
+  padding:12px 16px;margin-bottom:26px;font-family:var(--mono);font-size:12.5px;
+}
+.cont.on{display:flex}
+.cont .lbl{color:var(--accent);font-weight:700;letter-spacing:.1em}
+.cont a{font-weight:500;border-bottom:1px solid var(--border-strong)}
+.cont a:hover{color:var(--accent);border-color:var(--accent)}
+.cont .st{color:var(--muted)}
+
+/* ── filter chips ── */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  padding:7px 13px;border:1px solid var(--border);border-radius:999px;color:var(--muted);
+}
+.chip:hover{border-color:var(--border-strong);color:var(--text)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.chip .n{opacity:.65;margin-left:4px}
+
+/* ── grid ── */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.bar-in{gap:10px}.search{max-width:none}}
+.card{
+  display:flex;flex-direction:column;gap:8px;min-width:0;
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:16px 16px 14px;min-height:150px;
+}
+.card:hover{border-color:var(--border-strong)}
+.card:hover .ttl{color:var(--accent)}
+.card.paid{border-color:var(--accent)}
+.chead{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:11px}
+.num{color:var(--faint)}
+.cat{color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.card.paid .cat{color:var(--accent);font-weight:700}
+.ttl{font-size:15px;font-weight:600;line-height:1.35}
+.desc{
+  color:var(--muted);font-size:12.5px;line-height:1.55;flex:1;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.desc:empty{display:none}
+.card:has(.desc:empty){min-height:0}
+.cfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--faint);border-top:1px solid var(--border);padding-top:10px;min-width:0}
+.diff{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chead{min-width:0}
+.chead .cat{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.done{color:#22C55E;font-weight:700;white-space:nowrap}
+.empty{color:var(--muted);font-family:var(--mono);font-size:13px;padding:40px 0;text-align:center;display:none}
+
+/* ── footer ── */
+footer{border-top:1px solid var(--border);margin-top:22px}
+.foot{max-width:1080px;margin:0 auto;padding:22px 20px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.foot a{color:var(--muted);border-bottom:1px dotted var(--border-strong)}
+.foot a:hover{color:var(--accent);border-color:var(--accent)}
+@media(prefers-reduced-motion:no-preference){
+  .card,.chip,.ttl{transition:border-color .15s ease,color .15s ease,background .15s ease}
 }
 </style>
 </head>
 <body>
-<div id="pg-loader" role="status" aria-label="Loading Flarestamina">
-  <div class="pg-mark">
-    <svg viewBox="0 0 200 200" aria-hidden="true">
-      <g class="pg-spark"><line class="pg-ray" style="--i:0" x1="100" y1="82.5" x2="100" y2="26.5"/><line class="pg-ray" style="--i:1" x1="117.5" y1="100" x2="166.5" y2="100"/><line class="pg-ray" style="--i:2" x1="100" y1="117.5" x2="100" y2="149"/><line class="pg-ray" style="--i:3" x1="82.5" y1="100" x2="44" y2="100"/></g>
-    </svg>
-  </div>
-  <div class="pg-word"><b>FLARE</b>STAMINA</div>
-</div>
-  <div class="grain" aria-hidden="true"></div>
 
-  <div class="container">
-    <header class="hero">
-      <div class="hero-text">
-        <span class="kicker">IELTS · Practice</span>
-        <h1>IELTS Practice Hub</h1>
-        <p class="subtitle">Curated mock tests &amp; tools for IELTS practice — Listening, Reading, Writing, Speaking, and more.</p>
-      </div>
-
-      <a class="results-link" href="results.html" aria-label="My results">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-        My results
-      </a>
-
-      <button class="install-btn" id="installBtn" type="button" aria-label="Install app">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Install app
-      </button>
-
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
-        </svg>
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
-    </header>
-
-    <div class="search-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+<nav class="bar" aria-label="Site">
+  <div class="bar-in">
+    <a class="brand" href="https://flarestamina.com/" aria-label="FLARESTAMINA home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+        <path d="M12 9.5V1.5"/><path d="M14.5 12h7"/><path d="M12 14.5V19"/><path d="M9.5 12H4"/>
       </svg>
-      <input type="text" id="search" placeholder="Search tests by title…" autocomplete="off" aria-label="Search tests by title" />
-    </div>
+      <span><b>FLARE</b>STAMINA</span>
+    </a>
+    <div class="search"><input id="q" type="search" placeholder="search tests…" aria-label="Search tests"></div>
+    <button class="install" id="installBtn" aria-label="Install as app">⤓ app</button>
+    <a class="acct" id="acct" href="https://flarestamina.com/account/">account</a>
+    <button class="tgl" id="tgl" aria-label="Toggle theme">◐</button>
+  </div>
+</nav>
 
-    <div class="controls">
-      <div class="pills" id="pills" role="tablist" aria-label="Filter by category"></div>
+<main class="wrap">
+  <div class="kick">Practice Hub</div>
+  <h1 id="count">— tests</h1>
+  <p class="sub">Free IELTS practice with instant scoring. One account — every result saved.</p>
 
-      <div class="sort-wrap">
-        <select id="sort" aria-label="Sort tests">
-          <option value="newest">Newest first</option>
-          <option value="oldest">Oldest first</option>
-          <option value="az">A → Z</option>
-        </select>
-        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </div>
-    </div>
-
-    <div class="total-line" id="totalLine"></div>
-
-    <main id="content">
-      <div class="loading"><div class="spinner"></div> Loading tests…</div>
-    </main>
-
-    <footer class="page-footer">
-      <span id="lastUpdated"></span>
-      <span class="sep" id="sep" hidden>·</span>
-      <span class="credit">Made by Maqsudjon</span>
-      <span class="sep">·</span>
-      <div class="share-mini">
-        <span class="share-label">Share</span>
-        <button class="share-mini-btn" onclick="shareHub('telegram')" title="Telegram" aria-label="Share on Telegram">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        </button>
-        <button class="share-mini-btn" onclick="shareHub('x')" title="X (Twitter)" aria-label="Share on X">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </button>
-        <button class="share-mini-btn" onclick="shareHub('copy')" title="Copy link" aria-label="Copy link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-        </button>
-      </div>
-    </footer>
+  <div class="cont" id="cont" aria-label="Continue where you left off">
+    <span class="lbl">▸ CONTINUE</span>
+    <a id="contLink" href="#"></a>
+    <span class="st" id="contStat"></span>
   </div>
 
-  <script>
-    'use strict';
+  <div class="chips" id="chips" role="tablist" aria-label="Categories"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">no tests match — clear the search or pick another category</div>
+</main>
 
-    const CATEGORIES = ['Full Mock', 'Cambridge', 'Listening', 'Reading', 'Writing', 'Speaking', 'Tools'];
+<footer>
+  <div class="foot">
+    <span>© <span id="yy"></span> FLARESTAMINA</span>
+    <span>
+      <a href="https://flarestamina.com/">home</a> ·
+      <a href="https://flarestamina.com/ielts-hub/results.html">my results</a> ·
+      <a href="https://t.me/mrbmp13" target="_blank" rel="noopener">telegram</a>
+    </span>
+  </div>
+</footer>
 
-    const state = {
-      tests: [],
-      activeCategory: 'All',
-      search: '',
-      sort: 'newest'
-    };
-
-    // ─────────── Theme ───────────
-    const themeToggle = document.getElementById('themeToggle');
-    function applyTheme(theme) {
-      document.documentElement.dataset.theme = theme;
-      try { localStorage.setItem('theme', theme); } catch (e) {}
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', theme === 'dark' ? '#0A0A0A' : '#FAFAF9');
-    }
-    themeToggle.addEventListener('click', () => {
-      const cur = document.documentElement.dataset.theme || 'light';
-      applyTheme(cur === 'dark' ? 'light' : 'dark');
-    });
-
-    // ─────────── Utils ───────────
-    function escapeHtml(str) {
-      const div = document.createElement('div');
-      div.textContent = str == null ? '' : String(str);
-      return div.innerHTML;
-    }
-    function formatDate(iso) {
-      if (!iso) return '';
-      const d = new Date(iso + 'T00:00:00');
-      if (isNaN(d)) return iso;
-      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
-    }
-    function debounce(fn, ms) {
-      let t;
-      return function () {
-        const args = arguments;
-        clearTimeout(t);
-        t = setTimeout(() => fn.apply(null, args), ms);
-      };
-    }
-
-    const ICON_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>';
-    const ICON_CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>';
-
-    function warningSvg() {
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>';
-    }
-    function searchSvg() {
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
-    }
-
-    // ─────────── Data ───────────
-    async function loadData() {
-      try {
-        const res = await fetch('tests.json?t=' + Date.now(), { cache: 'no-store' });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        state.tests = Array.isArray(data.tests) ? data.tests : [];
-        window.__p8Count = state.tests.length;
-        renderPills();
-        renderTotalLine();
-        renderLastUpdated();
-        render();
-      } catch (err) {
-        document.getElementById('content').innerHTML =
-          '<div class="empty"><div class="empty-icon">' + warningSvg() + '</div>' +
-          '<h3>Could not load tests</h3>' +
-          '<p>Check that <code class="mono">tests.json</code> is reachable. (' + escapeHtml(err.message) + ')</p></div>';
-      } finally {
-        if (window.pangeaLoader) window.pangeaLoader.hide();
-      }
-    }
-
-    // ─────────── Filtering / Sorting ───────────
-    function getFiltered() {
-      const q = state.search.toLowerCase().trim();
-      let arr = state.tests.filter(t => {
-        const cMatch = state.activeCategory === 'All' || t.category === state.activeCategory;
-        const sMatch = !q || String(t.title || '').toLowerCase().includes(q);
-        return cMatch && sMatch;
-      });
-      const sort = state.sort;
-      arr.sort((a, b) => {
-        if (sort === 'az') {
-          return String(a.title || '').localeCompare(String(b.title || ''));
-        }
-        const da = a.date || '';
-        const db = b.date || '';
-        if (sort === 'oldest') return da.localeCompare(db) || extractNum(a.title) - extractNum(b.title);
-        return db.localeCompare(da) || extractNum(b.title) - extractNum(a.title);
-      });
-      return arr;
-    }
-    function extractNum(t) {
-      var m = (t || '').match(/\d+/);
-      return m ? parseInt(m[0], 10) : 0;
-    }
-
-    function countByCategory(cat) {
-      const q = state.search.toLowerCase().trim();
-      return state.tests.filter(t => {
-        const sMatch = !q || String(t.title || '').toLowerCase().includes(q);
-        return sMatch && (cat === 'All' || t.category === cat);
-      }).length;
-    }
-
-    // ─────────── Render ───────────
-    function renderPills() {
-      const all = ['All', ...CATEGORIES];
-      const pills = document.getElementById('pills');
-      pills.innerHTML = all.map(cat => {
-        const count = countByCategory(cat);
-        const isActive = cat === state.activeCategory;
-        return (
-          '<button class="pill' + (isActive ? ' active' : '') + '" role="tab" aria-selected="' + isActive + '" data-cat="' + escapeHtml(cat) + '">' +
-            escapeHtml(cat) +
-            '<span class="pill-count">' + count + '</span>' +
-          '</button>'
-        );
-      }).join('');
-    }
-
-    // Event delegation: only register once, outside renderPills
-    function onPillClick(e) {
-      const btn = e.target.closest('.pill');
-      if (!btn) return;
-      const cat = btn.dataset.cat;
-      if (cat === state.activeCategory) return;
-      state.activeCategory = cat;
-      renderPills();
-      render();
-    }
-
-    function renderTotalLine() {
-      const total = state.tests.length;
-      const el = document.getElementById('totalLine');
-      el.innerHTML = '<strong>' + total + '</strong> ' + (total === 1 ? 'test' : 'tests') + ' available';
-    }
-
-    function renderLastUpdated() {
-      const el = document.getElementById('lastUpdated');
-      const sep = document.getElementById('sep');
-      const dates = state.tests.map(t => t.date).filter(Boolean).sort();
-      const last = dates[dates.length - 1];
-      if (last) {
-        el.textContent = 'Last updated ' + formatDate(last);
-        sep.hidden = false;
-      } else {
-        el.textContent = '';
-        sep.hidden = true;
-      }
-    }
-
-    const NEW_DAYS = 14;
-    function isNew(t) {
-      if (!t.date) return false;
-      const d = new Date(t.date + 'T00:00:00');
-      return !isNaN(d) && (Date.now() - d.getTime()) < NEW_DAYS * 86400000;
-    }
-
-    /* Local practice history written by tracker.js (same origin now). */
-    function resultKeyFromUrl(u) {
-      try {
-        const p = new URL(u, location.href).pathname;
-        return p.endsWith('.html') ? p : (p.split('/').filter(Boolean)[0] || p);
-      } catch (e) { return u; }
-    }
-    const myResults = (function () {
-      const map = {};
-      try {
-        (JSON.parse(localStorage.getItem('p8_results') || '[]')).forEach(function (r) {
-          if (!r || !r.href) return;
-          const k = resultKeyFromUrl(r.href);
-          const s = parseFloat(r.score);
-          if (!map[k]) map[k] = { best: null, count: 0, last: '' };
-          map[k].count++;
-          if (r.date && r.date > map[k].last) map[k].last = r.date;
-          if (!isNaN(s) && (map[k].best === null || s > map[k].best)) map[k].best = s;
-        });
-      } catch (e) {}
-      return map;
-    })();
-
-    function buildCard(t, index) {
-      const cat = t.category || '';
-      const diff = t.difficulty ? '<span class="difficulty">' + escapeHtml(t.difficulty) + '</span>' : '';
-      const dateRow = t.date
-        ? '<span class="card-date">' + ICON_CAL + escapeHtml(formatDate(t.date)) + '</span>'
-        : '<span class="card-date"></span>';
-      const newBadge = isNew(t) ? '<span class="badge-new">NEW</span>' : '';
-      const mine = myResults[resultKeyFromUrl(t.url || '')];
-      const doneBadge = mine
-        ? '<span class="badge-done" title="Your best result on this device">✓ ' +
-          (mine.best !== null ? 'Best ' + escapeHtml(String(mine.best)) : 'Done') +
-          (mine.count > 1 ? ' · ' + mine.count + '×' : '') + '</span>'
-        : '';
-      return (
-        '<a class="card" href="' + escapeHtml(t.url || '#') + '" target="_blank" rel="noopener noreferrer" style="--i:' + index + '">' +
-          '<div class="card-top">' +
-            '<span class="card-cat"><span class="cat-dot" data-c="' + escapeHtml(cat) + '"></span>' + escapeHtml(cat) + '</span>' +
-            '<span class="card-arrow">' + ICON_ARROW + '</span>' +
-          '</div>' +
-          '<div class="card-title">' + escapeHtml(t.title || 'Untitled') + newBadge + '</div>' +
-          '<div class="card-footer">' + dateRow + doneBadge + diff + '</div>' +
-        '</a>'
-      );
-    }
-
-    function render() {
-      const content = document.getElementById('content');
-      const filtered = getFiltered();
-
-      if (filtered.length === 0) {
-        const reason = state.search
-          ? 'No tests match <strong>' + escapeHtml('"' + state.search + '"') + '</strong>'
-          : (state.activeCategory === 'All'
-              ? 'No tests yet — add one by editing <code class="mono">tests.json</code>.'
-              : 'No tests in <strong>' + escapeHtml(state.activeCategory) + '</strong> yet.');
-        content.innerHTML =
-          '<div class="empty">' +
-            '<div class="empty-icon">' + searchSvg() + '</div>' +
-            '<h3>Nothing here</h3>' +
-            '<p>' + reason + '</p>' +
-          '</div>';
-        return;
-      }
-
-      const groups = state.activeCategory === 'All'
-        ? CATEGORIES.map(cat => ({ cat, items: filtered.filter(t => t.category === cat) }))
-        : [{ cat: state.activeCategory, items: filtered }];
-
-      let idx = 0;
-      let html = '';
-
-      // "Continue practising" — the student's most recent tests (local history)
-      if (state.activeCategory === 'All' && !state.search.trim()) {
-        const recent = state.tests
-          .map(t => ({ t, r: myResults[resultKeyFromUrl(t.url || '')] }))
-          .filter(x => x.r && x.r.last)
-          .sort((a, b) => b.r.last.localeCompare(a.r.last))
-          .slice(0, 3);
-        if (recent.length) {
-          html +=
-            '<section class="category-section">' +
-              '<div class="category-header">' +
-                '<span class="cat-dot" style="background:var(--accent)"></span>' +
-                '<h2>Continue practising</h2>' +
-                '<span class="cat-count">' + recent.length + '</span>' +
-              '</div>' +
-              '<div class="cards-grid">' +
-                recent.map(x => buildCard(x.t, idx++)).join('') +
-              '</div>' +
-            '</section>';
-        }
-      }
-
-      for (const g of groups) {
-        if (g.items.length === 0) continue;
-        const done = g.items.filter(t => myResults[resultKeyFromUrl(t.url || '')]).length;
-        html +=
-          '<section class="category-section">' +
-            '<div class="category-header">' +
-              '<span class="cat-dot" data-c="' + escapeHtml(g.cat) + '"></span>' +
-              '<h2>' + escapeHtml(g.cat) + '</h2>' +
-              '<span class="cat-count">' + g.items.length + '</span>' +
-              (done ? '<span class="cat-done">✓ ' + done + ' done</span>' : '') +
-            '</div>' +
-            '<div class="cards-grid">' +
-              g.items.map(t => buildCard(t, idx++)).join('') +
-            '</div>' +
-          '</section>';
-      }
-
-      // Defensive: surface tests with unknown categories
-      if (state.activeCategory === 'All') {
-        const extras = filtered.filter(t => !CATEGORIES.includes(t.category));
-        if (extras.length > 0) {
-          html +=
-            '<section class="category-section">' +
-              '<div class="category-header">' +
-                '<span class="cat-dot"></span>' +
-                '<h2>Other</h2>' +
-                '<span class="cat-count">' + extras.length + '</span>' +
-              '</div>' +
-              '<div class="cards-grid">' +
-                extras.map(t => buildCard(t, idx++)).join('') +
-              '</div>' +
-            '</section>';
-        }
-      }
-
-      content.innerHTML = html;
-
-      // Re-stripe card animation delays smoothly - only if cards exist
-      const cards = content.querySelectorAll('.card');
-      if (cards.length > 0) {
-        requestAnimationFrame(() => {
-          cards.forEach((card, i) => card.style.setProperty('--i', i));
-        });
-      }
-    }
-
-    // ─────────── Events ───────────
-    // Register pill click delegation once
-    document.getElementById('pills').addEventListener('click', onPillClick);
-
-    const searchInput = document.getElementById('search');
-    const onSearch = debounce(value => {
-      state.search = value;
-      renderPills();
-      render();
-    }, 200); // slightly longer debounce to avoid flicker on slow devices
-
-    searchInput.addEventListener('input', e => {
-      const val = e.target.value;
-      // Immediately update the pill counts visually
-      const pills = document.querySelectorAll('.pill');
-      pills.forEach(btn => {
-        const cat = btn.dataset.cat;
-        const count = countByCategoryFast(cat, val);
-        const countEl = btn.querySelector('.pill-count');
-        if (countEl) countEl.textContent = count;
-      });
-      onSearch(val);
-    });
-
-    // Fast count helper for instant pill update
-    function countByCategoryFast(cat, searchVal) {
-      const q = searchVal.toLowerCase().trim();
-      return state.tests.filter(t => {
-        const sMatch = !q || String(t.title || '').toLowerCase().includes(q);
-        return sMatch && (cat === 'All' || t.category === cat);
-      }).length;
-    }
-
-    document.getElementById('sort').addEventListener('change', e => {
-      state.sort = e.target.value;
-      render();
-    });
-
-    applyTheme(document.documentElement.dataset.theme || 'light');
-    // ─────────── Flarestamina loader ───────────
-    (function(){
-      var el = document.getElementById('pg-loader');
-      if(!el){ window.pangeaLoader = {show:function(){},hide:function(){}}; return; }
-      var start = Date.now(), MIN = 600, hidden = false;
-      function hide(){
-        if(hidden) return; hidden = true;
-        var wait = Math.max(0, MIN - (Date.now() - start));
-        setTimeout(function(){
-          el.classList.add('pg-hide');
-          setTimeout(function(){ el.style.display = 'none'; }, 600);
-        }, wait);
-      }
-      function show(){ hidden = false; el.style.display = 'grid'; el.style.visibility = 'visible'; el.classList.remove('pg-hide'); start = Date.now(); }
-      window.pangeaLoader = { show:show, hide:hide };
-      setTimeout(hide, 8000); // safety
-    })();
-
-    loadData();
-  </script>
-
-  <!-- Contact / Telegram footer (auto-injected, same script used on test pages) -->
-  <script src="js/footer.js" defer></script>
+<script src="https://flarestamina.com/assets/fs-auth.js"></script>
 <script>
-function shareHub(platform) {
-  var url = encodeURIComponent(window.location.href);
-  var count = (window.__p8Count && window.__p8Count >= 10) ? (Math.floor(window.__p8Count / 10) * 10 + '+') : '100+';
-  var text = encodeURIComponent("IELTS Practice Hub — " + count + " free practice tests (Listening, Reading, Writing, Speaking), a band calculator, and more. Check it out!");
-  var urlOnly = window.location.href;
-  if (platform === 'telegram') {
-    window.open("https://t.me/share/url?url=" + url + "&text=" + text, "_blank", "width=600,height=400");
-  } else if (platform === 'x') {
-    window.open("https://twitter.com/intent/tweet?text=" + text + "&url=" + url, "_blank", "width=600,height=400");
-  } else if (platform === 'copy') {
-    navigator.clipboard.writeText(urlOnly).then(function() {
-      var btn = document.querySelector('.share-mini-btn[title="Copy link"]');
-      var orig = btn.innerHTML;
-      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
-      btn.style.color = "var(--accent)";
-      setTimeout(function() { btn.innerHTML = orig; btn.style.color = ""; }, 2000);
+(function () {
+  'use strict';
+  document.getElementById('yy').textContent = new Date().getFullYear();
+
+  /* auth — mandatory, one redirect; page keeps working if the script failed */
+  var user = null;
+  if (window.FSAuth) {
+    if (!FSAuth.require()) return;
+    user = FSAuth.getUser();
+    if (user && user.first_name) {
+      document.getElementById('acct').innerHTML = 'hi, <b></b>';
+      document.getElementById('acct').querySelector('b').textContent = user.first_name;
+    }
+  }
+
+  /* theme */
+  document.getElementById('tgl').addEventListener('click', function () {
+    var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  /* results history -> done badges + continue strip */
+  var hist = [];
+  try { hist = JSON.parse(localStorage.getItem('p8_results') || '[]'); } catch (e) {}
+  var doneByHref = {};
+  hist.forEach(function (h) {
+    if (h && h.href) doneByHref[h.href.replace(/[#?].*$/, '').replace(/\/$/, '')] = h.score;
+  });
+  function doneScore(url) {
+    var u = url.replace(/[#?].*$/, '').replace(/\/$/, '');
+    for (var k in doneByHref) {
+      if (k.indexOf(u) === 0 || u.indexOf(k) === 0) return doneByHref[k];
+    }
+    return null;
+  }
+
+  if (hist.length) {
+    var last = hist[hist.length - 1];
+    var weekAgo = Date.now() - 7 * 864e5;
+    var week = hist.filter(function (h) { return h.date && Date.parse(h.date) > weekAgo; }).length;
+    var c = document.getElementById('cont');
+    var a = document.getElementById('contLink');
+    a.textContent = last.test || 'your last test';
+    a.href = last.href || '#';
+    document.getElementById('contStat').textContent =
+      '· last score ' + (last.score || '—') + ' · ' + week + ' test' + (week === 1 ? '' : 's') + ' this week';
+    c.classList.add('on');
+  }
+
+  /* catalog */
+  var CATS = [], TESTS = [], cat = 'All', q = '';
+  try { cat = new URLSearchParams(location.search).get('cat') || 'All'; } catch (e) {}
+
+  function chips() {
+    var counts = { All: TESTS.length };
+    TESTS.forEach(function (t) { counts[t.category] = (counts[t.category] || 0) + 1; });
+    var el = document.getElementById('chips');
+    el.innerHTML = '';
+    ['All'].concat(CATS).forEach(function (c) {
+      if (c !== 'All' && !counts[c]) return;
+      var b = document.createElement('button');
+      b.className = 'chip' + (c === cat ? ' on' : '');
+      b.setAttribute('role', 'tab');
+      b.innerHTML = '<span></span><span class="n"></span>';
+      b.firstChild.textContent = c;
+      b.lastChild.textContent = counts[c] || 0;
+      b.addEventListener('click', function () {
+        cat = c;
+        try { history.replaceState(null, '', c === 'All' ? location.pathname : '?cat=' + encodeURIComponent(c)); } catch (e) {}
+        chips(); render();
+      });
+      el.appendChild(b);
     });
   }
-}
-</script>
-<script>
-  // PWA: offline shell + install support
+
+  function render() {
+    var grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    var ql = q.trim().toLowerCase();
+    var shown = 0;
+    TESTS.forEach(function (t, i) {
+      if (cat !== 'All' && t.category !== cat) return;
+      if (ql && (t.title + ' ' + (t.description || '')).toLowerCase().indexOf(ql) === -1) return;
+      shown++;
+      var a = document.createElement('a');
+      a.className = 'card' + (t.category === 'Full Mock' ? ' paid' : '');
+      a.href = t.url;
+      var score = doneScore(t.url);
+      a.innerHTML =
+        '<div class="chead"><span class="num"></span><span class="cat"></span></div>' +
+        '<div class="ttl"></div><div class="desc"></div>' +
+        '<div class="cfoot"><span class="diff"></span>' + (score != null ? '<span class="done">✓ ' + String(score).replace(/</g, '&lt;') + '</span>' : '') + '</div>';
+      a.querySelector('.num').textContent = '// ' + String(i + 1).padStart(3, '0');
+      a.querySelector('.cat').textContent = t.category;
+      a.querySelector('.ttl').textContent = t.title;
+      a.querySelector('.desc').textContent = t.description || '';
+      a.querySelector('.diff').textContent = t.difficulty || '';
+      grid.appendChild(a);
+    });
+    document.getElementById('count').textContent = shown + (shown === TESTS.length ? ' tests' : ' of ' + TESTS.length + ' tests');
+    document.getElementById('empty').style.display = shown ? 'none' : 'block';
+  }
+
+  var deb = null;
+  document.getElementById('q').addEventListener('input', function (e) {
+    clearTimeout(deb);
+    deb = setTimeout(function () { q = e.target.value; render(); }, 120);
+  });
+
+  /* app: offline shell + install prompt (one small chip, no nagging) */
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function () {});
-    });
+    navigator.serviceWorker.register('sw.js').catch(function () {});
   }
+  var installEvt = null;
+  var standalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
+  window.addEventListener('beforeinstallprompt', function (e) {
+    if (standalone) return;
+    e.preventDefault();
+    installEvt = e;
+    document.getElementById('installBtn').classList.add('on');
+  });
+  document.getElementById('installBtn').addEventListener('click', function () {
+    if (!installEvt) return;
+    installEvt.prompt();
+    installEvt.userChoice.then(function () {
+      installEvt = null;
+      document.getElementById('installBtn').classList.remove('on');
+    });
+  });
 
-  // "Install app" button — appears only when the browser offers installation
-  (function () {
-    var deferred = null;
-    var btn = document.getElementById('installBtn');
-    if (!btn) return;
-    window.addEventListener('beforeinstallprompt', function (e) {
-      e.preventDefault();
-      deferred = e;
-      btn.classList.add('show');
+  fetch('tests.json', { cache: 'no-cache' })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      CATS = d.categories || [];
+      TESTS = d.tests || [];
+      if (CATS.indexOf(cat) === -1 && cat !== 'All') cat = 'All';
+      chips(); render();
+    })
+    .catch(function () {
+      document.getElementById('count').textContent = 'could not load tests';
+      document.getElementById('empty').style.display = 'block';
     });
-    btn.addEventListener('click', function () {
-      if (!deferred) return;
-      deferred.prompt();
-      deferred.userChoice.then(function () { deferred = null; btn.classList.remove('show'); });
-    });
-    window.addEventListener('appinstalled', function () { btn.classList.remove('show'); });
-  })();
+})();
 </script>
 </body>
 </html>
