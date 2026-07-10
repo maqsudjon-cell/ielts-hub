@@ -20,7 +20,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Pangea8" />
+  <meta name="apple-mobile-web-app-title" content="Flarestamina" />
 
   <script>
     // Theme bootstrap — runs before paint to avoid flash
@@ -55,8 +55,8 @@
       --muted: #6B7280;
       --border: #E5E7EB;
       --border-strong: #D4D4D8;
-      --accent: #047857;
-      --accent-rgb: 4, 120, 87;
+      --accent: #D9480F;
+      --accent-rgb: 217, 72, 15;
       --accent-soft: rgba(4, 120, 87, 0.08);
       --shadow-card: 0 1px 2px rgba(10, 10, 10, 0.03);
       --shadow-card-hover: 0 8px 24px rgba(10, 10, 10, 0.06);
@@ -84,8 +84,8 @@
       --muted: #A1A1AA;
       --border: #1F1F1F;
       --border-strong: #2A2A2A;
-      --accent: #10B981;
-      --accent-rgb: 16, 185, 129;
+      --accent: #FF5A1F;
+      --accent-rgb: 255, 90, 31;
       --accent-soft: rgba(16, 185, 129, 0.12);
       --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
       --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -712,17 +712,17 @@
 #pg-loader svg{width:100%;height:100%;overflow:visible}
 #pg-loader .pg-spark{transform-box:view-box;transform-origin:100px 100px;animation:pgL-spin 2.4s linear infinite}
 #pg-loader .pg-ray{
-  stroke:#34E0A1;stroke-width:13;stroke-linecap:round;
-  filter:drop-shadow(0 0 3px rgba(52,224,161,.7)) drop-shadow(0 0 9px rgba(52,224,161,.4));
+  stroke:#FF5A1F;stroke-width:13;stroke-linecap:round;
+  filter:drop-shadow(0 0 3px rgba(255,90,31,.7)) drop-shadow(0 0 9px rgba(255,90,31,.4));
   transform-box:view-box;transform-origin:100px 100px;
   animation:pgL-twinkle 2.4s ease-in-out infinite;animation-delay:calc(var(--i) * -0.3s);
 }
 #pg-loader .pg-word{font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:20px;letter-spacing:.5px;color:var(--text-primary,#1a1a1a)}
-#pg-loader .pg-word b{color:#34E0A1}
+#pg-loader .pg-word b{color:#FF5A1F}
 @keyframes pgL-spin{to{transform:rotate(360deg)}}
 @keyframes pgL-twinkle{
-  0%,100%{transform:scale(.74);stroke:#34E0A1;filter:drop-shadow(0 0 3px rgba(52,224,161,.7)) drop-shadow(0 0 9px rgba(52,224,161,.4))}
-  50%{transform:scale(1);stroke:#A8FFDD;filter:drop-shadow(0 0 5px #A8FFDD) drop-shadow(0 0 16px rgba(52,224,161,.6))}
+  0%,100%{transform:scale(.74);stroke:#FF5A1F;filter:drop-shadow(0 0 3px rgba(255,90,31,.7)) drop-shadow(0 0 9px rgba(255,90,31,.4))}
+  50%{transform:scale(1);stroke:#FFB38A;filter:drop-shadow(0 0 5px #FFB38A) drop-shadow(0 0 16px rgba(255,90,31,.6))}
 }
 html[data-theme="light"] #pg-loader{background:#FAFAF9}
 html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
@@ -732,22 +732,13 @@ html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
 </style>
 </head>
 <body>
-<div id="pg-loader" role="status" aria-label="Loading pangea8">
+<div id="pg-loader" role="status" aria-label="Loading Flarestamina">
   <div class="pg-mark">
     <svg viewBox="0 0 200 200" aria-hidden="true">
-      <g class="pg-spark">
-        <line class="pg-ray" style="--i:0" x1="130" y1="100" x2="178" y2="100"/>
-        <line class="pg-ray" style="--i:1" x1="121.2" y1="121.2" x2="155.2" y2="155.2"/>
-        <line class="pg-ray" style="--i:2" x1="100" y1="130" x2="100" y2="178"/>
-        <line class="pg-ray" style="--i:3" x1="78.8" y1="121.2" x2="44.8" y2="155.2"/>
-        <line class="pg-ray" style="--i:4" x1="70" y1="100" x2="22" y2="100"/>
-        <line class="pg-ray" style="--i:5" x1="78.8" y1="78.8" x2="44.8" y2="44.8"/>
-        <line class="pg-ray" style="--i:6" x1="100" y1="70" x2="100" y2="22"/>
-        <line class="pg-ray" style="--i:7" x1="121.2" y1="78.8" x2="155.2" y2="44.8"/>
-      </g>
+      <g class="pg-spark"><line class="pg-ray" style="--i:0" x1="100" y1="82.5" x2="100" y2="26.5"/><line class="pg-ray" style="--i:1" x1="117.5" y1="100" x2="166.5" y2="100"/><line class="pg-ray" style="--i:2" x1="100" y1="117.5" x2="100" y2="149"/><line class="pg-ray" style="--i:3" x1="82.5" y1="100" x2="44" y2="100"/></g>
     </svg>
   </div>
-  <div class="pg-word">pangea<b>8</b></div>
+  <div class="pg-word"><b>FLARE</b>STAMINA</div>
 </div>
   <div class="grain" aria-hidden="true"></div>
 
@@ -1175,7 +1166,7 @@ html[data-theme="light"] #pg-loader .pg-word{color:#1a1a1a}
     });
 
     applyTheme(document.documentElement.dataset.theme || 'light');
-    // ─────────── pangea8 loader ───────────
+    // ─────────── Flarestamina loader ───────────
     (function(){
       var el = document.getElementById('pg-loader');
       if(!el){ window.pangeaLoader = {show:function(){},hide:function(){}}; return; }
