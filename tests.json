@@ -10,6 +10,14 @@
  ],
  "tests": [
   {
+   "title": "40-Day Challenge",
+   "category": "Tools",
+   "url": "https://flarestamina.com/flarestamina/challenge/",
+   "date": "2026-07-10",
+   "difficulty": "265 tasks · L · R · W · S · streaks + leaderboard",
+   "description": "The original Flarestamina 40-day IELTS challenge tracker: sign in with Google, tick your daily tasks across all four skills, keep your streak alive and climb the class leaderboard. Progress syncs across devices in real time — nothing is lost."
+  },
+  {
    "title": "Cambridge 21 Academic",
    "category": "Cambridge",
    "url": "https://flarestamina.com/cambridge-21/",
