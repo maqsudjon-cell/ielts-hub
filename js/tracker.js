@@ -3,7 +3,7 @@
  * Self-contained: injects modal + change-name pill, exposes window.IELTSTracker.
  *
  * Usage on a test page (one line, anywhere in <body> or <head>):
- *   <script src="https://pangea8.com/ielts-hub/js/tracker.js" defer></script>
+ *   <script src="https://flarestamina.com/ielts-hub/js/tracker.js" defer></script>
  *
  * Then where the final score is computed:
  *   IELTSTracker.sendResult('Trainer 2 Test 5 Listening', score);
@@ -25,7 +25,7 @@
   // Firebase results database — loaded lazily. Everything here degrades
   // gracefully: if Firebase is blocked or misconfigured, the Sheets
   // pipeline below still works untouched.
-  var FIREBASE_INIT_URL = 'https://pangea8.com/ielts-hub/js/firebase-init.js';
+  var FIREBASE_INIT_URL = 'https://flarestamina.com/ielts-hub/js/firebase-init.js';
   function ensureFirebase() {
     if (window.IHFirebase) return window.IHFirebase.ready;
     return new Promise(function (resolve) {
@@ -447,7 +447,7 @@
         '<div>Ready for the real exam? <b>Listening + Reading + Writing</b> in one sitting \u2014 ' +
         'real timers, AI-marked writing, instant IELTS-style result sheet.</div>' +
         '<div style="margin-top:6px;color:#9ca3af;font-size:12.5px">Just <b>10 000 UZS</b> \u2014 the cheapest full mock around.</div>' +
-        '<a class="go" href="https://pangea8.com/full-mock/">Try the Full Mock \u2192</a>';
+        '<a class="go" href="https://flarestamina.com/full-mock/">Try the Full Mock \u2192</a>';
       document.body.appendChild(el);
       requestAnimationFrame(function () { el.classList.add('on'); });
 
