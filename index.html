@@ -181,6 +181,7 @@ footer{border-top:1px solid var(--border);margin-top:22px}
     <span>
       <a href="https://flarestamina.com/">home</a> ·
       <a href="https://flarestamina.com/ielts-hub/results.html">my results</a> ·
+      <a href="https://flarestamina.com/teachers/">for teachers</a> ·
       <a href="https://t.me/flarestamina" target="_blank" rel="noopener">telegram @flarestamina</a>
     </span>
   </div>
@@ -225,6 +226,16 @@ footer{border-top:1px solid var(--border);margin-top:22px}
     return null;
   }
 
+  if (!hist.length) {
+    // first visit — point new students at the flagship book
+    var c0 = document.getElementById('cont');
+    document.querySelector('#cont .lbl').textContent = '\u25B8 START HERE';
+    var a0 = document.getElementById('contLink');
+    a0.textContent = 'Cambridge 21 Academic';
+    a0.href = 'https://flarestamina.com/cambridge-21/';
+    document.getElementById('contStat').textContent = '\u00B7 the full real book \u2014 4 tests, all skills, free';
+    c0.classList.add('on');
+  }
   if (hist.length) {
     var last = hist[hist.length - 1];
     var weekAgo = Date.now() - 7 * 864e5;
@@ -333,5 +344,6 @@ footer{border-top:1px solid var(--border);margin-top:22px}
     });
 })();
 </script>
+<script data-goatcounter="https://flarestamina.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
