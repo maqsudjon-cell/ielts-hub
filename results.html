@@ -1,295 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My results — IELTS Practice Hub</title>
-  <meta name="robots" content="noindex" />
-  <link rel="icon" href="favicon.ico" sizes="any" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <script>
-    (function () {
-      try {
-        var stored = localStorage.getItem('theme');
-        var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.dataset.theme = theme;
-      } catch (e) { document.documentElement.dataset.theme = 'light'; }
-    })();
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    [hidden] { display: none !important; }
-    :root {
-      --bg: #FAFAF9; --surface: #FFFFFF; --text: #0A0A0A; --muted: #6B7280;
-      --border: #E5E7EB; --accent: #047857; --accent-soft: rgba(4,120,87,0.08);
-    }
-    [data-theme="dark"] {
-      --bg: #0A0A0A; --surface: #111111; --text: #FAFAFA; --muted: #A1A1AA;
-      --border: #1F1F1F; --accent: #10B981; --accent-soft: rgba(16,185,129,0.12);
-    }
-    html { color-scheme: light dark; }
-    body {
-      margin: 0; background: var(--bg); color: var(--text);
-      font-family: 'Inter', system-ui, sans-serif; line-height: 1.5;
-    }
-    .wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
-    .back { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; text-decoration: none; margin-bottom: 22px; }
-    .back:hover { color: var(--accent); }
-    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 28px; margin: 0 0 4px; }
-    .sub { color: var(--muted); font-size: 14px; margin: 0 0 24px; }
-    .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 26px; }
-    .stat {
-      flex: 1; min-width: 140px; padding: 16px; border-radius: 14px;
-      background: var(--surface); border: 1px solid var(--border);
-    }
-    .stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 26px; color: var(--accent); }
-    .stat span { font-size: 12.5px; color: var(--muted); }
-    .row {
-      display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px;
-      background: var(--surface); border: 1px solid var(--border); margin-bottom: 8px;
-    }
-    .row .name { flex: 1; font-weight: 600; font-size: 14.5px; overflow-wrap: anywhere; }
-    .row .name small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; margin-top: 2px; }
-    .score {
-      padding: 4px 12px; border-radius: 999px; font-weight: 700; font-size: 14px;
-      background: var(--accent-soft); color: var(--accent); white-space: nowrap;
-    }
-    .sync {
-      padding: 16px; border-radius: 14px; margin-bottom: 26px;
-      background: var(--surface); border: 1px solid var(--border);
-    }
-    .sync-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .sync-row > div { flex: 1; min-width: 200px; }
-    .sync b { font-size: 14.5px; }
-    .sync small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 3px; line-height: 1.5; }
-    .gbtn {
-      display: inline-flex; align-items: center; gap: 9px; padding: 10px 18px; border-radius: 999px;
-      border: 1px solid var(--border); background: var(--bg); color: var(--text);
-      font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; white-space: nowrap;
-    }
-    .gbtn:hover { border-color: var(--accent); }
-    .gbtn[disabled] { opacity: .6; cursor: default; }
-    .signout { background: none; border: none; color: var(--muted); font: inherit; font-size: 12.5px; cursor: pointer; text-decoration: underline; padding: 0; }
-    .section-h { font-family: 'Space Grotesk', sans-serif; font-size: 16px; margin: 26px 0 10px; }
-    #cloudList { margin-top: 14px; }
-    #cloudList .row:last-child { margin-bottom: 0; }
-    .empty { text-align: center; color: var(--muted); padding: 60px 10px; }
-    .empty a { color: var(--accent); font-weight: 600; text-decoration: none; }
-    .clear {
-      display: block; margin: 28px auto 0; padding: 10px 20px; border-radius: 999px;
-      border: 1px solid var(--border); background: none; color: var(--muted);
-      font: inherit; font-size: 13.5px; cursor: pointer;
-    }
-    .clear:hover { color: #DC2626; border-color: #DC2626; }
-    .note { text-align: center; color: var(--muted); font-size: 12px; margin-top: 14px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Results — FLARESTAMINA</title>
+<meta name="description" content="Your IELTS practice history: streak, weekly activity and every saved score — on any device with one FS Account.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('theme') || 'dark';
+    document.documentElement.dataset.theme = t;
+  } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000; --surface:#0A0A0A; --card:#0D0D0D;
+  --border:#232323; --border-strong:#3a3a3a;
+  --text:#EDEDED; --muted:#8A8A8A; --faint:#555;
+  --accent:#FF5A1F; --on-accent:#180702; --ok:#22C55E;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+}
+html[data-theme="light"]{
+  --bg:#FAFAF9; --surface:#FFF; --card:#FFF;
+  --border:#E5E5E3; --border-strong:#CFCFCC;
+  --text:#111; --muted:#666; --faint:#999;
+  --accent:#D9480F; --on-accent:#FFF; --ok:#15803D;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+::selection{background:var(--accent);color:var(--on-accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 
-    /* Practice-activity chart */
-    .chart-card {
-      padding: 18px 16px; border-radius: 14px; margin-bottom: 26px;
-      background: var(--surface); border: 1px solid var(--border);
-    }
-    .chart-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
-    .chart-head b { font-family: 'Space Grotesk', sans-serif; font-size: 15px; }
-    .chart-head span { font-size: 12px; color: var(--muted); }
-    .chart { display: flex; align-items: flex-end; gap: 3px; height: 84px; }
-    .chart .bar { flex: 1 1 0; min-width: 0; border-radius: 3px 3px 0 0; background: var(--accent-soft); min-height: 3px; transition: opacity .15s; }
-    .chart .bar.has { background: var(--accent); }
-    .chart .bar.today { outline: 2px solid var(--accent); outline-offset: 1px; }
-    .chart .bar:hover { opacity: .75; }
-    .chart-x { display: flex; justify-content: space-between; margin-top: 7px; font-size: 11px; color: var(--muted); }
-    .stat.hot b { color: var(--accent); }
-    .stat b .unit { font-size: 13px; font-weight: 500; color: var(--muted); margin-left: 2px; }
-  </style>
+.bar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border)}
+.bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-weight:800;font-size:14px;letter-spacing:.06em}
+.brand svg{width:20px;height:20px}
+.brand b{color:var(--accent)}
+.acct{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.acct b{color:var(--text);font-weight:500}
+.tgl{font-size:14px;color:var(--muted);padding:4px 6px}
+.tgl:hover{color:var(--text)}
+
+.wrap{max-width:980px;margin:0 auto;padding:28px 24px 60px}
+.kick{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{font-family:var(--mono);font-size:clamp(20px,3.4vw,26px);font-weight:700;margin-bottom:4px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:26px;font-family:var(--mono)}
+.sub .ok{color:var(--ok)}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:26px}
+@media(max-width:640px){.tiles{grid-template-columns:repeat(2,1fr)}}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.tile .lb{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.tile .v{font-family:var(--mono);font-size:24px;font-weight:800}
+.tile .v small{font-size:12px;color:var(--muted);font-weight:500}
+.tile.hot .v{color:var(--accent)}
+
+.sec{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:26px 0 12px}
+.chart{display:flex;align-items:flex-end;gap:3px;height:74px;border:1px solid var(--border);border-radius:12px;padding:12px 14px 10px;background:var(--card)}
+.chart i{flex:1;background:var(--border-strong);border-radius:2px 2px 0 0;min-height:3px}
+.chart i.on{background:var(--accent)}
+.chart-lbl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:6px}
+
+.hist{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.row{display:flex;align-items:baseline;gap:14px;padding:11px 16px;border-bottom:1px solid var(--border);font-size:13.5px}
+.row:last-child{border-bottom:none}
+.row .d{font-family:var(--mono);font-size:11px;color:var(--faint);min-width:86px}
+.row .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .s{font-family:var(--mono);font-weight:700;color:var(--ok);white-space:nowrap}
+.row .cloud{font-size:10px;color:var(--faint)}
+.none{padding:30px 16px;color:var(--muted);font-family:var(--mono);font-size:13px;text-align:center}
+
+footer{border-top:1px solid var(--border);margin-top:34px}
+.foot{max-width:980px;margin:0 auto;padding:22px 24px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.foot a{color:var(--muted);border-bottom:1px dotted var(--border-strong)}
+.foot a:hover{color:var(--accent);border-color:var(--accent)}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <a class="back" href="./">‹ Back to hub</a>
-    <h1>My results</h1>
-    <p class="sub">Practice history saved on this device.</p>
-    <div class="stats" id="stats"></div>
-    <div class="chart-card" id="activityCard" hidden>
-      <div class="chart-head"><b>Practice activity</b><span>Last 30 days</span></div>
-      <div class="chart" id="chart"></div>
-      <div class="chart-x"><span id="chartStart"></span><span>Today</span></div>
-    </div>
-    <div class="sync" id="sync">
-      <div class="sync-row">
-        <div>
-          <b>Sync across devices</b>
-          <small id="syncState">Sign in with Google — your results will follow you on any phone or computer.</small>
-        </div>
-        <button class="gbtn" id="googleBtn" type="button">
-          <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.7l6.2 5.2C36.9 40.4 44 35 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
-          Sign in with Google
-        </button>
-      </div>
-      <div id="cloudList"></div>
-    </div>
-    <h2 class="section-h" id="localH" hidden>On this device</h2>
-    <div id="list"></div>
-    <button class="clear" id="clearBtn" hidden>Clear history</button>
-    <p class="note" id="note" hidden>History is stored only in this browser.</p>
+
+<nav class="bar" aria-label="Site">
+  <div class="bar-in">
+    <a class="brand" href="https://flarestamina.com/ielts-hub/" aria-label="Back to the hub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+        <path d="M12 9.5V1.5"/><path d="M14.5 12h7"/><path d="M12 14.5V19"/><path d="M9.5 12H4"/>
+      </svg>
+      <span><b>FLARE</b>STAMINA</span>
+    </a>
+    <a class="acct" id="acct" href="https://flarestamina.com/account/">account</a>
+    <button class="tgl" id="tgl" aria-label="Toggle theme">◐</button>
   </div>
-  <script>
-    (function () {
-      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-      var hist = [];
-      try { hist = JSON.parse(localStorage.getItem('p8_results') || '[]'); } catch (e) {}
-      var list = document.getElementById('list');
-      var stats = document.getElementById('stats');
+</nav>
 
-      if (!hist.length) {
-        list.innerHTML = '<div class="empty"><p>No results yet.</p><p><a href="./">Take a test</a> — your scores will appear here automatically.</p></div>';
-        return;
-      }
+<main class="wrap">
+  <div class="kick">My Results</div>
+  <h1 id="head">—</h1>
+  <p class="sub" id="syncline">loading…</p>
 
-      var distinct = {};
-      var scored = [];
-      var dayCount = {};            // local YYYY-MM-DD -> attempts
-      function dayKey(dt) {
-        return dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2);
-      }
-      hist.forEach(function (r) {
-        distinct[r.test || r.href] = true;
-        var s = parseFloat(r.score);
-        if (!isNaN(s)) scored.push(s);
-        var d = r.date ? new Date(r.date) : null;
-        if (d && !isNaN(d)) { var k = dayKey(d); dayCount[k] = (dayCount[k] || 0) + 1; }
+  <div class="tiles">
+    <div class="tile"><div class="lb">Total tests</div><div class="v" id="vTotal">—</div></div>
+    <div class="tile"><div class="lb">This week</div><div class="v" id="vWeek">—</div></div>
+    <div class="tile hot"><div class="lb">Streak</div><div class="v" id="vStreak">—<small> days</small></div></div>
+    <div class="tile"><div class="lb">Best (of 40)</div><div class="v" id="vBest">—</div></div>
+  </div>
+
+  <div class="sec">Last 30 days</div>
+  <div class="chart" id="chart" aria-label="Practice activity, last 30 days"></div>
+  <div class="chart-lbl"><span id="d30"></span><span>today</span></div>
+
+  <div class="sec">History</div>
+  <div class="hist" id="hist"><div class="none">loading…</div></div>
+</main>
+
+<footer>
+  <div class="foot">
+    <span>© <span id="yy"></span> FLARESTAMINA</span>
+    <span><a href="https://flarestamina.com/ielts-hub/">← back to tests</a> · <a href="https://t.me/flarestamina" target="_blank" rel="noopener">telegram @flarestamina</a></span>
+  </div>
+</footer>
+
+<script src="https://flarestamina.com/assets/fs-auth.js"></script>
+<script>
+(function () {
+  'use strict';
+  document.getElementById('yy').textContent = new Date().getFullYear();
+  document.getElementById('tgl').addEventListener('click', function () {
+    var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  var user = null;
+  if (window.FSAuth) {
+    if (!FSAuth.require()) return;
+    user = FSAuth.getUser();
+    if (user && user.first_name) {
+      var acct = document.getElementById('acct');
+      acct.innerHTML = 'hi, <b></b>';
+      acct.querySelector('b').textContent = user.first_name;
+    }
+  }
+  document.getElementById('head').textContent = user ? (user.first_name + "'s progress") : 'Your progress';
+
+  /* ── data: local history + cloud results (keyed by phone) ── */
+  var FS_PROJECT = 'ieltshub-e2aa8';
+
+  function localResults() {
+    try {
+      return (JSON.parse(localStorage.getItem('p8_results') || '[]')).map(function (h) {
+        return { test: h.test || '', score: h.score, href: h.href || '', date: h.date, cloud: false };
       });
-      var best = scored.length ? Math.max.apply(null, scored) : null;
+    } catch (e) { return []; }
+  }
 
-      // Current streak: consecutive days with activity, ending today (or
-      // yesterday — a one-day grace so it doesn't reset before today's practice).
-      var today = new Date();
-      var cursor = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      if (!dayCount[dayKey(cursor)]) cursor.setDate(cursor.getDate() - 1);
-      var streak = 0;
-      while (dayCount[dayKey(cursor)]) { streak++; cursor.setDate(cursor.getDate() - 1); }
-
-      // Attempts in the last 7 days
-      var weekCount = 0;
-      for (var w = 0; w < 7; w++) {
-        var wd = new Date(today.getFullYear(), today.getMonth(), today.getDate() - w);
-        weekCount += dayCount[dayKey(wd)] || 0;
-      }
-
-      stats.innerHTML =
-        '<div class="stat' + (streak > 0 ? ' hot' : '') + '"><b>' + (streak > 0 ? '🔥 ' : '') + streak + '<span class="unit">day' + (streak === 1 ? '' : 's') + '</span></b><span>current streak</span></div>' +
-        '<div class="stat"><b>' + weekCount + '</b><span>this week</span></div>' +
-        '<div class="stat"><b>' + hist.length + '</b><span>attempts</span></div>' +
-        '<div class="stat"><b>' + Object.keys(distinct).length + '</b><span>different tests</span></div>' +
-        (best !== null ? '<div class="stat"><b>' + esc(best) + '</b><span>best score</span></div>' : '');
-
-      // Last-30-days activity chart
-      var days = [];
-      var maxC = 0;
-      for (var i = 29; i >= 0; i--) {
-        var dd = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-        var c = dayCount[dayKey(dd)] || 0;
-        if (c > maxC) maxC = c;
-        days.push({ date: dd, count: c, isToday: i === 0 });
-      }
-      if (maxC > 0) {
-        var chart = document.getElementById('chart');
-        chart.innerHTML = days.map(function (d) {
-          var pct = d.count ? Math.max(14, Math.round(d.count / maxC * 100)) : 0;
-          var lbl = d.date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
-          var title = lbl + ' — ' + d.count + ' attempt' + (d.count === 1 ? '' : 's');
-          return '<div class="bar' + (d.count ? ' has' : '') + (d.isToday ? ' today' : '') +
-                 '" style="height:' + pct + '%" title="' + esc(title) + '"></div>';
-        }).join('');
-        document.getElementById('chartStart').textContent =
-          days[0].date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
-        document.getElementById('activityCard').hidden = false;
-      }
-
-      document.getElementById('localH').hidden = false;
-      list.innerHTML = hist.slice().reverse().map(function (r) {
-        var d = r.date ? new Date(r.date) : null;
-        var when = d && !isNaN(d) ? d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) + ', ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : '';
-        var score = (r.score !== '' && r.score != null) ? '<span class="score">' + esc(r.score) + '</span>' : '<span class="score">✓</span>';
-        return '<div class="row"><div class="name">' + esc(r.test || 'Test') + '<small>' + esc(when) + '</small></div>' + score + '</div>';
-      }).join('');
-
-      var btn = document.getElementById('clearBtn');
-      btn.hidden = false;
-      document.getElementById('note').hidden = false;
-      btn.addEventListener('click', function () {
-        if (!confirm('Delete all local practice history?')) return;
-        try { localStorage.removeItem('p8_results'); } catch (e) {}
-        location.reload();
+  function cloudResults(phone) {
+    if (!phone) return Promise.resolve([]);
+    return fetch('https://firestore.googleapis.com/v1/projects/' + FS_PROJECT + '/databases/(default)/documents:runQuery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        structuredQuery: {
+          from: [{ collectionId: 'results' }],
+          where: { fieldFilter: { field: { fieldPath: 'phone' }, op: 'EQUAL', value: { stringValue: phone } } },
+          limit: 500
+        }
+      })
+    }).then(function (r) { return r.json(); }).then(function (rows) {
+      return (rows || []).filter(function (r) { return r.document; }).map(function (r) {
+        var f = r.document.fields || {};
+        return {
+          test: (f.test && f.test.stringValue) || '',
+          score: f.score ? (f.score.integerValue != null ? f.score.integerValue : f.score.doubleValue) : '',
+          href: '',
+          date: (f.ts && f.ts.timestampValue) || r.document.createTime,
+          cloud: true
+        };
       });
-    })();
-  </script>
-  <script src="js/firebase-init.js" defer></script>
-  <script>
-    /* Cross-device sync: sign in with Google, read own results from Firestore. */
-    (function () {
-      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-      var stateEl, gbtn, cloud;
+    }).catch(function () { return null; }); // null = cloud unreachable
+  }
 
-      function fmt(d) {
-        if (!d || isNaN(d)) return '';
-        return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) + ', ' +
-               d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
-      }
+  function key(r) {
+    return r.test + '|' + r.score + '|' + String(r.date || '').slice(0, 16);
+  }
 
-      function showSignedIn(fb, user) {
-        stateEl.innerHTML = 'Synced as <b>' + esc(user.email || user.displayName || 'Google account') + '</b> · ' +
-          '<button class="signout" id="soBtn" type="button">Sign out</button>';
-        gbtn.hidden = true;
-        document.getElementById('soBtn').addEventListener('click', function () {
-          window.IHFirebase.signOut().then(function () { location.reload(); });
-        });
-        cloud.innerHTML = '<small style="color:var(--muted)">Loading your results…</small>';
-        fb.db.collection('results').where('uid', '==', user.uid).get().then(function (snap) {
-          var rows = [];
-          snap.forEach(function (doc) {
-            var r = doc.data();
-            rows.push({ test: r.test, score: r.score, name: r.name, d: r.ts && r.ts.toDate ? r.ts.toDate() : null });
-          });
-          rows.sort(function (a, b) { return (b.d ? b.d.getTime() : 0) - (a.d ? a.d.getTime() : 0); });
-          if (!rows.length) {
-            cloud.innerHTML = '<small style="color:var(--muted)">No synced results yet — new test results will appear here from any device where you are signed in.</small>';
-            return;
-          }
-          cloud.innerHTML = '<h2 class="section-h" style="margin-top:6px">All devices (' + rows.length + ')</h2>' +
-            rows.slice(0, 100).map(function (r) {
-              return '<div class="row"><div class="name">' + esc(r.test || 'Test') +
-                     '<small>' + esc(fmt(r.d)) + '</small></div><span class="score">' + esc(r.score) + '</span></div>';
-            }).join('');
-        }).catch(function (err) {
-          cloud.innerHTML = '<small style="color:var(--muted)">Could not load synced results (' + esc(err && err.code) + ').</small>';
-        });
-      }
+  function render(items, cloudState) {
+    items = items.filter(function (r) { return r.date; });
+    items.sort(function (a, b) { return new Date(a.date) - new Date(b.date); });
 
-      function boot() {
-        stateEl = document.getElementById('syncState');
-        gbtn = document.getElementById('googleBtn');
-        cloud = document.getElementById('cloudList');
-        if (!window.IHFirebase) { stateEl.textContent = 'Sync is unavailable right now.'; gbtn.disabled = true; return; }
-        window.IHFirebase.ready.then(function (fb) {
-          if (!fb) { stateEl.textContent = 'Sync is unavailable right now.'; gbtn.disabled = true; return; }
-          if (fb.user && !fb.user.isAnonymous) showSignedIn(fb, fb.user);
-        });
-        gbtn.addEventListener('click', function () {
-          gbtn.disabled = true;
-          window.IHFirebase.signInWithGoogle().then(function (user) {
-            gbtn.disabled = false;
-            window.IHFirebase.ready.then(function (fb) { showSignedIn(fb, user); });
-          }).catch(function (err) {
-            gbtn.disabled = false;
-            stateEl.textContent = 'Sign-in failed (' + (err && err.code || 'error') + '). Try again.';
-          });
-        });
-      }
+    var now = new Date();
+    var weekAgo = now.getTime() - 7 * 864e5;
 
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-      else boot();
-    })();
-  </script>
+    // tiles
+    document.getElementById('vTotal').textContent = items.length;
+    document.getElementById('vWeek').textContent = items.filter(function (r) { return new Date(r.date) > weekAgo; }).length;
+
+    var days = {};
+    items.forEach(function (r) {
+      var d = new Date(r.date);
+      var k = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+      days[k] = (days[k] || 0) + 1;
+    });
+    function dayKey(offset) {
+      var d = new Date(now.getTime() - offset * 864e5);
+      return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    }
+    var streak = 0, start = days[dayKey(0)] ? 0 : 1;
+    for (var i = start; days[dayKey(i)]; i++) streak++;
+    var streakEl = document.getElementById('vStreak');
+    streakEl.innerHTML = '';
+    streakEl.append(String(streak));
+    var sm = document.createElement('small'); sm.textContent = ' days'; streakEl.appendChild(sm);
+
+    var best = null;
+    items.forEach(function (r) {
+      var m = String(r.score).match(/^(\d+)\s*(?:\/\s*40)?$/);
+      if (m) { var n = +m[1]; if (n <= 40 && (best === null || n > best)) best = n; }
+    });
+    document.getElementById('vBest').textContent = best === null ? '—' : best;
+
+    // 30-day chart
+    var chart = document.getElementById('chart');
+    chart.innerHTML = '';
+    var max = 1;
+    var counts = [];
+    for (var d = 29; d >= 0; d--) { var c = days[dayKey(d)] || 0; counts.push(c); if (c > max) max = c; }
+    counts.forEach(function (c) {
+      var b = document.createElement('i');
+      if (c) { b.className = 'on'; b.style.height = Math.max(12, Math.round(c / max * 100)) + '%'; }
+      chart.appendChild(b);
+    });
+    var d30 = new Date(now.getTime() - 29 * 864e5);
+    document.getElementById('d30').textContent = d30.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+
+    // history (latest 60)
+    var hist = document.getElementById('hist');
+    hist.innerHTML = '';
+    if (!items.length) {
+      hist.innerHTML = '<div class="none">no results yet — finish any test and it appears here</div>';
+    } else {
+      items.slice(-60).reverse().forEach(function (r) {
+        var row = document.createElement(r.href ? 'a' : 'div');
+        row.className = 'row';
+        if (r.href) row.href = r.href;
+        var d = new Date(r.date);
+        row.innerHTML = '<span class="d"></span><span class="t"></span>' + (r.cloud ? '<span class="cloud">☁</span>' : '') + '<span class="s"></span>';
+        row.querySelector('.d').textContent = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+        row.querySelector('.t').textContent = r.test || 'Test';
+        row.querySelector('.s').textContent = r.score !== '' && r.score != null ? '✓ ' + r.score : '';
+        hist.appendChild(row);
+      });
+    }
+
+    // sync line
+    var syncline = document.getElementById('syncline');
+    if (cloudState === null) {
+      syncline.textContent = 'showing this device only — cloud not reachable';
+    } else {
+      syncline.innerHTML = '<span class="ok">✓ synced to your FS Account</span> — same history on every device (' + cloudState + ' cloud records)';
+    }
+  }
+
+  var local = localResults();
+  render(local, 0); // instant paint from local
+  cloudResults(user ? user.phone : '').then(function (cloud) {
+    if (cloud === null) { render(local, null); return; }
+    var seen = {}, merged = [];
+    local.concat(cloud).forEach(function (r) {
+      var k = key(r);
+      if (seen[k]) return;
+      seen[k] = 1;
+      merged.push(r);
+    });
+    render(merged, cloud.length);
+  });
+})();
+</script>
+<script data-goatcounter="https://flarestamina.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
