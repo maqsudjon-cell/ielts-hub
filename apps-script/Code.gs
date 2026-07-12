@@ -11,11 +11,14 @@
  *   5. Copy the Web app URL into js/tracker.js (WEB_APP_URL).
  *
  * Sheet schema (auto-created on first write):
- *   Timestamp | Name | Test | Score
+ *   Timestamp | Name | Phone | Test | Score
+ *
+ * Existing sheets: the Phone column is appended automatically on the next write
+ * if the header row still has 4 columns.
  */
 
 const SHEET_NAME = 'Results';
-const HEADERS    = ['Timestamp', 'Name', 'Test', 'Score'];
+const HEADERS    = ['Timestamp', 'Name', 'Phone', 'Test', 'Score'];
 
 /** POST endpoint: appends a row from the JSON body. */
 function doPost(e) {
@@ -29,6 +32,7 @@ function doPost(e) {
     sheet.appendRow([
       ts,
       String(data.name  || '').slice(0, 80),
+      String(data.phone || '').slice(0, 20),
       String(data.test  || '').slice(0, 120),
       (data.score === undefined || data.score === null || data.score === '') ? '' : data.score
     ]);
@@ -48,6 +52,11 @@ function doGet() {
 function getOrCreateSheet_() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(SHEET_NAME);
+  if (sheet && sheet.getLastColumn() === 4) {
+    // migrate old 4-column sheets: insert Phone after Name
+    sheet.insertColumnAfter(2);
+    sheet.getRange(1, 3).setValue('Phone').setFontWeight('bold');
+  }
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
     sheet.appendRow(HEADERS);
