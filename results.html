@@ -166,9 +166,15 @@ footer{border-top:1px solid var(--border);margin-top:34px}
 
   function cloudResults(phone) {
     if (!phone) return Promise.resolve([]);
-    return fetch('https://firestore.googleapis.com/v1/projects/' + FS_PROJECT + '/databases/(default)/documents:runQuery', {
+    // authenticated read: works now and keeps working once Firestore rules
+    // are tightened to owner-only reads
+    var tokenP = (window.FSAuth && FSAuth.getFreshToken) ? FSAuth.getFreshToken() : Promise.resolve(null);
+    return tokenP.then(function (token) {
+      var headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+      return fetch('https://firestore.googleapis.com/v1/projects/' + FS_PROJECT + '/databases/(default)/documents:runQuery', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: headers,
       body: JSON.stringify({
         structuredQuery: {
           from: [{ collectionId: 'results' }],
@@ -187,6 +193,7 @@ footer{border-top:1px solid var(--border);margin-top:34px}
           cloud: true
         };
       });
+    });
     }).catch(function () { return null; }); // null = cloud unreachable
   }
 
