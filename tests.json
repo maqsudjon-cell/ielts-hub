@@ -10,6 +10,14 @@
   ],
   "tests": [
     {
+      "title": "IELTS Study Plan Generator",
+      "category": "Tools",
+      "url": "https://flarestamina.com/plan/",
+      "date": "2026-07-18",
+      "difficulty": "current band · target · weeks -> week-by-week plan",
+      "description": "Free personal study-plan generator: pick your current band, target band, weeks until the exam and your weakest skill — get an honest verdict (is the timeline realistic?) plus a three-phase, week-by-week plan linked to the free mocks, Writing lab and Speaking lab. Printable, bilingual UZ/EN."
+    },
+    {
       "title": "IELTS Speaking Topics 2026",
       "category": "Speaking",
       "url": "https://flarestamina.com/speaking-topics/",
