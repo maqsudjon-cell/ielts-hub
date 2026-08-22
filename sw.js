@@ -1,5 +1,5 @@
 /* Flarestamina Hub service worker — offline shell + fast repeat visits */
-const CACHE = 'Flarestamina-hub-v1';
+const CACHE = 'Flarestamina-hub-v2';
 
 self.addEventListener('install', (e) => {
   e.waitUntil(

@@ -2,131 +2,140 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Results — FLARESTAMINA</title>
-<meta name="description" content="Your IELTS practice history: streak, weekly activity and every saved score — on any device with one FS Account.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Results — Flarestamina</title>
+<meta name="description" content="Your IELTS practice history: streak, weekly activity and every saved score.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#000000">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <script>
 (function () {
   try {
-    var t = localStorage.getItem('theme') || 'dark';
-    document.documentElement.dataset.theme = t;
-  } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+    var t = localStorage.getItem('fs-paper-theme') || localStorage.getItem('theme') || localStorage.getItem('p8-theme');
+    if (t === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.dataset.theme = 'dark';
+    } else {
+      document.documentElement.dataset.theme = 'light';
+    }
+  } catch (e) { document.documentElement.dataset.theme = 'light'; }
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#000; --surface:#0A0A0A; --card:#0D0D0D;
-  --border:#232323; --border-strong:#3a3a3a;
-  --text:#EDEDED; --muted:#8A8A8A; --faint:#555;
-  --accent:#FF5A1F; --on-accent:#180702; --ok:#22C55E;
-  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --bg:#ffffff; --elev:#ffffff; --surface:#ffffff;
+  --fg:#0a0a0a; --muted:#5c5c5c; --subtle:#8a8a8a;
+  --border: color-mix(in oklab, var(--fg) 10%, transparent);
+  --border-strong: color-mix(in oklab, var(--fg) 18%, transparent);
+  --ok:#15803d;
+  --card: 0 0 0 1px rgb(10 10 10 / 0.08), 0 1px 2px rgb(10 10 10 / 0.04);
+  --sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
-html[data-theme="light"]{
-  --bg:#FAFAF9; --surface:#FFF; --card:#FFF;
-  --border:#E5E5E3; --border-strong:#CFCFCC;
-  --text:#111; --muted:#666; --faint:#999;
-  --accent:#D9480F; --on-accent:#FFF; --ok:#15803D;
+html.dark, html[data-theme="dark"]{
+  --bg:#000; --elev:#0a0a0a; --surface:#111;
+  --fg:#f5f5f5; --muted:#8a8a8a; --subtle:#5c5c5c;
+  --ok:#4ade80;
+  --card: 0 0 0 1px rgb(255 255 255 / 0.1);
+  color-scheme: dark;
 }
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
-::selection{background:var(--accent);color:var(--on-accent)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--fg);color:var(--bg)}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
 
-.bar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border)}
-.bar-in{max-width:980px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:16px}
-.brand{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-weight:800;font-size:14px;letter-spacing:.06em}
-.brand svg{width:20px;height:20px}
-.brand b{color:var(--accent)}
-.acct{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
-.acct b{color:var(--text);font-weight:500}
-.tgl{font-size:14px;color:var(--muted);padding:4px 6px}
-.tgl:hover{color:var(--text)}
+.bar{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);background:color-mix(in oklab,var(--bg) 85%, transparent);backdrop-filter:blur(12px)}
+.bar-in{max-width:56rem;margin:0 auto;padding:0 1.25rem;height:4rem;display:flex;align-items:center;gap:.75rem}
+.brand{display:flex;align-items:center;gap:.65rem;font-size:.875rem;font-weight:500}
+.brand svg{width:1.75rem;height:1.75rem}
+.nav-sp{flex:1}
+.icon-btn{width:2.75rem;height:2.75rem;display:grid;place-items:center;border-radius:999px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;height:2.5rem;padding:0 1rem;border-radius:999px;font-size:.875rem;font-weight:500;border:1px solid var(--border-strong)}
+.hi{font-size:.875rem;color:var(--muted)}
+.hi b{color:var(--fg);font-weight:500}
 
-.wrap{max-width:980px;margin:0 auto;padding:28px 24px 60px}
-.kick{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-h1{font-family:var(--mono);font-size:clamp(20px,3.4vw,26px);font-weight:700;margin-bottom:4px}
-.sub{color:var(--muted);font-size:13px;margin-bottom:26px;font-family:var(--mono)}
+.wrap{max-width:56rem;margin:0 auto;padding:2rem 1.25rem 4.5rem}
+.kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);margin-bottom:.6rem}
+h1{font-size:clamp(1.75rem,4vw,2.25rem);font-weight:500;letter-spacing:-.04em;margin-bottom:.4rem}
+.sub{color:var(--muted);font-size:.9rem;margin-bottom:1.75rem}
 .sub .ok{color:var(--ok)}
 
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:26px}
-@media(max-width:640px){.tiles{grid-template-columns:repeat(2,1fr)}}
-.tile{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
-.tile .lb{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
-.tile .v{font-family:var(--mono);font-size:24px;font-weight:800}
-.tile .v small{font-size:12px;color:var(--muted);font-weight:500}
-.tile.hot .v{color:var(--accent)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:2rem}
+@media(max-width:640px){.tiles{grid-template-columns:1fr 1fr}}
+.tile{background:var(--surface);border-radius:10px;padding:1rem 1.1rem;box-shadow:var(--card)}
+.tile .lb{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:.35rem}
+.tile .v{font-size:1.75rem;font-weight:500;letter-spacing:-.04em}
+.tile .v small{font-size:.75rem;color:var(--muted);font-weight:400}
 
-.sec{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:26px 0 12px}
-.chart{display:flex;align-items:flex-end;gap:3px;height:74px;border:1px solid var(--border);border-radius:12px;padding:12px 14px 10px;background:var(--card)}
-.chart i{flex:1;background:var(--border-strong);border-radius:2px 2px 0 0;min-height:3px}
-.chart i.on{background:var(--accent)}
-.chart-lbl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:6px}
+.sec{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin:1.75rem 0 .75rem}
+.chart{display:flex;align-items:flex-end;gap:3px;height:74px;border-radius:10px;padding:12px 14px 10px;background:var(--surface);box-shadow:var(--card)}
+.chart i{flex:1;background:var(--border);border-radius:2px 2px 0 0;min-height:3px}
+.chart i.on{background:var(--fg)}
+.chart-lbl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.65rem;color:var(--subtle);margin-top:.4rem}
 
-.hist{border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.row{display:flex;align-items:baseline;gap:14px;padding:11px 16px;border-bottom:1px solid var(--border);font-size:13.5px}
+.hist{border-radius:10px;overflow:hidden;box-shadow:var(--card);background:var(--surface)}
+.row{display:flex;align-items:baseline;gap:14px;padding:12px 16px;border-bottom:1px solid var(--border);font-size:.9rem}
 .row:last-child{border-bottom:none}
-.row .d{font-family:var(--mono);font-size:11px;color:var(--faint);min-width:86px}
+.row .d{font-family:var(--mono);font-size:.7rem;color:var(--subtle);min-width:86px}
 .row .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.row .s{font-family:var(--mono);font-weight:700;color:var(--ok);white-space:nowrap}
-.row .cloud{font-size:10px;color:var(--faint)}
-.none{padding:30px 16px;color:var(--muted);font-family:var(--mono);font-size:13px;text-align:center}
+.row .s{font-family:var(--mono);font-weight:500;color:var(--ok);white-space:nowrap}
+.row .cloud{font-size:10px;color:var(--subtle)}
+.none{padding:2rem 1rem;color:var(--muted);text-align:center}
 
-footer{border-top:1px solid var(--border);margin-top:34px}
-.foot{max-width:980px;margin:0 auto;padding:22px 24px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-.foot a{color:var(--muted);border-bottom:1px dotted var(--border-strong)}
-.foot a:hover{color:var(--accent);border-color:var(--accent)}
+footer{border-top:1px solid var(--border)}
+.foot{max-width:56rem;margin:0 auto;padding:1.5rem 1.25rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.75rem;color:var(--subtle)}
+.foot a{color:var(--muted)}
+.foot a:hover{color:var(--fg)}
 </style>
 </head>
 <body>
 
 <nav class="bar" aria-label="Site">
   <div class="bar-in">
-    <a class="brand" href="https://flarestamina.com/ielts-hub/" aria-label="Back to the hub">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
-        <path d="M12 9.5V1.5"/><path d="M14.5 12h7"/><path d="M12 14.5V19"/><path d="M9.5 12H4"/>
+    <a class="brand" href="./" aria-label="Back to the hub">
+      <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+        <path d="M16 1.4 L17.85 13.55 L30.6 16 L17.85 18.45 L16 30.6 L14.15 18.45 L1.4 16 L14.15 13.55 Z"/>
       </svg>
-      <span><b>FLARE</b>STAMINA</span>
+      Flarestamina
     </a>
-    <a class="acct" id="acct" href="https://flarestamina.com/account/">account</a>
-    <button class="tgl" id="tgl" aria-label="Toggle theme">◐</button>
+    <div class="nav-sp"></div>
+    <a class="btn" href="./">Tests</a>
+    <a class="btn" id="acct" href="https://flarestamina.com/account/?return=https%3A%2F%2Fflarestamina.com%2Fielts-hub%2Fresults.html">Sign in</a>
+    <button class="icon-btn" id="tgl" aria-label="Toggle theme">◐</button>
   </div>
 </nav>
 
 <main class="wrap">
-  <div class="kick">My Results</div>
-  <h1 id="head">—</h1>
-  <p class="sub" id="syncline">loading…</p>
+  <p class="kicker">Results</p>
+  <h1 id="head">Your progress</h1>
+  <p class="sub" id="syncline">Scores on this device. Sign in to sync across phones.</p>
 
   <div class="tiles">
     <div class="tile"><div class="lb">Total tests</div><div class="v" id="vTotal">—</div></div>
     <div class="tile"><div class="lb">This week</div><div class="v" id="vWeek">—</div></div>
-    <div class="tile hot"><div class="lb">Streak</div><div class="v" id="vStreak">—<small> days</small></div></div>
+    <div class="tile"><div class="lb">Streak</div><div class="v" id="vStreak">—<small> days</small></div></div>
     <div class="tile"><div class="lb">Best (of 40)</div><div class="v" id="vBest">—</div></div>
   </div>
 
-  <div class="sec">Last 30 days</div>
+  <p class="sec">Last 30 days</p>
   <div class="chart" id="chart" aria-label="Practice activity, last 30 days"></div>
   <div class="chart-lbl"><span id="d30"></span><span>today</span></div>
 
-  <div class="sec">History</div>
+  <p class="sec">History</p>
   <div class="hist" id="hist"><div class="none">loading…</div></div>
 </main>
 
 <footer>
   <div class="foot">
-    <span>© <span id="yy"></span> FLARESTAMINA</span>
-    <span><a href="https://flarestamina.com/ielts-hub/">← back to tests</a> · <a href="https://t.me/flarestamina" target="_blank" rel="noopener">telegram @flarestamina</a></span>
+    <span>© <span id="yy"></span> Flarestamina</span>
+    <span><a href="./">← back to tests</a> · <a href="https://t.me/flarestamina" target="_blank" rel="noopener">Telegram</a></span>
   </div>
 </footer>
 
@@ -136,9 +145,14 @@ footer{border-top:1px solid var(--border);margin-top:34px}
   'use strict';
   document.getElementById('yy').textContent = new Date().getFullYear();
   document.getElementById('tgl').addEventListener('click', function () {
-    var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = next;
-    try { localStorage.setItem('theme', next); } catch (e) {}
+    var dark = !(document.documentElement.classList.contains('dark') || document.documentElement.dataset.theme === 'dark');
+    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    try {
+      localStorage.setItem('fs-paper-theme', dark ? 'dark' : 'light');
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+      localStorage.setItem('p8-theme', dark ? 'dark' : 'light');
+    } catch (e) {}
   });
 
   var user = null;
@@ -147,13 +161,13 @@ footer{border-top:1px solid var(--border);margin-top:34px}
     user = FSAuth.getUser();
     if (user && user.first_name) {
       var acct = document.getElementById('acct');
+      acct.className = 'hi';
       acct.innerHTML = 'hi, <b></b>';
       acct.querySelector('b').textContent = user.first_name;
     }
   }
-  document.getElementById('head').textContent = user ? (user.first_name + "'s progress") : 'Your progress';
+  document.getElementById('head').textContent = user ? (user.first_name + "’s progress") : 'Your progress';
 
-  /* ── data: local history + cloud results (keyed by phone) ── */
   var FS_PROJECT = 'ieltshub-e2aa8';
 
   function localResults() {
@@ -166,8 +180,6 @@ footer{border-top:1px solid var(--border);margin-top:34px}
 
   function cloudResults(phone) {
     if (!phone) return Promise.resolve([]);
-    // authenticated read: works now and keeps working once Firestore rules
-    // are tightened to owner-only reads
     var tokenP = (window.FSAuth && FSAuth.getFreshToken) ? FSAuth.getFreshToken() : Promise.resolve(null);
     return tokenP.then(function (token) {
       var headers = { 'Content-Type': 'application/json' };
@@ -194,7 +206,7 @@ footer{border-top:1px solid var(--border);margin-top:34px}
         };
       });
     });
-    }).catch(function () { return null; }); // null = cloud unreachable
+    }).catch(function () { return null; });
   }
 
   function key(r) {
@@ -208,7 +220,6 @@ footer{border-top:1px solid var(--border);margin-top:34px}
     var now = new Date();
     var weekAgo = now.getTime() - 7 * 864e5;
 
-    // tiles
     document.getElementById('vTotal').textContent = items.length;
     document.getElementById('vWeek').textContent = items.filter(function (r) { return new Date(r.date) > weekAgo; }).length;
 
@@ -236,7 +247,6 @@ footer{border-top:1px solid var(--border);margin-top:34px}
     });
     document.getElementById('vBest').textContent = best === null ? '—' : best;
 
-    // 30-day chart
     var chart = document.getElementById('chart');
     chart.innerHTML = '';
     var max = 1;
@@ -250,11 +260,10 @@ footer{border-top:1px solid var(--border);margin-top:34px}
     var d30 = new Date(now.getTime() - 29 * 864e5);
     document.getElementById('d30').textContent = d30.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
 
-    // history (latest 60)
     var hist = document.getElementById('hist');
     hist.innerHTML = '';
     if (!items.length) {
-      hist.innerHTML = '<div class="none">no results yet — finish any test and it appears here</div>';
+      hist.innerHTML = '<div class="none">No results yet — finish any test and it appears here.</div>';
     } else {
       items.slice(-60).reverse().forEach(function (r) {
         var row = document.createElement(r.href ? 'a' : 'div');
@@ -269,17 +278,18 @@ footer{border-top:1px solid var(--border);margin-top:34px}
       });
     }
 
-    // sync line
     var syncline = document.getElementById('syncline');
-    if (cloudState === null) {
-      syncline.textContent = 'showing this device only — cloud not reachable';
+    if (!user) {
+      syncline.textContent = 'On this device. Sign in to keep scores across phones.';
+    } else if (cloudState === null) {
+      syncline.textContent = 'Showing this device only — cloud not reachable.';
     } else {
-      syncline.innerHTML = '<span class="ok">✓ synced to your FS Account</span> — same history on every device (' + cloudState + ' cloud records)';
+      syncline.innerHTML = '<span class="ok">Synced</span> — same history on every device (' + cloudState + ' cloud records).';
     }
   }
 
   var local = localResults();
-  render(local, 0); // instant paint from local
+  render(local, 0);
   cloudResults(user ? user.phone : '').then(function (cloud) {
     if (cloud === null) { render(local, null); return; }
     var seen = {}, merged = [];

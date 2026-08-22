@@ -2,188 +2,264 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FLARESTAMINA — IELTS Practice Hub</title>
-<meta name="description" content="Free IELTS practice: 100+ listening and reading tests, Cambridge 21, full mocks, speaking and writing labs. One account, every tool.">
-<meta name="theme-color" content="#000000">
-<meta property="og:title" content="FLARESTAMINA — IELTS Practice Hub">
-<meta property="og:description" content="100+ free IELTS tests with instant scoring. One account, every tool.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flarestamina — IELTS Practice Hub</title>
+<meta name="description" content="Free IELTS practice: pick a skill, sit the paper, see the band. 100+ Listening and Reading tests. Engineered in Tashkent.">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:site_name" content="Flarestamina">
+<meta property="og:title" content="Flarestamina — IELTS Practice Hub">
+<meta property="og:description" content="Pick a skill. Sit the paper. See the band. Free.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://flarestamina.com/og-image.png">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta property="og:image" content="https://flarestamina.com/ielts-hub/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://flarestamina.com/ielts-hub/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Flarestamina — IELTS Practice Hub">
+<meta name="twitter:description" content="Pick a skill. Sit the paper. See the band. Free.">
+<meta name="twitter:image" content="https://flarestamina.com/ielts-hub/og.png">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="canonical" href="https://flarestamina.com/ielts-hub/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"FLARESTAMINA — IELTS Practice Hub","url":"https://flarestamina.com/ielts-hub/","description":"100+ free IELTS practice tests with instant scoring: Listening, Reading, Writing, Speaking, full mocks and Cambridge 21.","isPartOf":{"@type":"WebSite","name":"FLARESTAMINA","url":"https://flarestamina.com/"}}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Flarestamina — IELTS Practice Hub",
+  "url": "https://flarestamina.com/ielts-hub/",
+  "description": "100+ free IELTS practice tests with instant scoring: Listening, Reading, Writing, Speaking, full mocks and Cambridge 21.",
+  "inLanguage": "en",
+  "isPartOf": { "@type": "WebSite", "name": "Flarestamina", "url": "https://flarestamina.com/" },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://flarestamina.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Practice Hub", "item": "https://flarestamina.com/ielts-hub/" }
+    ]
+  }
+}
+</script>
 <script>
-// theme before paint — dark is the default identity
 (function () {
   try {
-    var t = localStorage.getItem('theme') || 'dark';
-    document.documentElement.dataset.theme = t;
-  } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+    var t = localStorage.getItem('fs-paper-theme') || localStorage.getItem('theme') || localStorage.getItem('p8-theme');
+    if (t === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.dataset.theme = 'dark';
+    } else {
+      document.documentElement.dataset.theme = 'light';
+    }
+  } catch (e) { document.documentElement.dataset.theme = 'light'; }
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#000; --surface:#0A0A0A; --card:#0D0D0D;
-  --border:#232323; --border-strong:#3a3a3a;
-  --text:#EDEDED; --muted:#8A8A8A; --faint:#555;
-  --accent:#FF5A1F; --on-accent:#180702;
-  --red:#D71921;
-  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --bg:#fff; --elev:#fff; --surface:#fff;
+  --fg:#0a0a0a; --muted:#5c5c5c; --subtle:#8a8a8a;
+  --border:color-mix(in oklab,var(--fg) 10%,transparent);
+  --border-strong:color-mix(in oklab,var(--fg) 18%,transparent);
+  --ok:#15803d;
+  --rail:linear-gradient(90deg,#2dd4bf,#38bdf8 32%,#818cf8 64%,#e879f9 100%);
+  --card:0 0 0 1px rgb(10 10 10 / .08), 0 1px 2px rgb(10 10 10 / .04);
+  --card-hover:0 0 0 1px rgb(10 10 10 / .14), 0 10px 28px -18px rgb(10 10 10 / .2);
+  --sans:Inter,ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
-html[data-theme="light"]{
-  --bg:#FAFAF9; --surface:#FFF; --card:#FFF;
-  --border:#E5E5E3; --border-strong:#CFCFCC;
-  --text:#111; --muted:#666; --faint:#999;
-  --accent:#D9480F; --on-accent:#FFF;
+html.dark,html[data-theme="dark"]{
+  --bg:#000; --elev:#0a0a0a; --surface:#111;
+  --fg:#f5f5f5; --muted:#8a8a8a; --subtle:#5c5c5c;
+  --ok:#4ade80;
+  --card:0 0 0 1px rgb(255 255 255 / .1);
+  --card-hover:0 0 0 1px rgb(255 255 255 / .18);
+  color-scheme:dark;
 }
-html{scrollbar-color:var(--border-strong) var(--bg)}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);color:var(--fg)}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
-::selection{background:var(--accent);color:var(--on-accent)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--fg);color:var(--bg)}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
 
-/* ── top bar ── */
-.bar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border)}
-.bar-in{max-width:1320px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:16px}
-.brand{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-weight:800;font-size:14px;letter-spacing:.06em;flex-shrink:0}
-.brand svg{width:20px;height:20px}
-.brand b{color:var(--accent);font-weight:800}
-.search{flex:1;max-width:340px;margin-left:auto}
-.search input{
-  width:100%;height:34px;padding:0 12px;
-  background:var(--surface);border:1px solid var(--border);border-radius:8px;
-  color:var(--text);font-family:var(--mono);font-size:12.5px;outline:none;
+.bar{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);background:color-mix(in oklab,var(--bg) 88%,transparent);backdrop-filter:blur(14px)}
+.bar-in{max-width:46rem;margin:0 auto;padding:0 1.2rem;height:3.75rem;display:flex;align-items:center;gap:.55rem}
+.brand{display:flex;align-items:center;gap:.55rem;font-size:.9rem;font-weight:500;letter-spacing:-.01em}
+.brand svg{width:1.55rem;height:1.55rem}
+.sp{flex:1}
+.lang{display:flex;height:2rem;border:1px solid var(--border);border-radius:999px;padding:2px;font-size:.7rem;font-weight:500}
+.lang button{min-width:2rem;border-radius:999px;padding:0 .55rem;color:var(--muted)}
+.lang button.on{background:var(--fg);color:var(--bg)}
+.icon-btn{width:2.5rem;height:2.5rem;display:grid;place-items:center;border-radius:999px;color:var(--muted)}
+.icon-btn:hover{color:var(--fg)}
+.link{font-size:.85rem;color:var(--muted);padding:0 .3rem}
+.link:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;min-height:2.4rem;padding:0 1rem;border-radius:999px;font-size:.85rem;font-weight:500}
+.btn.solid{background:var(--fg);color:var(--bg)}
+.hi{font-size:.85rem;color:var(--muted);white-space:nowrap;max-width:7rem;overflow:hidden;text-overflow:ellipsis}
+.inst{display:none;height:2rem;padding:0 .7rem;border-radius:999px;border:1px solid var(--border);font-size:.72rem;font-weight:500;color:var(--muted);align-items:center;gap:.3rem;white-space:nowrap}
+.inst.on{display:inline-flex}
+.inst:hover{color:var(--fg);border-color:var(--border-strong)}
+
+.wrap{max-width:46rem;margin:0 auto;padding:1.75rem 1.2rem 5rem}
+.kicker{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);margin-bottom:.5rem}
+h1{font-size:clamp(1.7rem,4.4vw,2.25rem);font-weight:500;letter-spacing:-.045em;line-height:1.1;margin-bottom:.45rem}
+.lede{color:var(--muted);max-width:28rem;margin-bottom:1.4rem}
+
+.cont{display:none;padding:1rem 1.15rem;border-radius:14px;background:var(--surface);box-shadow:var(--card);margin-bottom:1.15rem}
+.cont.on{display:block}
+.cont .lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-bottom:.28rem}
+.cont a{font-weight:500;letter-spacing:-.02em}
+.cont .st{display:block;margin-top:.2rem;font-size:.85rem;color:var(--muted)}
+
+.premium{display:block;position:relative;border-radius:16px;padding:1.5px;margin-bottom:1.25rem;isolation:isolate}
+.premium::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;z-index:0;
+  background:linear-gradient(90deg,#2dd4bf,#38bdf8,#818cf8,#e879f9,#2dd4bf);
+  background-size:300% 100%;
+  animation:rail 3.6s linear infinite;
 }
-.search input:focus{border-color:var(--accent)}
-.search input::placeholder{color:var(--faint)}
-.acct{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
-.acct b{color:var(--text);font-weight:500}
-.acct:hover b{color:var(--accent)}
-.tgl{font-size:14px;color:var(--muted);padding:4px 6px}
-.tgl:hover{color:var(--text)}
-.install{display:none;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:5px 11px;white-space:nowrap}
-.install.on{display:inline-block}
-.install:hover{background:var(--accent);color:var(--on-accent)}
-
-/* ── layout ── */
-.wrap{max-width:1320px;margin:0 auto;padding:28px 24px 60px}
-.kick{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-h1{font-family:var(--mono);font-size:clamp(20px,3.4vw,26px);font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
-.sub{color:var(--muted);font-size:13.5px;margin-bottom:24px}
-
-/* ── continue strip ── */
-.cont{
-  display:none;align-items:baseline;gap:10px;flex-wrap:wrap;
-  border:1px solid var(--border);border-left:2px solid var(--accent);border-radius:10px;
-  padding:12px 16px;margin-bottom:26px;font-family:var(--mono);font-size:12.5px;
+.premium-in{
+  position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;
+  background:var(--bg);border-radius:14.5px;padding:1.2rem 1.25rem 1.15rem;
 }
-.cont.on{display:flex}
-.cont .lbl{color:var(--accent);font-weight:700;letter-spacing:.1em}
-.cont a{font-weight:500;border-bottom:1px solid var(--border-strong)}
-.cont a:hover{color:var(--accent);border-color:var(--accent)}
-.cont .st{color:var(--muted)}
-
-/* ── filter chips ── */
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
-.chip{
-  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
-  padding:7px 13px;border:1px solid var(--border);border-radius:999px;color:var(--muted);
+.paid{
+  display:inline-block;font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--rail);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:.4rem;
 }
-.chip:hover{border-color:var(--border-strong);color:var(--text)}
-.chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
-.chip .n{opacity:.65;margin-left:4px}
-
-/* ── grid — fills any screen width, 1→4+ columns ── */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.bar-in{gap:10px}.search{max-width:none}}
-.card{
-  display:flex;flex-direction:column;gap:8px;min-width:0;
-  background:var(--card);border:1px solid var(--border);border-radius:12px;
-  padding:16px 16px 14px;min-height:150px;
+.premium b{display:block;font-size:1.2rem;font-weight:500;letter-spacing:-.03em}
+.premium small{display:block;margin-top:.3rem;color:var(--muted);font-size:.85rem;max-width:22rem}
+.premium .go{
+  flex:none;display:inline-flex;align-items:center;height:2.5rem;padding:0 1.1rem;border-radius:999px;
+  background:var(--fg);color:var(--bg);font-size:.85rem;font-weight:500;
 }
-.card:hover{border-color:var(--border-strong)}
-.card:hover .ttl{color:var(--accent)}
-.card.paid{border-color:var(--accent)}
-.chead{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:11px}
-.num{color:var(--faint)}
-.cat{color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.card.paid .cat{color:var(--accent);font-weight:700}
-.ttl{font-size:15px;font-weight:600;line-height:1.35}
-.desc{
-  color:var(--muted);font-size:12.5px;line-height:1.55;flex:1;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-}
-.desc:empty{display:none}
-.card:has(.desc:empty){min-height:0}
-.cfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--faint);border-top:1px solid var(--border);padding-top:10px;min-width:0}
-.diff{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.chead{min-width:0}
-.chead .cat{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.done{color:#22C55E;font-weight:700;white-space:nowrap}
-.empty{color:var(--muted);font-family:var(--mono);font-size:13px;padding:40px 0;text-align:center;display:none}
+@keyframes rail{to{background-position:300% 0}}
 
-/* ── footer ── */
-footer{border-top:1px solid var(--border);margin-top:22px}
-.foot{max-width:1320px;margin:0 auto;padding:22px 24px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-.foot a{color:var(--muted);border-bottom:1px dotted var(--border-strong)}
-.foot a:hover{color:var(--accent);border-color:var(--accent)}
-@media(prefers-reduced-motion:no-preference){
-  .card,.chip,.ttl{transition:border-color .15s ease,color .15s ease,background .15s ease}
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:0 0 1.15rem}
+.sk{display:flex;flex-direction:column;min-height:8rem;padding:1.15rem 1.15rem 1.05rem;border-radius:14px;background:var(--surface);box-shadow:var(--card);text-align:left;transition:box-shadow .2s}
+.sk:hover{box-shadow:var(--card-hover)}
+.sk .ico{width:2.1rem;height:2.1rem;display:grid;place-items:center;border-radius:8px;border:1px solid var(--border);margin-bottom:.75rem;color:var(--fg)}
+.sk b{font-weight:500;letter-spacing:-.03em;font-size:1.05rem}
+.sk span{margin-top:.25rem;font-size:.78rem;color:var(--muted);line-height:1.4}
+.sk em{margin-top:auto;padding-top:.85rem;font-style:normal;font-size:.85rem;font-weight:500}
+
+.quiet{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.05rem 1.15rem;border-radius:14px;background:var(--surface);box-shadow:var(--card);margin-bottom:1.6rem}
+.quiet:hover{box-shadow:var(--card-hover)}
+.quiet b{display:block;font-weight:500;letter-spacing:-.02em}
+.quiet small{display:block;margin-top:.15rem;color:var(--muted);font-size:.8rem}
+.quiet .go{flex:none;font-size:.85rem;font-weight:500}
+
+.tools p{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);margin-bottom:.35rem}
+.tools a{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 0;border-top:1px solid var(--border);font-size:.95rem}
+.tools a:first-of-type{border-top:0}
+.tools a span{color:var(--subtle);font-size:.8rem;white-space:nowrap}
+
+.back{display:inline-flex;align-items:center;gap:.35rem;margin-bottom:.9rem;font-size:.9rem;color:var(--muted)}
+.back:hover{color:var(--fg)}
+.search{display:flex;align-items:center;gap:.6rem;height:3rem;padding:0 1.05rem;border-radius:999px;background:var(--surface);box-shadow:var(--card);margin:0 0 1rem}
+.search input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:1rem;color:var(--fg)}
+.search input::placeholder{color:var(--subtle)}
+
+.list{display:flex;flex-direction:column;gap:.55rem}
+.row{display:flex;align-items:center;gap:.9rem;padding:.95rem 1.05rem;border-radius:14px;background:var(--surface);box-shadow:var(--card);min-height:4.6rem;transition:box-shadow .2s}
+.row:hover{box-shadow:var(--card-hover)}
+.row .txt{flex:1;min-width:0}
+.row .ttl{font-weight:500;letter-spacing:-.02em;line-height:1.25}
+.row .meta{margin-top:.18rem;font-size:.8rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .done{display:block;margin-top:.18rem;font-family:var(--mono);font-size:.72rem;color:var(--ok)}
+.row .go{flex:none;height:2.35rem;padding:0 .95rem;border-radius:999px;background:var(--fg);color:var(--bg);font-size:.82rem;font-weight:500;display:grid;place-items:center}
+.empty{display:none;text-align:center;padding:2.5rem 0;color:var(--muted)}
+
+footer{border-top:1px solid var(--border)}
+.foot{max-width:46rem;margin:0 auto;padding:1.35rem 1.2rem;display:flex;justify-content:space-between;gap:.75rem;flex-wrap:wrap;font-size:.75rem;color:var(--subtle)}
+.foot a{color:var(--muted)}
+.foot a:hover{color:var(--fg)}
+.foot .set{display:flex;flex-wrap:wrap;gap:.4rem}
+.home-only,.skill-only{display:none}
+body[data-view="home"] .home-only{display:block}
+body[data-view="skill"] .skill-only{display:block}
+
+@media(prefers-reduced-motion:reduce){
+  .premium::before{animation:none;background:var(--rail)}
+}
+@media(max-width:560px){
+  .inst{display:none!important}
+}
+@media(max-width:420px){
+  .link{display:none}
+  .premium-in{padding:1.05rem 1.05rem 1rem}
 }
 </style>
 </head>
-<body>
+<body data-view="home">
 
 <nav class="bar" aria-label="Site">
   <div class="bar-in">
-    <a class="brand" href="https://flarestamina.com/" aria-label="FLARESTAMINA home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
-        <path d="M12 9.5V1.5"/><path d="M14.5 12h7"/><path d="M12 14.5V19"/><path d="M9.5 12H4"/>
-      </svg>
-      <span><b>FLARE</b>STAMINA</span>
+    <a class="brand" href="https://flarestamina.com/" aria-label="Flarestamina home">
+      <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 1.4 L17.85 13.55 L30.6 16 L17.85 18.45 L16 30.6 L14.15 18.45 L1.4 16 L14.15 13.55 Z"/></svg>
+      Flarestamina
     </a>
-    <div class="search"><input id="q" type="search" placeholder="search tests…" aria-label="Search tests"></div>
-    <button class="install" id="installBtn" aria-label="Install as app">⤓ app</button>
-    <a class="acct" id="acct" href="https://flarestamina.com/account/">account</a>
-    <button class="tgl" id="tgl" aria-label="Toggle theme">◐</button>
+    <div class="sp"></div>
+    <button class="inst" id="installBtn" type="button" data-i18n="install">Install app</button>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" class="on">EN</button>
+      <button type="button" data-lang="uz">UZ</button>
+    </div>
+    <a class="link" href="results.html" data-i18n="results">Results</a>
+    <a class="btn solid" id="acct" href="https://flarestamina.com/account/?return=https%3A%2F%2Fflarestamina.com%2Fielts-hub%2F" data-i18n="signin">Sign in</a>
+    <button class="icon-btn" id="searchBtn" type="button" aria-label="Search tests">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+    </button>
+    <button class="icon-btn" id="tgl" aria-label="Theme">
+      <svg id="ico-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg id="ico-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
   </div>
 </nav>
 
 <main class="wrap">
-  <div class="kick">Practice Hub</div>
-  <h1 id="count">— tests</h1>
-  <p class="sub">Free IELTS practice with instant scoring. One account — every result saved.</p>
+  <p class="kicker" data-i18n="kicker">Practice Hub</p>
+  <h1 id="title" data-i18n="title">Choose a skill</h1>
+  <p class="lede" id="lede" data-i18n="lede">Sit the paper. See the band. Every result saved to your account.</p>
 
-  <div class="cont" id="cont" aria-label="Continue where you left off">
-    <span class="lbl">▸ CONTINUE</span>
+  <div class="cont" id="cont">
+    <div class="lbl" id="contLbl">Continue</div>
     <a id="contLink" href="#"></a>
     <span class="st" id="contStat"></span>
   </div>
 
-  <div class="chips" id="chips" role="tablist" aria-label="Categories"></div>
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty">no tests match — clear the search or pick another category</div>
+  <section class="home-only">
+    <div id="feat"></div>
+    <div class="skills" id="skills"></div>
+    <div id="cam"></div>
+    <div class="tools" id="tools"></div>
+  </section>
+
+  <section class="skill-only">
+    <a class="back" href="./" id="back">← <span data-i18n="all">All skills</span></a>
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+      <input id="q" type="search" placeholder="Search…" aria-label="Search tests">
+    </div>
+    <div class="list" id="list"></div>
+    <div class="empty" id="empty" data-i18n="empty">Nothing matches. Try another word.</div>
+  </section>
 </main>
 
 <footer>
   <div class="foot">
-    <span>© <span id="yy"></span> FLARESTAMINA</span>
-    <span>
-      <a href="https://flarestamina.com/">home</a> ·
-      <a href="https://flarestamina.com/ielts-hub/results.html">my results</a> ·
-      <a href="https://flarestamina.com/teachers/">for teachers</a> ·
-      <a href="https://t.me/flarestamina" target="_blank" rel="noopener">telegram @flarestamina</a> ·
-      <a href="https://flarestamina.com/privacy/">privacy</a>
+    <span>© <span id="yy"></span> Flarestamina</span>
+    <span class="set">
+      <a href="https://flarestamina.com/" data-i18n="home">Home</a> ·
+      <a href="results.html" data-i18n="results">Results</a> ·
+      <a href="https://flarestamina.com/teachers/" data-i18n="teachers">For teachers</a> ·
+      <a href="https://t.me/flarestamina" target="_blank" rel="noopener">Telegram</a> ·
+      <a href="https://flarestamina.com/privacy/" data-i18n="privacy">Privacy</a>
     </span>
   </div>
 </footer>
@@ -192,27 +268,110 @@ footer{border-top:1px solid var(--border);margin-top:22px}
 <script>
 (function () {
   'use strict';
-  document.getElementById('yy').textContent = new Date().getFullYear();
 
-  /* auth — mandatory, one redirect; page keeps working if the script failed */
+  /* ---- auth: mandatory, one redirect; page still works if the script failed ---- */
   var user = null;
   if (window.FSAuth) {
     if (!FSAuth.require()) return;
     user = FSAuth.getUser();
     if (user && user.first_name) {
-      document.getElementById('acct').innerHTML = 'hi, <b></b>';
-      document.getElementById('acct').querySelector('b').textContent = user.first_name;
+      var acct = document.getElementById('acct');
+      acct.textContent = user.first_name;
+      acct.className = 'hi';
+      acct.removeAttribute('data-i18n');
     }
   }
 
-  /* theme */
-  document.getElementById('tgl').addEventListener('click', function () {
-    var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = next;
-    try { localStorage.setItem('theme', next); } catch (e) {}
+  var COPY = {
+    en: {
+      kicker:'Practice Hub', title:'Choose a skill', lede:'Sit the paper. See the band. Every result saved to your account.',
+      results:'Results', signin:'Sign in', cont:'Continue', startHere:'Start here', install:'Install app',
+      all:'All skills', empty:'Nothing matches. Try another word.', home:'Home',
+      teachers:'For teachers', privacy:'Privacy',
+      start:'Start', tests:'tests', test:'test', papers:'papers', paper:'paper',
+      searchTitle:'Search', results_n:'results', result_n:'result',
+      listening:'Listening', reading:'Reading', writing:'Writing', speaking:'Speaking',
+      listenMeta:'30 min · 40 questions', readMeta:'60 min · 40 questions',
+      writeMeta:'60 min · 2 tasks', speakMeta:'14 min · 3 parts',
+      cam:'Cambridge 21', camMeta:'The full book — four tests, all skills, free',
+      mock:'Full Mock', mockMeta:'The complete exam. Listening, Reading and Writing in one sitting.',
+      paid:'10 000 UZS', tools:'Tools', search:'Search this skill…', searchAll:'Search every test…',
+      startStat:'the full book — 4 tests, all skills, free', thisWeek:'this week'
+    },
+    uz: {
+      kicker:'Mashq', title:'Ko‘nikma tanlang', lede:'Testni yozing. Ballni ko‘ring. Har bir natija akkauntingizga saqlanadi.',
+      results:'Natijalar', signin:'Kirish', cont:'Davom ettirish', startHere:'Shu yerdan boshlang', install:'Ilovani o‘rnatish',
+      all:'Barcha ko‘nikmalar', empty:'Hech narsa topilmadi. Boshqa so‘z yozing.', home:'Bosh sahifa',
+      teachers:'O‘qituvchilarga', privacy:'Maxfiylik',
+      start:'Boshlash', tests:'ta test', test:'ta test', papers:'ta test', paper:'ta test',
+      searchTitle:'Qidiruv', results_n:'ta natija', result_n:'ta natija',
+      listening:'Listening', reading:'Reading', writing:'Writing', speaking:'Speaking',
+      listenMeta:'30 daq · 40 savol', readMeta:'60 daq · 40 savol',
+      writeMeta:'60 daq · 2 vazifa', speakMeta:'14 daq · 3 qism',
+      cam:'Cambridge 21', camMeta:'To‘liq kitob — 4 ta test, barcha ko‘nikma, bepul',
+      mock:'Full Mock', mockMeta:'To‘liq imtihon. Listening, Reading va Writing — bir o‘tirishda.',
+      paid:'10 000 so‘m', tools:'Vositalar', search:'Shu ko‘nikma ichidan qidirish…', searchAll:'Barcha testlardan qidirish…',
+      startStat:'to‘liq kitob — 4 ta test, bepul', thisWeek:'ta test shu hafta'
+    }
+  };
+  var locale = 'en';
+  try { var s = localStorage.getItem('fs-lang'); if (s === 'uz' || s === 'en') locale = s; } catch (e) {}
+  function t() { return COPY[locale]; }
+
+  var SKILLS = ['Listening', 'Reading', 'Writing', 'Speaking'];
+  var TESTS = [], cat = 'All', mode = 'home', q = '';
+  try {
+    var sp = new URLSearchParams(location.search);
+    cat = sp.get('cat') || 'All';
+    q = sp.get('q') || '';
+  } catch (e) {}
+
+  function applyI18n() {
+    document.documentElement.lang = locale;
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n');
+      if (t()[k]) el.textContent = t()[k];
+    });
+    document.querySelectorAll('[data-lang]').forEach(function (b) {
+      b.classList.toggle('on', b.getAttribute('data-lang') === locale);
+    });
+    var qi = document.getElementById('q');
+    if (qi) qi.placeholder = cat === 'All' ? t().searchAll : t().search;
+  }
+
+  document.querySelectorAll('[data-lang]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      locale = b.getAttribute('data-lang');
+      try { localStorage.setItem('fs-lang', locale); } catch (e) {}
+      repaint();
+    });
   });
 
-  /* results history -> done badges + continue strip */
+  document.getElementById('yy').textContent = new Date().getFullYear();
+
+  /* ---- theme: mirrored to every key the older pages read ---- */
+  function syncThemeIco() {
+    var dark = document.documentElement.classList.contains('dark') || document.documentElement.dataset.theme === 'dark';
+    document.getElementById('ico-moon').style.display = dark ? 'none' : 'block';
+    document.getElementById('ico-sun').style.display = dark ? 'block' : 'none';
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', dark ? '#000000' : '#ffffff');
+  }
+  syncThemeIco();
+  document.getElementById('tgl').addEventListener('click', function () {
+    var dark = !(document.documentElement.classList.contains('dark') || document.documentElement.dataset.theme === 'dark');
+    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    var v = dark ? 'dark' : 'light';
+    try {
+      localStorage.setItem('fs-paper-theme', v);
+      localStorage.setItem('theme', v);
+      localStorage.setItem('p8-theme', v);
+    } catch (e) {}
+    syncThemeIco();
+  });
+
+  /* ---- results history -> done badges + continue strip ---- */
   var hist = [];
   try { hist = JSON.parse(localStorage.getItem('p8_results') || '[]'); } catch (e) {}
   var doneByHref = {};
@@ -227,90 +386,161 @@ footer{border-top:1px solid var(--border);margin-top:22px}
     return null;
   }
 
-  if (!hist.length) {
-    // first visit — point new students at the flagship book
-    var c0 = document.getElementById('cont');
-    document.querySelector('#cont .lbl').textContent = '\u25B8 START HERE';
-    var a0 = document.getElementById('contLink');
-    a0.textContent = 'Cambridge 21 Academic';
-    a0.href = 'https://flarestamina.com/cambridge-21/';
-    document.getElementById('contStat').textContent = '\u00B7 the full real book \u2014 4 tests, all skills, free';
-    c0.classList.add('on');
-  }
-  if (hist.length) {
-    var last = hist[hist.length - 1];
-    var weekAgo = Date.now() - 7 * 864e5;
-    var week = hist.filter(function (h) { return h.date && Date.parse(h.date) > weekAgo; }).length;
-    var c = document.getElementById('cont');
+  /* painted after applyI18n so the label is never overwritten */
+  function paintContinue() {
+    var c = t();
+    var lbl = document.getElementById('contLbl');
     var a = document.getElementById('contLink');
-    a.textContent = last.test || 'your last test';
-    a.href = last.href || '#';
-    document.getElementById('contStat').textContent =
-      '· last score ' + (last.score || '—') + ' · ' + week + ' test' + (week === 1 ? '' : 's') + ' this week';
-    c.classList.add('on');
+    var stat = document.getElementById('contStat');
+    if (!hist.length) {
+      lbl.textContent = c.startHere;
+      a.textContent = c.cam;
+      a.href = 'https://flarestamina.com/cambridge-21/';
+      stat.textContent = c.startStat;
+    } else {
+      var last = hist[hist.length - 1];
+      var weekAgo = Date.now() - 7 * 864e5;
+      var week = hist.filter(function (h) { return h.date && Date.parse(h.date) > weekAgo; }).length;
+      lbl.textContent = c.cont;
+      a.textContent = last.test || 'last test';
+      a.href = last.href || '#';
+      stat.textContent = (last.score || '—') + ' · ' + week + ' ' + c.thisWeek;
+    }
+    document.getElementById('cont').classList.add('on');
   }
 
-  /* catalog */
-  var CATS = [], TESTS = [], cat = 'All', q = '';
-  try { cat = new URLSearchParams(location.search).get('cat') || 'All'; } catch (e) {}
+  var ICO = {
+    listening:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 0 1 18 0"/><path d="M5 12v4a2 2 0 0 0 2 2h1v-6H5zm12 0v6h1a2 2 0 0 0 2-2v-4h-3z"/></svg>',
+    reading:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+    writing:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+    speaking:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>'
+  };
 
-  function chips() {
-    var counts = { All: TESTS.length };
-    TESTS.forEach(function (t) { counts[t.category] = (counts[t.category] || 0) + 1; });
-    var el = document.getElementById('chips');
-    el.innerHTML = '';
-    ['All'].concat(CATS).forEach(function (c) {
-      if (c !== 'All' && !counts[c]) return;
-      var b = document.createElement('button');
-      b.className = 'chip' + (c === cat ? ' on' : '');
-      b.setAttribute('role', 'tab');
-      b.innerHTML = '<span></span><span class="n"></span>';
-      b.firstChild.textContent = c;
-      b.lastChild.textContent = counts[c] || 0;
-      b.addEventListener('click', function () {
-        cat = c;
-        try { history.replaceState(null, '', c === 'All' ? location.pathname : '?cat=' + encodeURIComponent(c)); } catch (e) {}
-        chips(); render();
-      });
-      el.appendChild(b);
+  function count(c) { return TESTS.filter(function (x) { return x.category === c; }).length; }
+  function findCat(c) { return TESTS.filter(function (x) { return x.category === c; }); }
+  function newestFirst(list) {
+    return list.slice().sort(function (a, b) {
+      var na = parseInt((a.title.match(/(\d+)/) || [0, 0])[1], 10);
+      var nb = parseInt((b.title.match(/(\d+)/) || [0, 0])[1], 10);
+      return nb - na;
     });
   }
+  function plural(n, one, many) { return n === 1 ? one : many; }
 
-  function render() {
-    var grid = document.getElementById('grid');
-    grid.innerHTML = '';
+  function syncUrl() {
+    var parts = [];
+    if (cat !== 'All') parts.push('cat=' + encodeURIComponent(cat));
+    if (q) parts.push('q=' + encodeURIComponent(q));
+    try { history.replaceState(null, '', parts.length ? '?' + parts.join('&') : location.pathname); } catch (e) {}
+  }
+
+  function goHome() { mode = 'home'; cat = 'All'; q = ''; document.getElementById('q').value = ''; syncUrl(); repaint(); }
+  function goSkill(c) { mode = 'list'; cat = c; q = ''; document.getElementById('q').value = ''; syncUrl(); repaint(); }
+  function goSearch() {
+    mode = 'list'; cat = 'All'; syncUrl(); repaint();
+    var el = document.getElementById('q');
+    el.focus();
+  }
+
+  function repaint() {
+    applyI18n();
+    document.body.setAttribute('data-view', mode === 'home' ? 'home' : 'skill');
+    paintContinue();
+    if (mode === 'home') paintHome(); else paintList();
+  }
+
+  function paintHome() {
+    var c = t();
+    document.getElementById('title').textContent = c.title;
+    document.getElementById('lede').textContent = c.lede;
+
+    var mock = findCat('Full Mock')[0];
+    document.getElementById('feat').innerHTML = mock
+      ? '<a class="premium" href="'+mock.url+'"><span class="premium-in">'+
+        '<span><span class="paid">'+c.paid+'</span><b>'+c.mock+'</b><small>'+c.mockMeta+'</small></span>'+
+        '<span class="go">'+c.start+' →</span></span></a>'
+      : '';
+
+    var skills = [
+      { key:'Listening', name:c.listening, meta:c.listenMeta, ico:ICO.listening },
+      { key:'Reading', name:c.reading, meta:c.readMeta, ico:ICO.reading },
+      { key:'Writing', name:c.writing, meta:c.writeMeta, ico:ICO.writing },
+      { key:'Speaking', name:c.speaking, meta:c.speakMeta, ico:ICO.speaking }
+    ];
+    document.getElementById('skills').innerHTML = skills.map(function (s) {
+      var n = count(s.key);
+      return '<button type="button" class="sk" data-cat="'+s.key+'">'+
+        '<span class="ico">'+s.ico+'</span><b>'+s.name+'</b>'+
+        '<span>'+n+' '+plural(n, c.paper, c.papers)+' · '+s.meta+'</span>'+
+        '<em>'+c.start+' →</em></button>';
+    }).join('');
+    document.querySelectorAll('#skills [data-cat]').forEach(function (b) {
+      b.addEventListener('click', function () { goSkill(b.getAttribute('data-cat')); });
+    });
+
+    var cam = findCat('Cambridge')[0];
+    document.getElementById('cam').innerHTML = cam
+      ? '<a class="quiet" href="'+cam.url+'"><span><b>'+c.cam+'</b><small>'+c.camMeta+'</small></span><span class="go">'+c.start+' →</span></a>'
+      : '';
+
+    var tools = findCat('Tools');
+    document.getElementById('tools').innerHTML = tools.length
+      ? '<p>'+c.tools+'</p>' + tools.map(function (x) {
+          return '<a href="'+x.url+'"><b></b><span>→</span></a>';
+        }).join('')
+      : '';
+    var toolEls = document.querySelectorAll('#tools a b');
+    tools.forEach(function (x, i) { if (toolEls[i]) toolEls[i].textContent = x.title; });
+  }
+
+  function paintList() {
+    var c = t();
     var ql = q.trim().toLowerCase();
-    var shown = 0;
-    TESTS.forEach(function (t, i) {
-      if (cat !== 'All' && t.category !== cat) return;
-      if (ql && (t.title + ' ' + t.category + ' ' + (t.description || '')).toLowerCase().indexOf(ql) === -1) return;
-      shown++;
-      var a = document.createElement('a');
-      a.className = 'card' + (t.category === 'Full Mock' ? ' paid' : '');
-      a.href = t.url;
-      var score = doneScore(t.url);
-      a.innerHTML =
-        '<div class="chead"><span class="num"></span><span class="cat"></span></div>' +
-        '<div class="ttl"></div><div class="desc"></div>' +
-        '<div class="cfoot"><span class="diff"></span>' + (score != null ? '<span class="done">✓ ' + String(score).replace(/</g, '&lt;') + '</span>' : '') + '</div>';
-      a.querySelector('.num').textContent = '// ' + String(i + 1).padStart(3, '0');
-      a.querySelector('.cat').textContent = t.category;
-      a.querySelector('.ttl').textContent = t.title;
-      a.querySelector('.desc').textContent = t.description || '';
-      a.querySelector('.diff').textContent = t.difficulty || '';
-      grid.appendChild(a);
+    var pool = cat === 'All' ? TESTS : findCat(cat);
+    var list = newestFirst(pool).filter(function (x) {
+      if (!ql) return true;
+      return (x.title + ' ' + (x.description || '') + ' ' + (x.difficulty || '') + ' ' + (x.category || '')).toLowerCase().indexOf(ql) !== -1;
     });
-    document.getElementById('count').textContent = shown + (shown === TESTS.length ? ' tests' : ' of ' + TESTS.length + ' tests');
-    document.getElementById('empty').style.display = shown ? 'none' : 'block';
+
+    if (cat === 'All') {
+      document.getElementById('title').textContent = c.searchTitle + ' · ' + list.length + ' ' + plural(list.length, c.result_n, c.results_n);
+    } else {
+      var names = { Listening:c.listening, Reading:c.reading, Writing:c.writing, Speaking:c.speaking };
+      var n = count(cat);
+      document.getElementById('title').textContent = (names[cat] || cat) + ' · ' + n + ' ' + plural(n, c.test, c.tests);
+    }
+    document.getElementById('lede').textContent = c.lede;
+
+    var el = document.getElementById('list');
+    el.innerHTML = list.map(function () {
+      return '<a class="row"><div class="txt"><div class="ttl"></div><div class="meta"></div></div><span class="go"></span></a>';
+    }).join('');
+    Array.prototype.forEach.call(el.children, function (row, i) {
+      var x = list[i];
+      row.href = x.url;
+      row.querySelector('.ttl').textContent = x.title;
+      row.querySelector('.meta').textContent = x.difficulty || x.description || '';
+      row.querySelector('.go').textContent = c.start;
+      var score = doneScore(x.url);
+      if (score != null) {
+        var d = document.createElement('span');
+        d.className = 'done';
+        d.textContent = '✓ ' + String(score);
+        row.querySelector('.txt').appendChild(d);
+      }
+    });
+    document.getElementById('empty').style.display = list.length ? 'none' : 'block';
   }
 
   var deb = null;
   document.getElementById('q').addEventListener('input', function (e) {
     clearTimeout(deb);
-    deb = setTimeout(function () { q = e.target.value; render(); }, 120);
+    deb = setTimeout(function () { q = e.target.value; syncUrl(); paintList(); }, 80);
   });
+  document.getElementById('back').addEventListener('click', function (e) { e.preventDefault(); goHome(); });
+  document.getElementById('searchBtn').addEventListener('click', goSearch);
 
-  /* app: offline shell + install prompt (one small chip, no nagging) */
+  /* ---- app: offline shell + install prompt ---- */
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(function () {});
   }
@@ -331,17 +561,19 @@ footer{border-top:1px solid var(--border);margin-top:22px}
     });
   });
 
+  applyI18n();
+  paintContinue();
   fetch('tests.json', { cache: 'no-cache' })
     .then(function (r) { return r.json(); })
     .then(function (d) {
-      CATS = d.categories || [];
       TESTS = d.tests || [];
-      if (CATS.indexOf(cat) === -1 && cat !== 'All') cat = 'All';
-      chips(); render();
+      if (SKILLS.indexOf(cat) === -1) cat = 'All';
+      mode = (cat === 'All' && !q) ? 'home' : 'list';
+      if (q) document.getElementById('q').value = q;
+      repaint();
     })
     .catch(function () {
-      document.getElementById('count').textContent = 'could not load tests';
-      document.getElementById('empty').style.display = 'block';
+      document.getElementById('title').textContent = 'Could not load tests';
     });
 })();
 </script>
