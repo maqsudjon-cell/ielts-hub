@@ -271,6 +271,12 @@ body[data-view="skill"] .skill-only{display:block}
 (function () {
   'use strict';
 
+  try {
+    var _q = location.search;
+    if (_q.indexOf('nogc') > -1) { localStorage.setItem('skipgc', 't'); }
+    else if (_q.indexOf('gc') > -1) { localStorage.removeItem('skipgc'); }
+  } catch (e) {}
+
   /* ---- auth: mandatory, one redirect; page still works if the script failed ---- */
   var user = null;
   if (window.FSAuth) {
@@ -534,6 +540,18 @@ body[data-view="skill"] .skill-only{display:block}
     document.getElementById('empty').style.display = list.length ? 'none' : 'block';
   }
 
+  /* which paper a student actually opens is the most useful number this site
+     has, and it was not being recorded — only that the hub was visited */
+  document.getElementById('list').addEventListener('click', function (e) {
+    var row = e.target.closest ? e.target.closest('.row') : null;
+    if (!row) return;
+    var title = (row.querySelector('.ttl') || {}).textContent || '';
+    if (window.goatcounter && goatcounter.count) {
+      goatcounter.count({ path: 'event/start-' + title.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+                          title: 'Start: ' + title.trim(), event: true });
+    }
+  });
+
   var deb = null;
   document.getElementById('q').addEventListener('input', function (e) {
     clearTimeout(deb);
@@ -579,6 +597,6 @@ body[data-view="skill"] .skill-only{display:block}
     });
 })();
 </script>
-<script data-goatcounter="https://flarestamina.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://flarestamina.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
