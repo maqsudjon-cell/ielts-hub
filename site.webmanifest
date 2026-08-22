@@ -4,10 +4,10 @@
   "short_name": "Flarestamina",
   "description": "Free IELTS practice tests: Listening, Reading, Writing, Speaking.",
   "icons": [
-    { "src": "/ielts-hub/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
-    { "src": "/ielts-hub/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
-    { "src": "/ielts-hub/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "/ielts-hub/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "/ielts-hub/favicon.svg?v=2", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/ielts-hub/apple-touch-icon.png?v=2", "sizes": "180x180", "type": "image/png" },
+    { "src": "/ielts-hub/icon-512.png?v=2", "sizes": "512x512", "type": "image/png" },
+    { "src": "/ielts-hub/icon-512.png?v=2", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
